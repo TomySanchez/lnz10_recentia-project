@@ -1,7 +1,7 @@
 import { ConfigProvider } from 'antd';
 import { Routes } from './routes/Routes';
 import esEs from 'antd/locale/es_ES';
-import { colorsPalette } from './utils/colorsPalette';
+import { colorsPalette } from './utils';
 
 function App() {
   const { primaryColor, lightColor, lightExtraColor, white } = colorsPalette;

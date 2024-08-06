@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes as RoutesRR } from 'react-router-dom';
-import { ProtectedRoute } from './ProtectedRoute';
 import { MainLayout } from '../layouts/MainLayout';
+import { Clientes } from '../pages/clientes/Clientes';
+import { ProtectedRoute } from './ProtectedRoute';
 import { isAuthenticated } from './isAuthenticated';
 
 export const Routes = () => {
@@ -25,7 +26,7 @@ export const Routes = () => {
           </ProtectedRoute>
         }
       >
-        {/* <Route path='clientes' element={<Clientes />} /> */}
+        <Route path='clientes' element={<Clientes />} />
         {/* <Route path='pedidos' element={<Pedidos />} /> */}
         {/* <Route path='entregas' element={<Entregas />} /> */}
         {/* <Route path='pagos' element={<Pagos />} /> */}
