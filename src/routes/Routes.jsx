@@ -1,5 +1,6 @@
 import { Navigate, Route, Routes as RoutesRR } from 'react-router-dom';
 import { ProtectedRoute } from './ProtectedRoute';
+import { MainLayout } from '../layouts/MainLayout';
 import { isAuthenticated } from './isAuthenticated';
 
 export const Routes = () => {
@@ -18,7 +19,11 @@ export const Routes = () => {
       />
       <Route
         path='/'
-        element={<ProtectedRoute>{/* <MainLayout /> */}</ProtectedRoute>}
+        element={
+          <ProtectedRoute>
+            <MainLayout />
+          </ProtectedRoute>
+        }
       >
         {/* <Route path='clientes' element={<Clientes />} /> */}
         {/* <Route path='pedidos' element={<Pedidos />} /> */}
