@@ -1,0 +1,58 @@
+[
+  {
+    "id": "1",
+    "idEntrega": "1",
+    "fechaPago": "05/07/24",
+    "idMetodoDePago": "1",
+    "estado": "Pagado"
+  },
+  {
+    "id": "2",
+    "idEntrega": "2",
+    "fechaPago": "05/07/24",
+    "idMetodoDePago": "2",
+    "estado": "Pagado"
+  },
+  {
+    "id": "3",
+    "idEntrega": "3",
+    "fechaPago": "10/07/24",
+    "idMetodoDePago": "1",
+    "estado": "Pagado"
+  },
+  {
+    "id": "4",
+    "idEntrega": "4",
+    "fechaPago": "17/07/24",
+    "idMetodoDePago": "1",
+    "estado": "Pagado"
+  },
+  {
+    "id": "5",
+    "idEntrega": "5",
+    "fechaPago": "25/07/24",
+    "idMetodoDePago": "2",
+    "estado": "Pagado"
+  },
+  {
+    "id": "6",
+    "idEntrega": "6",
+    "fechaPago": "04/08/24",
+    "idMetodoDePago": "2",
+    "estado": "Pagado"
+  },
+  {
+    "id": "7",
+    "idEntrega": "7",
+    "fechaPago": null,
+    "idMetodoDePago": null,
+    "estado": "Pendiente"
+  },
+  {
+    "id": "8",
+    "idEntrega": "8",
+    "fechaPago": null,
+    "idMetodoDePago": null,
+    "estado": "Pendiente"
+  }
+]

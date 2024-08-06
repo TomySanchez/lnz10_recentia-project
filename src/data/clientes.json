@@ -1,0 +1,92 @@
+[
+  {
+    "id": 1,
+    "nombre": "Marcos Pérez",
+    "telefono": "1123456789",
+    "idDireccion": 1,
+    "estaArchivado": false,
+    "cuit_cuil": "20345678901",
+    "observaciones": ""
+  },
+  {
+    "id": 2,
+    "nombre": "María González",
+    "telefono": "1129876543",
+    "idDireccion": 2,
+    "estaArchivado": false,
+    "cuit_cuil": "27345678902",
+    "observaciones": ""
+  },
+  {
+    "id": 3,
+    "nombre": "Damián Gutiérrez",
+    "telefono": "1123456785",
+    "idDireccion": 3,
+    "estaArchivado": false,
+    "cuit_cuil": "27345678915",
+    "observaciones": ""
+  },
+  {
+    "id": 4,
+    "nombre": "Roberto Páez",
+    "telefono": "1123456784",
+    "idDireccion": 4,
+    "estaArchivado": true,
+    "cuit_cuil": "20345678916",
+    "observaciones": ""
+  },
+  {
+    "id": 5,
+    "nombre": "Silvia Martínez",
+    "telefono": "1123456795",
+    "idDireccion": 5,
+    "estaArchivado": false,
+    "cuit_cuil": "20345678920",
+    "observaciones": ""
+  },
+  {
+    "id": 6,
+    "nombre": "Pedro López",
+    "telefono": "1123456792",
+    "idDireccion": 6,
+    "estaArchivado": false,
+    "cuit_cuil": "20345678920",
+    "observaciones": "Tiene prioridad"
+  },
+  {
+    "id": 7,
+    "nombre": "Andrés González",
+    "telefono": "1134567890",
+    "idDireccion": 7,
+    "estaArchivado": true,
+    "cuit_cuil": "20345678907",
+    "observaciones": ""
+  },
+  {
+    "id": 8,
+    "nombre": "Despensa Grandía",
+    "telefono": "1123456784",
+    "idDireccion": 8,
+    "estaArchivado": false,
+    "cuit_cuil": "27345678917",
+    "observaciones": ""
+  },
+  {
+    "id": 9,
+    "nombre": "Restobar Mónaco",
+    "telefono": "1123456794",
+    "idDireccion": 9,
+    "estaArchivado": false,
+    "cuit_cuil": "20345678914",
+    "observaciones": ""
+  },
+  {
+    "id": 10,
+    "nombre": "Juan Martínez",
+    "telefono": "1123456788",
+    "idDireccion": 10,
+    "estaArchivado": false,
+    "cuit_cuil": "27345678919",
+    "observaciones": ""
+  }
+]

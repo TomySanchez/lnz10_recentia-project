@@ -1,0 +1,18 @@
+[
+  {
+    "id": "1",
+    "idCliente": "1",
+    "fechaRegistro": "01/07/24",
+    "esRecurrente": false,
+    "cantSemanas": null,
+    "estado": "Realizado"
+  },
+  {
+    "id": "2",
+    "idCliente": "2",
+    "fechaRegistro": "01/07/24",
+    "esRecurrente": true,
+    "cantSemanas": 1,
+    "estado": "Activo"
+  }
+]

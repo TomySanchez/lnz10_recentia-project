@@ -1,0 +1,12 @@
+[
+  {
+    "id": 1,
+    "nombre": "Efectivo",
+    "observaciones": ""
+  },
+  {
+    "id": 2,
+    "nombre": "Transferencia",
+    "observaciones": ""
+  }
+]

@@ -1,0 +1,42 @@
+[
+  {
+    "id": "1",
+    "fecha": "05/07/24",
+    "estado": "Realizado"
+  },
+  {
+    "id": "2",
+    "fecha": "03/07/24",
+    "estado": "Realizado"
+  },
+  {
+    "id": "3",
+    "fecha": "10/07/24",
+    "estado": "Realizado"
+  },
+  {
+    "id": "4",
+    "fecha": "17/07/24",
+    "estado": "Realizado"
+  },
+  {
+    "id": "5",
+    "fecha": "24/07/24",
+    "estado": "Realizado"
+  },
+  {
+    "id": "6",
+    "fecha": "31/07/24",
+    "estado": "Realizado"
+  },
+  {
+    "id": "7",
+    "fecha": "07/08/24",
+    "estado": "Pendiente"
+  },
+  {
+    "id": "8",
+    "fecha": "14/08/24",
+    "estado": "Pendiente"
+  }
+]

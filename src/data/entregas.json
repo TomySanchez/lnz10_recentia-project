@@ -1,0 +1,58 @@
+[
+  {
+    "id": "1",
+    "idPedido": "1",
+    "fechaEntrega": "05/07/24",
+    "estado": "Realizada",
+    "idRecorrido": "1"
+  },
+  {
+    "id": "2",
+    "idPedido": "2",
+    "fechaEntrega": "03/07/24",
+    "estado": "Realizada",
+    "idRecorrido": "2"
+  },
+  {
+    "id": "3",
+    "idPedido": "2",
+    "fechaEntrega": "10/07/24",
+    "estado": "Realizada",
+    "idRecorrido": "3"
+  },
+  {
+    "id": "4",
+    "idPedido": "2",
+    "fechaEntrega": "17/07/24",
+    "estado": "Realizada",
+    "idRecorrido": "4"
+  },
+  {
+    "id": "5",
+    "idPedido": "2",
+    "fechaEntrega": "24/07/24",
+    "estado": "Realizada",
+    "idRecorrido": "5"
+  },
+  {
+    "id": "6",
+    "idPedido": "2",
+    "fechaEntrega": "31/07/24",
+    "estado": "Realizada",
+    "idRecorrido": "6"
+  },
+  {
+    "id": "7",
+    "idPedido": "2",
+    "fechaEntrega": "07/08/24",
+    "estado": "Pendiente",
+    "idRecorrido": "7"
+  },
+  {
+    "id": "8",
+    "idPedido": "2",
+    "fechaEntrega": "14/08/24",
+    "estado": "Pendiente",
+    "idRecorrido": "8"
+  }
+]

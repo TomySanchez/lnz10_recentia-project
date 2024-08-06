@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "nombre": "Soda",
+    "descripcion": "Sifón de 1250 cc.",
+    "estado": "Activo"
+  },
+  {
+    "id": 2,
+    "nombre": "Agua",
+    "descripcion": "Botella de 1250 cc.",
+    "estado": "Activo"
+  },
+  {
+    "id": 3,
+    "nombre": "Jugo de naranja",
+    "descripcion": "Botella de 1250 cc.",
+    "estado": "Descontinuado"
+  }
+]

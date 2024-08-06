@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "idProducto": 1,
+    "descripcion": "Minorista",
+    "valor": 1500
+  },
+  {
+    "id": 2,
+    "idProducto": 1,
+    "descripcion": "Mayorista",
+    "valor": 1200
+  },
+  {
+    "id": 3,
+    "idProducto": 2,
+    "descripcion": "Minorista",
+    "valor": 1000
+  },
+  {
+    "id": 4,
+    "idProducto": 2,
+    "descripcion": "Mayorista",
+    "valor": 800
+  },
+  {
+    "id": 5,
+    "idProducto": 3,
+    "descripcion": "Minorista",
+    "valor": 2000
+  },
+  {
+    "id": 6,
+    "idProducto": 3,
+    "descripcion": "Mayorista",
+    "valor": 1800
+  }
+]
