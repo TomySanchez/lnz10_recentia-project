@@ -1,8 +1,10 @@
-# React + Vite
+# Recentia Software Project
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicación web para gestionar soderías. Permite:
 
-Currently, two official plugins are available:
+- Administrar los clientes y acceder a su información de contacto.
+- Gestionar pedidos, pendientes y realizados, recurrentes y esporádicos.
+- Gestionar pagos, pendientes y realizados, y deudas.
+- Planificar recorridos y entregas, junto con su estado.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Se puede utilizar en múltiples dispositivos. En celulares, las acciones están limitadas a solo aquellas necesarias durante el reparto, para una mejor usabilidad.
