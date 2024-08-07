@@ -2,44 +2,44 @@ import { useState } from 'react';
 import { MdOutlineGroups } from 'react-icons/md';
 import { MainContent } from '../../layouts/MainContent';
 import { ClientesTable } from './components';
-import { ClientesInfoDrawer } from './components/ClientesInfoDrawer';
-import { ClientesAddDrawer } from './components/ClientesAddDrawer';
+import { ClientesDrawer } from './components/ClientesDrawer';
 import { ClientesAddButton } from './components/ClientesAddButton';
-import { ClientesEditDrawer } from './components/ClientesEditDrawer';
 
 export const Clientes = () => {
-  const [openAddDrawer, setOpenAddDrawer] = useState(false);
-  const [openInfoDrawer, setOpenInfoDrawer] = useState(false);
-  const [openEditDrawer, setOpenEditDrawer] = useState(false);
+  const [openDrawer, setOpenDrawer] = useState(false);
+  const [drawerMode, setDrawerMode] = useState('add');
   const [selectedCliente, setSelectedCliente] = useState(null);
 
+  function handleAdd() {
+    setDrawerMode('add');
+    setSelectedCliente(null);
+    setOpenDrawer(true);
+  }
+
   function handleInfo(cliente) {
+    setDrawerMode('view');
     setSelectedCliente(cliente);
-    setOpenInfoDrawer(true);
+    setOpenDrawer(true);
   }
 
   function handleEdit(cliente) {
+    setDrawerMode('edit');
     setSelectedCliente(cliente);
-    setOpenEditDrawer(true);
+    setOpenDrawer(true);
   }
 
   return (
     <MainContent
       title='Clientes'
       icon={<MdOutlineGroups size={40} />}
-      extra={<ClientesAddButton setOpen={setOpenAddDrawer} />}
+      extra={<ClientesAddButton setOpen={handleAdd} />}
     >
       <ClientesTable onInfo={handleInfo} onEdit={handleEdit} />
-      <ClientesAddDrawer open={openAddDrawer} setOpen={setOpenAddDrawer} />
-      <ClientesInfoDrawer
-        open={openInfoDrawer}
-        setOpen={setOpenInfoDrawer}
+      <ClientesDrawer
+        open={openDrawer}
+        setOpen={setOpenDrawer}
         cliente={selectedCliente}
-      />
-      <ClientesEditDrawer
-        open={openEditDrawer}
-        setOpen={setOpenEditDrawer}
-        cliente={selectedCliente}
+        mode={drawerMode}
       />
     </MainContent>
   );
