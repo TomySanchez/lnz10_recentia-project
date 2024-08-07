@@ -6,6 +6,7 @@ import { DataProvider } from './contexts';
 import './index.css';
 import './components/components.css';
 import './layouts/layouts.css';
+import './pages/clientes/clientes.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

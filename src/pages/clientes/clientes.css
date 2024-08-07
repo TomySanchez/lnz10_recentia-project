@@ -1,0 +1,33 @@
+.ClientesAddButton {
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.clientes-add-save-button {
+  font-weight: 500;
+}
+
+.clientes-add-address-container {
+  margin-bottom: 24px;
+  padding: 8px;
+  background-color: var(--light-extra-color);
+  border-radius: 8px;
+  border: 1px solid var(--light-color);
+}
+
+.clientes-add-address-title {
+  margin-bottom: 8px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--dark-medium-color);
+}
+
+.clientes-add-address-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.clientes-add-address-row > * {
+  width: 50%;
+}
