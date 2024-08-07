@@ -5,16 +5,8 @@ import { TableActions, TableBuscador } from '../../../components/tables';
 import { DataContext } from '../../../contexts';
 import { formatDireccion } from '../../../utils';
 
-export const ClientesTable = () => {
+export const ClientesTable = ({ onInfo }) => {
   const { clientes, barrios } = useContext(DataContext);
-
-  function handleInfoClick() {
-    console.log('click');
-  }
-
-  function handleEditClick() {
-    console.log('click');
-  }
 
   const clientesColumns = [
     {
@@ -86,11 +78,7 @@ export const ClientesTable = () => {
       title: '',
       align: 'center',
       render: (_, record) => (
-        <TableActions
-          record={record}
-          onEdit={handleEditClick}
-          onInfo={handleInfoClick}
-        />
+        <TableActions record={record} onEdit={'handleEdit'} onInfo={onInfo} />
       )
     }
   ];

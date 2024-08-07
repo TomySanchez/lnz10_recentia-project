@@ -12,7 +12,7 @@
     "nombre": "María González",
     "telefono": "1129876543",
     "idDireccion": 2,
-    "cuit_cuil": "27345678902",
+    "cuit_cuil": null,
     "observaciones": ""
   },
   {
@@ -36,7 +36,7 @@
     "nombre": "Silvia Martínez",
     "telefono": "1123456795",
     "idDireccion": 5,
-    "cuit_cuil": "20345678920",
+    "cuit_cuil": null,
     "observaciones": ""
   },
   {
@@ -50,9 +50,9 @@
   {
     "id": 7,
     "nombre": "Andrés González",
-    "telefono": "1134567890",
+    "telefono": null,
     "idDireccion": 7,
-    "cuit_cuil": "20345678907",
+    "cuit_cuil": null,
     "observaciones": ""
   },
   {
