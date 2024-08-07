@@ -14,3 +14,9 @@
   gap: 8px;
   padding: 8px;
 }
+
+.TableSelectFecha {
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+}
