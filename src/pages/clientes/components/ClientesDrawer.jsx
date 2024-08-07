@@ -178,7 +178,7 @@ export const ClientesDrawer = ({ open, setOpen, cliente, mode = 'add' }) => {
 const ClienteInfo = ({ cliente }) => {
   if (!cliente) return null;
 
-  const clientesItems = [
+  const clienteItems = [
     { label: 'Nombre', children: cliente.nombre },
     {
       label: 'Dirección',
@@ -191,5 +191,5 @@ const ClienteInfo = ({ cliente }) => {
     { label: 'Observaciones', children: cliente.observaciones || '-' }
   ];
 
-  return <Descriptions column={1} items={clientesItems} />;
+  return <Descriptions column={1} items={clienteItems} />;
 };

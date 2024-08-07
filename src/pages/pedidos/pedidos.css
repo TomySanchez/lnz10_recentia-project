@@ -1,0 +1,9 @@
+.pedidos-add-form-delivery-frequency {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pedidos-add-form-delivery-frequency-number-of-weeks {
+  width: 60px;
+}
