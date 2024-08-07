@@ -21,7 +21,8 @@ export const PedidosTable = ({ onEdit, onInfo }) => {
     {
       dataIndex: 'cantSemanas',
       title: 'Recurrencia',
-      render: (text) => (text ? text : '-'),
+      render: (text) =>
+        text ? (text === 1 ? 'Cada semana' : `Cada ${text} semanas`) : '-',
       align: 'center'
     },
     {
