@@ -11,6 +11,7 @@ import {
 } from 'antd';
 import { DataContext } from '../../../contexts';
 import dayjs from 'dayjs';
+import { AiOutlineMinusCircle, AiOutlinePlus } from 'react-icons/ai';
 
 export const PedidosDrawer = ({ open, setOpen, pedido, mode = 'add' }) => {
   const { clientes } = useContext(DataContext);
@@ -112,6 +113,52 @@ export const PedidosDrawer = ({ open, setOpen, pedido, mode = 'add' }) => {
           >
             <Select options={clientesOptions} showSearch={true} />
           </Form.Item>
+
+          <Form.List name='detalles'>
+            {(fields, { add, remove }, { errors }) => (
+              <div>
+                {fields.map((field, index) => (
+                  <Form.Item
+                    className='pedidos-drawer-detalle-container'
+                    label={index === 0 ? 'Detalles de pedidos' : ''}
+                    required={true}
+                    key={field.key}
+                  >
+                    <Form.Item
+                      {...field}
+                      validateTrigger={['onChange', 'onBlur']}
+                      rules={[
+                        {
+                          required: true,
+                          whitespace: true,
+                          message: 'Ingrese un producto o elimine este campo'
+                        }
+                      ]}
+                      // noStyle
+                    >
+                      <Select />
+                    </Form.Item>
+                    {fields.length > 1 ? (
+                      <AiOutlineMinusCircle
+                        className='dynamic-delete-button'
+                        onClick={() => remove(field.name)}
+                      />
+                    ) : null}
+                  </Form.Item>
+                ))}
+                <Form.Item>
+                  <Button
+                    type='dashed'
+                    onClick={() => add()}
+                    icon={<AiOutlinePlus />}
+                  >
+                    Añadir campo
+                  </Button>
+                  <Form.ErrorList errors={errors} />
+                </Form.Item>
+              </div>
+            )}
+          </Form.List>
 
           <Form.Item name='esRecurrente' valuePropName='checked'>
             <Checkbox onChange={(e) => setEsRecurrente(e.target.checked)}>
