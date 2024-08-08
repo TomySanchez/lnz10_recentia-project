@@ -29,3 +29,24 @@
   align-items: baseline;
   height: fit-content;
 }
+
+.pedidos-info-detalles-list {
+  margin: 16px 0;
+  padding: 0 8px;
+  border-radius: 8px;
+  border: 1px solid var(--light-color);
+  background-color: var(--light-extra-color);
+}
+
+.pedidos-info-detalles-list-title {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--dark-medium-color);
+}
+
+.DetallesDePedido {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 8px;
+}

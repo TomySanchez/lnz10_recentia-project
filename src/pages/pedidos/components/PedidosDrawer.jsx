@@ -7,11 +7,13 @@ import {
   Drawer,
   Form,
   InputNumber,
+  List,
   Select
 } from 'antd';
 import { DataContext } from '../../../contexts';
 import dayjs from 'dayjs';
 import { AiOutlineMinusCircle, AiOutlinePlus } from 'react-icons/ai';
+import { getDetallesDePedido, getItemById } from '../../../utils';
 
 export const PedidosDrawer = ({ open, setOpen, pedido, mode = 'add' }) => {
   const { clientes, productos } = useContext(DataContext);
@@ -214,14 +216,43 @@ export const PedidosDrawer = ({ open, setOpen, pedido, mode = 'add' }) => {
 };
 
 const PedidoInfo = ({ pedido }) => {
+  const detallesDePedido = getDetallesDePedido(pedido.id);
+
   if (!pedido) return null;
 
   const pedidoItems = [
     { label: 'Tipo de pedido', children: pedido.esRecurrente.toString() },
     { label: 'Fecha de registro', children: pedido.fechaRegistro },
     { label: 'Cliente', children: pedido.idCliente },
-    { label: 'Recurrencia', children: pedido.cantSemanas }
+    { label: 'Recurrencia', children: pedido.cantSemanas || '-' }
   ];
 
-  return <Descriptions column={1} items={pedidoItems} />;
+  const componentsDetallesDePedido = detallesDePedido.map((detalle) => (
+    <DetallesDePedido key={detalle.id} detalle={detalle} />
+  ));
+
+  return (
+    <div>
+      <Descriptions column={1} items={pedidoItems} />
+      <List
+        className='pedidos-info-detalles-list'
+        header={
+          <span className='pedidos-info-detalles-list-title'>
+            Detalles de pedido
+          </span>
+        }
+        dataSource={componentsDetallesDePedido}
+        renderItem={(item) => <List.Item>{item}</List.Item>}
+      />
+    </div>
+  );
+};
+
+const DetallesDePedido = ({ detalle }) => {
+  return (
+    <div className='DetallesDePedido'>
+      <span>{getItemById(detalle.idProducto, 'producto').nombre}</span>
+      <span>{detalle.cantidad}</span>
+    </div>
+  );
 };
