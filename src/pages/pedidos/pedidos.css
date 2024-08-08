@@ -8,23 +8,24 @@
   width: 60px;
 }
 
-.pedidos-drawer-detalle-container {
-  display: flex;
+.pedidos-drawer-detalles-container {
+  margin: 16px 0;
+  padding: 12px 8px;
+  border-radius: 8px;
+  border: 1px solid var(--light-color);
+  background-color: var(--light-extra-color);
 }
 
-.dynamic-delete-button {
-  position: relative;
-  top: 4px;
-  margin: 0 8px;
-  color: #999;
-  font-size: 24px;
-  cursor: pointer;
-  transition: all 0.3s;
+.pedidos-drawer-detalles-title {
+  margin: 8px 0;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--dark-medium-color);
 }
-.dynamic-delete-button:hover {
-  color: #777;
-}
-.dynamic-delete-button[disabled] {
-  cursor: not-allowed;
-  opacity: 0.5;
+
+.pedidos-drawer-detalle-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  height: fit-content;
 }

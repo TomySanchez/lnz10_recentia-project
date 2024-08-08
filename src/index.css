@@ -24,3 +24,7 @@
   --light-color: #b5f5ec;
   --light-extra-color: #edfdfa;
 }
+
+.pointer {
+  cursor: pointer;
+}

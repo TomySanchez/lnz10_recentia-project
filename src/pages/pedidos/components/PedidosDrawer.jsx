@@ -14,7 +14,7 @@ import dayjs from 'dayjs';
 import { AiOutlineMinusCircle, AiOutlinePlus } from 'react-icons/ai';
 
 export const PedidosDrawer = ({ open, setOpen, pedido, mode = 'add' }) => {
-  const { clientes } = useContext(DataContext);
+  const { clientes, productos } = useContext(DataContext);
 
   const [esRecurrente, setEsRecurrente] = useState(false);
 
@@ -24,6 +24,13 @@ export const PedidosDrawer = ({ open, setOpen, pedido, mode = 'add' }) => {
     .map((cliente) => ({
       label: cliente.nombre,
       value: cliente.id
+    }))
+    .sort((a, b) => a.label.localeCompare(b.label));
+
+  const productosOptions = productos
+    .map((producto) => ({
+      label: producto.nombre,
+      value: producto.id
     }))
     .sort((a, b) => a.label.localeCompare(b.label));
 
@@ -114,51 +121,64 @@ export const PedidosDrawer = ({ open, setOpen, pedido, mode = 'add' }) => {
             <Select options={clientesOptions} showSearch={true} />
           </Form.Item>
 
-          <Form.List name='detalles'>
-            {(fields, { add, remove }, { errors }) => (
-              <div>
-                {fields.map((field, index) => (
-                  <Form.Item
-                    className='pedidos-drawer-detalle-container'
-                    label={index === 0 ? 'Detalles de pedidos' : ''}
-                    required={true}
-                    key={field.key}
-                  >
-                    <Form.Item
-                      {...field}
-                      validateTrigger={['onChange', 'onBlur']}
-                      rules={[
-                        {
-                          required: true,
-                          whitespace: true,
-                          message: 'Ingrese un producto o elimine este campo'
-                        }
-                      ]}
-                      // noStyle
-                    >
-                      <Select />
-                    </Form.Item>
-                    {fields.length > 1 ? (
+          <div className='pedidos-drawer-detalles-container'>
+            <span className='pedidos-drawer-detalles-title'>
+              Detalles de pedidos
+            </span>
+            <Form.List name='detalles'>
+              {(fields, { add, remove }) => (
+                <div style={{ margin: '12px 0' }}>
+                  {fields.map(({ key, name, ...restField }) => (
+                    <div className='pedidos-drawer-detalle-container' key={key}>
+                      <Form.Item
+                        {...restField}
+                        name={[name, 'producto']}
+                        rules={[
+                          {
+                            required: true,
+                            message: 'Producto requerido'
+                          }
+                        ]}
+                      >
+                        <Select
+                          style={{ width: 200 }}
+                          options={productosOptions}
+                          placeholder='Producto'
+                        />
+                      </Form.Item>
+                      <Form.Item
+                        {...restField}
+                        name={[name, 'cantidad']}
+                        rules={[
+                          {
+                            required: true,
+                            message: 'Cantidad requerida'
+                          }
+                        ]}
+                      >
+                        <InputNumber placeholder='Cantidad' />
+                      </Form.Item>
                       <AiOutlineMinusCircle
-                        className='dynamic-delete-button'
-                        onClick={() => remove(field.name)}
+                        className='pointer'
+                        size={20}
+                        onClick={() => remove(name)}
                       />
-                    ) : null}
+                    </div>
+                  ))}
+                  <Form.Item>
+                    <Button
+                      type='dashed'
+                      onClick={() => add()}
+                      block
+                      icon={<AiOutlinePlus />}
+                    >
+                      Añadir detalle
+                    </Button>
                   </Form.Item>
-                ))}
-                <Form.Item>
-                  <Button
-                    type='dashed'
-                    onClick={() => add()}
-                    icon={<AiOutlinePlus />}
-                  >
-                    Añadir campo
-                  </Button>
-                  <Form.ErrorList errors={errors} />
-                </Form.Item>
-              </div>
-            )}
-          </Form.List>
+                </div>
+              )}
+            </Form.List>
+          </div>
 
           <Form.Item name='esRecurrente' valuePropName='checked'>
             <Checkbox onChange={(e) => setEsRecurrente(e.target.checked)}>
