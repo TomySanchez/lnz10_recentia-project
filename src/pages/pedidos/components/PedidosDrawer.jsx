@@ -8,7 +8,8 @@ import {
   Form,
   InputNumber,
   List,
-  Select
+  Select,
+  Tag
 } from 'antd';
 import { DataContext } from '../../../contexts';
 import dayjs from 'dayjs';
@@ -80,7 +81,7 @@ export const PedidosDrawer = ({ open, setOpen, pedido, mode = 'add' }) => {
       onClose={handleClose}
       destroyOnClose
       extra={
-        !isViewMode && (
+        !isViewMode ? (
           <Button
             className='clientes-drawer-save-button'
             type='primary'
@@ -89,6 +90,8 @@ export const PedidosDrawer = ({ open, setOpen, pedido, mode = 'add' }) => {
           >
             Guardar
           </Button>
+        ) : (
+          pedido.esRecurrente && <Tag color='gold'>Recurrente</Tag>
         )
       }
     >
@@ -221,10 +224,17 @@ const PedidoInfo = ({ pedido }) => {
   if (!pedido) return null;
 
   const pedidoItems = [
-    { label: 'Tipo de pedido', children: pedido.esRecurrente.toString() },
     { label: 'Fecha de registro', children: pedido.fechaRegistro },
     { label: 'Cliente', children: pedido.idCliente },
-    { label: 'Recurrencia', children: pedido.cantSemanas || '-' }
+    {
+      label: 'Recurrencia',
+      children:
+        pedido.cantSemanas === 1
+          ? 'Cada semana'
+          : pedido.cantSemanas
+          ? `Cada ${pedido.cantSemanas} semanas`
+          : '-'
+    }
   ];
 
   const componentsDetallesDePedido = detallesDePedido.map((detalle) => (
@@ -234,16 +244,18 @@ const PedidoInfo = ({ pedido }) => {
   return (
     <div>
       <Descriptions column={1} items={pedidoItems} />
-      <List
-        className='pedidos-info-detalles-list'
-        header={
-          <span className='pedidos-info-detalles-list-title'>
-            Detalles de pedido
-          </span>
-        }
-        dataSource={componentsDetallesDePedido}
-        renderItem={(item) => <List.Item>{item}</List.Item>}
-      />
+      {detallesDePedido.length > 0 && (
+        <List
+          className='pedidos-info-detalles-list'
+          header={
+            <span className='pedidos-info-detalles-list-title'>
+              Detalles de pedido
+            </span>
+          }
+          dataSource={componentsDetallesDePedido}
+          renderItem={(item) => <List.Item>{item}</List.Item>}
+        />
+      )}
     </div>
   );
 };
