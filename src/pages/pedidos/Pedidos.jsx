@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { MdOutlineReceiptLong } from 'react-icons/md';
 import { MainContent } from '../../layouts/MainContent';
 import { PedidosTable } from './components/PedidosTable';
-import { PedidosAddButton } from './components/PedidosAddButton';
 import { PedidosDrawer } from './components/PedidosDrawer';
+import { ButtonAdd } from '../../components/buttons';
 
 export const Pedidos = () => {
   const [openDrawer, setOpenDrawer] = useState(false);
@@ -32,7 +32,7 @@ export const Pedidos = () => {
     <MainContent
       title='Pedidos'
       icon={<MdOutlineReceiptLong size={40} />}
-      extra={<PedidosAddButton setOpen={handleAdd} />}
+      extra={<ButtonAdd element='pedido' setOpen={handleAdd} />}
     >
       <PedidosTable onInfo={handleInfo} onEdit={handleEdit} />
       <PedidosDrawer

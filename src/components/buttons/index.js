@@ -1,3 +1,4 @@
+import { ButtonAdd } from './ButtonAdd';
 import { ButtonSave } from './ButtonSave';
 
-export { ButtonSave };
+export { ButtonAdd, ButtonSave };

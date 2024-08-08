@@ -3,7 +3,7 @@ import { MdOutlineGroups } from 'react-icons/md';
 import { MainContent } from '../../layouts/MainContent';
 import { ClientesTable } from './components';
 import { ClientesDrawer } from './components/ClientesDrawer';
-import { ClientesAddButton } from './components/ClientesAddButton';
+import { ButtonAdd } from '../../components/buttons';
 
 export const Clientes = () => {
   const [openDrawer, setOpenDrawer] = useState(false);
@@ -32,7 +32,7 @@ export const Clientes = () => {
     <MainContent
       title='Clientes'
       icon={<MdOutlineGroups size={40} />}
-      extra={<ClientesAddButton setOpen={handleAdd} />}
+      extra={<ButtonAdd element='cliente' setOpen={handleAdd} />}
     >
       <ClientesTable onInfo={handleInfo} onEdit={handleEdit} />
       <ClientesDrawer
