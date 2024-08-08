@@ -1,7 +1,8 @@
 import { useContext, useEffect } from 'react';
-import { Button, Descriptions, Drawer, Form, Input, Select } from 'antd';
+import { Descriptions, Drawer, Form, Input, Select } from 'antd';
 import { DataContext } from '../../../contexts';
 import { formatDireccion } from '../../../utils';
+import { ButtonSave } from '../../../components/buttons';
 
 export const ClientesDrawer = ({ open, setOpen, cliente, mode = 'add' }) => {
   const { barrios, localidades } = useContext(DataContext);
@@ -67,18 +68,7 @@ export const ClientesDrawer = ({ open, setOpen, cliente, mode = 'add' }) => {
       open={open}
       onClose={handleClose}
       destroyOnClose
-      extra={
-        !isViewMode && (
-          <Button
-            className='clientes-drawer-save-button'
-            type='primary'
-            size='small'
-            onClick={() => clienteForm.submit()}
-          >
-            Guardar
-          </Button>
-        )
-      }
+      extra={!isViewMode && <ButtonSave form={clienteForm} />}
     >
       {isViewMode ? (
         <ClienteInfo cliente={cliente} />

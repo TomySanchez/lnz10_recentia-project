@@ -15,6 +15,7 @@ import { DataContext } from '../../../contexts';
 import dayjs from 'dayjs';
 import { AiOutlineMinusCircle, AiOutlinePlus } from 'react-icons/ai';
 import { getDetallesDePedido, getItemById } from '../../../utils';
+import { ButtonSave } from '../../../components/buttons';
 
 export const PedidosDrawer = ({ open, setOpen, pedido, mode = 'add' }) => {
   const { clientes, productos } = useContext(DataContext);
@@ -82,14 +83,7 @@ export const PedidosDrawer = ({ open, setOpen, pedido, mode = 'add' }) => {
       destroyOnClose
       extra={
         !isViewMode ? (
-          <Button
-            className='clientes-drawer-save-button'
-            type='primary'
-            size='small'
-            onClick={() => pedidoForm.submit()}
-          >
-            Guardar
-          </Button>
+          <ButtonSave form={pedidoForm} />
         ) : (
           pedido.esRecurrente && <Tag color='gold'>Recurrente</Tag>
         )
