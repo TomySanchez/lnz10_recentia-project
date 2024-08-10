@@ -28,3 +28,7 @@
 .pointer {
   cursor: pointer;
 }
+
+.barra-vertical {
+  color: var(--light-medium-color);
+}

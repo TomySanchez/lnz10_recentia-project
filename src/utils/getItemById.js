@@ -5,6 +5,7 @@ import {
   dataDirecciones,
   dataEntregas,
   dataLocalidades,
+  dataMetodosDePago,
   dataPedidos,
   dataPrecios,
   dataProductos
@@ -30,6 +31,9 @@ export function getItemById(id, itemType) {
       break;
     case 'localidad':
       data = dataLocalidades;
+      break;
+    case 'metodoDePago':
+      data = dataMetodosDePago;
       break;
     case 'pedido':
       data = dataPedidos;
