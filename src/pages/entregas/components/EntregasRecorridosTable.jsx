@@ -62,7 +62,25 @@ export const EntregasRecorridosTable = () => {
     {
       dataIndex: 'estado',
       title: 'Estado',
-      align: 'center'
+      align: 'center',
+      render: (text) => {
+        let colorTag;
+        switch (text) {
+          case 'Pendiente':
+            colorTag = 'gold';
+            break;
+          case 'Cancelado':
+            colorTag = 'red';
+            break;
+          case 'Realizado':
+            colorTag = 'green';
+            break;
+          default:
+            colorTag = '';
+        }
+
+        return <Tag color={colorTag}>{text}</Tag>;
+      }
     },
     {
       dataIndex: '',
