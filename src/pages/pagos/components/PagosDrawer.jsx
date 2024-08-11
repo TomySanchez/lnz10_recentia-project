@@ -113,7 +113,7 @@ export const PagosDrawer = ({ open, setOpen, pago, mode = 'view' }) => {
           <DetallesDePagoList detallesDePago={detallesDePago} />
 
           <Form.Item name='fechaPago' label='Fecha de pago'>
-            <DatePicker />
+            <DatePicker format='DD/MM/YY' />
           </Form.Item>
 
           <Form.Item name='importeTotal' label='Importe total'>

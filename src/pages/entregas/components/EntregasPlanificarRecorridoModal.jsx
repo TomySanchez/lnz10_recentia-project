@@ -44,7 +44,13 @@ export const EntregasPlanificarRecorridoModal = ({ open, setOpen }) => {
       okText='Crear recorrido'
       destroyOnClose
     >
-      <Form form={planificadorForm} name='planificadorForm' layout='vertical'>
+      <Form
+        form={planificadorForm}
+        name='planificadorForm'
+        layout='vertical'
+        requiredMark={false}
+        clearOnDestroy
+      >
         <Form.Item
           name='fecha'
           label='Fecha del recorrido'
@@ -55,7 +61,7 @@ export const EntregasPlanificarRecorridoModal = ({ open, setOpen }) => {
             }
           ]}
         >
-          <DatePicker />
+          <DatePicker format='DD/MM/YY' />
         </Form.Item>
       </Form>
 

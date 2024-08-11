@@ -110,7 +110,7 @@ export const PedidosDrawer = ({ open, setOpen, pedido, mode = 'add' }) => {
               }
             ]}
           >
-            <DatePicker />
+            <DatePicker format='DD/MM/YY' />
           </Form.Item>
 
           <Form.Item

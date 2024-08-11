@@ -17,6 +17,7 @@ export const TableSelectFecha = ({
           setSelectedKeys(dayjs(event).format('DD/MM/YY'));
           confirm(false);
         }}
+        format='DD/MM/YY'
       />
 
       <Button
