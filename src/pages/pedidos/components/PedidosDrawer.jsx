@@ -9,7 +9,8 @@ import {
   InputNumber,
   List,
   Select,
-  Tag
+  Tag,
+  Tooltip
 } from 'antd';
 import { DataContext } from '../../../contexts';
 import dayjs from 'dayjs';
@@ -257,8 +258,13 @@ const PedidoInfo = ({ pedido }) => {
 const DetallesDePedido = ({ detalle }) => {
   return (
     <div className='DetallesDePedido'>
-      <span>{getItemById(detalle.idProducto, 'producto').nombre}</span>
-      <span>{detalle.cantidad}</span>
+      <Tooltip title='Producto'>
+        <span>{getItemById(detalle.idProducto, 'producto').nombre}</span>
+      </Tooltip>
+
+      <Tooltip title='Cantidad'>
+        <span>{detalle.cantidad}</span>
+      </Tooltip>
     </div>
   );
 };
