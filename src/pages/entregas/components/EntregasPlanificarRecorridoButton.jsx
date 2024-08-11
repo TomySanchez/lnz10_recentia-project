@@ -1,8 +1,8 @@
 import { Button } from 'antd';
 
-export const EntregasPlanificarRecorridoButton = () => {
+export const EntregasPlanificarRecorridoButton = ({ setOpen }) => {
   function handleClick() {
-    console.log('click');
+    setOpen(true);
   }
 
   return (
