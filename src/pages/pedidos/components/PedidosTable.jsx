@@ -8,6 +8,7 @@ import { getItemById } from '../../../utils';
 import { useContext } from 'react';
 import { DataContext } from '../../../contexts';
 import { AiOutlineCalendar, AiOutlineSearch } from 'react-icons/ai';
+import dayjs from 'dayjs';
 
 export const PedidosTable = ({ onEdit, onInfo }) => {
   const { pedidos } = useContext(DataContext);
@@ -17,7 +18,13 @@ export const PedidosTable = ({ onEdit, onInfo }) => {
       dataIndex: 'fechaRegistro',
       title: 'Fecha de registro',
       align: 'center',
-      sorter: (rowA, rowB) => rowA.fechaRegistro - rowB.fechaRegistro,
+      sorter: (rowA, rowB) => {
+        const fechaA = dayjs(rowA.fechaRegistro, 'DD/MM/YY');
+        const fechaB = dayjs(rowB.fechaRegistro, 'DD/MM/YY');
+
+        return fechaA - fechaB;
+      },
+      defaultSortOrder: 'descend',
       filterIcon: () => <AiOutlineCalendar />,
       filterDropdown: ({
         setSelectedKeys,

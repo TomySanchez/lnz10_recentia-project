@@ -43,7 +43,7 @@ export const PedidosDrawer = ({ open, setOpen, pedido, mode = 'add' }) => {
     if (open && pedido && mode === 'edit') {
       pedidoForm.setFieldsValue({
         fechaRegistro: dayjs(pedido.fechaRegistro),
-        cliente: pedido.idCliente,
+        cliente: getItemById(pedido.idCliente, 'cliente').nombre,
         esRecurrente: pedido.esRecurrente,
         cantSemanas: pedido.cantSemanas
       });
