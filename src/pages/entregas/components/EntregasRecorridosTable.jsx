@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { Table } from 'antd';
+import { Table, Tag } from 'antd';
 import { TableActions } from '../../../components/tables';
 import { DataContext } from '../../../contexts';
 import { getDetallesDePago, getEntregas, getItemById } from '../../../utils';
@@ -72,7 +72,68 @@ export const EntregasRecorridosTable = () => {
     }
   ];
 
+  function expandedRowRender(record) {
+    const entregasColumns = [
+      {
+        dataIndex: 'idPedido',
+        title: 'Cliente',
+        render: (item) => {
+          const pedido = getItemById(item, 'pedido');
+          const cliente = getItemById(pedido.idCliente, 'cliente');
+
+          return cliente.nombre;
+        }
+      },
+      {
+        dataIndex: 'estado',
+        title: 'Estado',
+        align: 'center',
+        render: (text) => {
+          let colorTag;
+          switch (text) {
+            case 'Pendiente':
+              colorTag = 'gold';
+              break;
+            case 'Cancelada':
+              colorTag = 'red';
+              break;
+            case 'Realizada':
+              colorTag = 'green';
+              break;
+            default:
+              colorTag = '';
+          }
+
+          return <Tag color={colorTag}>{text}</Tag>;
+        }
+      },
+      {
+        dataIndex: '',
+        title: '',
+        align: 'center',
+        render: (_, record) => <TableActions record={record} />
+      }
+    ];
+
+    return (
+      <Table
+        rowKey='id'
+        size='small'
+        columns={entregasColumns}
+        dataSource={getEntregas(record.id)}
+        pagination={false}
+      />
+    );
+  }
+
   return (
-    <Table rowKey='id' columns={recorridosColumns} dataSource={recorridos} />
+    <Table
+      rowKey='id'
+      columns={recorridosColumns}
+      dataSource={recorridos}
+      expandable={{
+        expandedRowRender
+      }}
+    />
   );
 };
