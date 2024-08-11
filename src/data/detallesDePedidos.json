@@ -70,5 +70,11 @@
     "idPedido": "10",
     "idProducto": "1",
     "cantidad": 4
+  },
+  {
+    "id": "13",
+    "idPedido": "11",
+    "idProducto": "1",
+    "cantidad": 3
   }
 ]

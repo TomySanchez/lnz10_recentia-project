@@ -149,5 +149,11 @@
     "idPago": "21",
     "idDetalleDeEntrega": "23",
     "idPrecio": "1"
+  },
+  {
+    "id": "25",
+    "idPago": "22",
+    "idDetalleDeEntrega": "24",
+    "idPrecio": "1"
   }
 ]

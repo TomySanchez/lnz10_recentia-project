@@ -145,5 +145,12 @@
     "fechaPago": null,
     "idMetodoDePago": null,
     "estado": "Pendiente"
+  },
+  {
+    "id": "22",
+    "idEntrega": "21",
+    "fechaPago": null,
+    "idMetodoDePago": null,
+    "estado": "Pendiente"
   }
 ]

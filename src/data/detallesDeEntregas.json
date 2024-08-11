@@ -143,5 +143,11 @@
     "idEntrega": "20",
     "idProducto": "1",
     "cantidad": 4
+  },
+  {
+    "id": "24",
+    "idEntrega": "21",
+    "idProducto": "1",
+    "cantidad": 3
   }
 ]
