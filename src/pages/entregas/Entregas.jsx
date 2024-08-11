@@ -10,6 +10,7 @@ import { RecorridosDrawer } from './components/RecorridosDrawer';
 export const Entregas = () => {
   const [openPlanificarRecorridoModal, setOpenPlanificarRecorridoModal] =
     useState(false);
+  const [modalMode, setModalMode] = useState('add');
   const [openDrawerRecorrido, setOpenDrawerRecorrido] = useState(false);
   const [openDrawerEntrega, setOpenDrawerEntrega] = useState(false);
   const [drawerModeRecorrido, setDrawerModeRecorrido] = useState('view');
@@ -24,10 +25,15 @@ export const Entregas = () => {
   }
 
   function handleEditRecorrido(recorrido) {
-    setDrawerModeRecorrido('edit');
+    setModalMode('edit');
     setSelectedRecorrido(recorrido);
-    setOpenDrawerRecorrido(true);
+    setOpenPlanificarRecorridoModal(true);
   }
+
+  /* function handleAddRecorrido() {
+    setModalMode('add');
+    setOpenPlanificarRecorridoModal(true);
+  } */
 
   function handleInfoEntrega(entrega) {
     setDrawerModeEntrega('view');
@@ -52,13 +58,17 @@ export const Entregas = () => {
       }
     >
       <EntregasRecorridosTable
-        onInfo={handleInfoRecorrido}
-        onEdit={handleEditRecorrido}
+        onInfoRecorrido={handleInfoRecorrido}
+        onEditRecorrido={handleEditRecorrido}
+        onInfoEntrega={handleInfoEntrega}
+        onEditEntrega={handleEditEntrega}
       />
 
       <EntregasPlanificarRecorridoModal
         open={openPlanificarRecorridoModal}
         setOpen={setOpenPlanificarRecorridoModal}
+        recorrido={selectedRecorrido}
+        mode={modalMode}
       />
       <RecorridosDrawer
         open={openDrawerRecorrido}

@@ -6,7 +6,12 @@ import { getDetallesDePago, getEntregas, getItemById } from '../../../utils';
 import { getPagos } from '../../../utils';
 import dayjs from 'dayjs';
 
-export const EntregasRecorridosTable = ({ onInfo, onEdit }) => {
+export const EntregasRecorridosTable = ({
+  onInfoRecorrido,
+  onEditRecorrido,
+  onInfoEntrega,
+  onEditEntrega
+}) => {
   const { recorridos } = useContext(DataContext);
 
   const recorridosColumns = [
@@ -95,7 +100,11 @@ export const EntregasRecorridosTable = ({ onInfo, onEdit }) => {
       title: '',
       align: 'center',
       render: (_, record) => (
-        <TableActions record={record} onInfo={onInfo} onEdit={onEdit} />
+        <TableActions
+          record={record}
+          onInfo={onInfoRecorrido}
+          onEdit={onEditRecorrido}
+        />
       )
     }
   ];
@@ -140,7 +149,11 @@ export const EntregasRecorridosTable = ({ onInfo, onEdit }) => {
         title: '',
         align: 'center',
         render: (_, record) => (
-          <TableActions record={record} onInfo={onInfo} onEdit={onEdit} />
+          <TableActions
+            record={record}
+            onInfo={onInfoEntrega}
+            onEdit={onEditEntrega}
+          />
         )
       }
     ];

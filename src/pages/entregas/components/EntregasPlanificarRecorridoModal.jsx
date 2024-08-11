@@ -3,7 +3,12 @@ import { DatePicker, Form, Modal, Table } from 'antd';
 import { DataContext } from '../../../contexts';
 import { getItemById } from '../../../utils';
 
-export const EntregasPlanificarRecorridoModal = ({ open, setOpen }) => {
+export const EntregasPlanificarRecorridoModal = ({
+  open,
+  setOpen,
+  recorrido,
+  mode = 'add'
+}) => {
   const { entregas } = useContext(DataContext);
 
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);

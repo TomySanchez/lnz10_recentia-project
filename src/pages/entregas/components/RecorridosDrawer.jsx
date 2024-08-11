@@ -17,19 +17,12 @@ export const RecorridosDrawer = ({
 
   const entregas = getEntregas(recorrido.id);
 
-  function handleFinish(values) {
-    console.log('Formulario enviado', values);
-    setOpen(false);
-  }
-
   function handleClose() {
     setOpen(false);
   }
 
   function getTitle() {
     switch (mode) {
-      case 'edit':
-        return 'Editar recorrido';
       case 'view':
         return 'Información de recorrido';
       default:

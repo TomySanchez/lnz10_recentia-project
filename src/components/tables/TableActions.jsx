@@ -6,13 +6,17 @@ export const TableActions = ({ record, onEdit, onInfo }) => {
       type: 'info',
       tooltipTitle: 'Más información',
       onClick: () => onInfo(record)
-    },
-    {
+    }
+  ];
+
+  // Si no es un recorrido. TEMPORAL
+  if (!record.fecha) {
+    actions.push({
       type: 'edit',
       tooltipTitle: 'Editar',
       onClick: () => onEdit(record)
-    }
-  ];
+    });
+  }
 
   return (
     <div className='TableActions'>
