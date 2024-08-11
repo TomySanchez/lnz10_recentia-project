@@ -76,6 +76,12 @@ export const Entregas = () => {
         recorrido={selectedRecorrido}
         mode={drawerModeRecorrido}
       />
+      <EntregasDrawer
+        open={openDrawerEntrega}
+        setOpen={setOpenDrawerEntrega}
+        entrega={selectedEntrega}
+        mode={drawerModeEntrega}
+      />
     </MainContent>
   );
 };

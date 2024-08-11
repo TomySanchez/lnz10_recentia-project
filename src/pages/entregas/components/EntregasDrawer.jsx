@@ -1,16 +1,11 @@
 import { Descriptions, Drawer, Form, List, Tag, Tooltip } from 'antd';
 import { ButtonSave } from '../../../components/buttons';
-import { getEntregas } from '../../../utils';
+import { getDetallesDeEntrega, getItemById } from '../../../utils';
 
-export const EntregasDrawer = ({
-  open,
-  setOpen,
-  item,
-  mode = 'viewEntrega'
-}) => {
-  const [itemForm] = Form.useForm();
+export const EntregasDrawer = ({ open, setOpen, entrega, mode = 'view' }) => {
+  const [entregaForm] = Form.useForm();
 
-  const entregas = getEntregas(item.id);
+  const detallesDeEntrega = getDetallesDeEntrega(entrega.id);
 
   function handleFinish(values) {
     console.log('Formulario enviado', values);
@@ -23,20 +18,16 @@ export const EntregasDrawer = ({
 
   function getTitle() {
     switch (mode) {
-      case 'editRecorrido':
-        return 'Editar recorrido';
-      case 'viewRecorrido':
-        return 'Información de recorrido';
-      case 'editEntrega':
+      case 'edit':
         return 'Editar entrega';
-      case 'viewEntrega':
+      case 'view':
         return 'Información de entrega';
       default:
         return '';
     }
   }
 
-  const isViewMode = mode === 'viewRecorrido' || mode === 'viewEntrega';
+  const isViewMode = mode === 'view';
 
   return (
     <Drawer
@@ -46,52 +37,59 @@ export const EntregasDrawer = ({
       destroyOnClose
       extra={
         !isViewMode ? (
-          <ButtonSave form={itemForm} />
+          <ButtonSave form={entregaForm} />
         ) : (
-          <Tag
-            color={
-              item.estado === 'Realizado' || item.estado === 'Realizada'
-                ? 'green'
-                : 'gold'
-            }
-          >
-            {item.estado}
+          <Tag color={entrega.estado === 'Realizada' ? 'green' : 'gold'}>
+            {entrega.estado}
           </Tag>
         )
       }
     >
-      {isViewMode ? <ItemInfo item={item} entregas={entregas} /> : <></>}
+      {isViewMode ? (
+        <EntregaInfo entrega={entrega} detallesDeEntrega={detallesDeEntrega} />
+      ) : (
+        <></>
+      )}
     </Drawer>
   );
 };
 
-const ItemInfo = ({ recorrido, entregas }) => {
-  if (!recorrido) return null;
+const EntregaInfo = ({ entrega, detallesDeEntrega }) => {
+  const pedido = getItemById(entrega.idPedido, 'pedido');
+  const cliente = getItemById(pedido.idCliente, 'cliente');
 
-  const recorridoItems = [{ label: 'Fecha', children: recorrido.fecha }];
+  if (!entrega) return null;
+
+  const entregaItems = [
+    { label: 'Fecha', children: entrega.fechaEntrega || '-' },
+    { label: 'Cliente', children: cliente.nombre },
+    { label: 'Recorrido', children: <a>Ir a recorrido</a> || '-' }
+  ];
 
   return (
     <div>
-      <Descriptions column={1} items={recorridoItems} />
-      <EntregasList entregas={entregas} />
+      <Descriptions column={1} items={entregaItems} />
+      <DetallesDeEntregaList detallesDeEntrega={detallesDeEntrega} />
     </div>
   );
 };
 
-const EntregasList = ({ entregas }) => {
-  const componentsEntregas = entregas.map((entrega) => (
-    <EntregaItem key={entrega.id} entrega={entrega} />
+const DetallesDeEntregaList = ({ detallesDeEntrega }) => {
+  const componentsDetallesDeEntrega = detallesDeEntrega.map((detalle) => (
+    <DetallesDeEntrega key={detalle.id} detalle={detalle} />
   ));
 
   return (
     <>
-      {entregas.length > 0 && (
+      {detallesDeEntrega.length > 0 && (
         <List
           className='pedidos-info-detalles-list'
           header={
-            <span className='pedidos-info-detalles-list-title'>Entregas</span>
+            <span className='pedidos-info-detalles-list-title'>
+              Detalles de entrega
+            </span>
           }
-          dataSource={componentsEntregas}
+          dataSource={componentsDetallesDeEntrega}
           renderItem={(item) => <List.Item>{item}</List.Item>}
         />
       )}
@@ -99,23 +97,17 @@ const EntregasList = ({ entregas }) => {
   );
 };
 
-const EntregaItem = ({ entrega }) => {
+const DetallesDeEntrega = ({ detalle }) => {
+  const producto = getItemById(detalle.idProducto, 'producto');
+
   return (
     <div className='DetallesDePedido'>
-      <Tooltip title=''>
-        <span></span>
+      <Tooltip title='Producto'>
+        <span>{producto.nombre}</span>
       </Tooltip>
-      <span className='barra-vertical'>|</span>
-      <Tooltip title=''>
-        <span></span>
-      </Tooltip>
-      <span className='barra-vertical'>|</span>
-      <Tooltip title='Precio por unidad'>
-        <span></span>
-      </Tooltip>
-      <span className='barra-vertical'>|</span>
-      <Tooltip title=''>
-        <span></span>
+
+      <Tooltip title='Cantidad'>
+        <span>{detalle.cantidad}</span>
       </Tooltip>
     </div>
   );
