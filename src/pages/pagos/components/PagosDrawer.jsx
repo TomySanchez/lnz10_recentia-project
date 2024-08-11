@@ -1,9 +1,64 @@
-import { Descriptions, Drawer, Form, List, Tag, Tooltip } from 'antd';
+import {
+  DatePicker,
+  Descriptions,
+  Drawer,
+  Form,
+  InputNumber,
+  List,
+  Select,
+  Tag,
+  Tooltip
+} from 'antd';
 import { ButtonSave } from '../../../components/buttons';
 import { getDetallesDePago, getItemById } from '../../../utils';
+import { useContext, useEffect } from 'react';
+import dayjs from 'dayjs';
+import { DataContext } from '../../../contexts';
 
 export const PagosDrawer = ({ open, setOpen, pago, mode = 'view' }) => {
+  const { metodosDePago } = useContext(DataContext);
+
   const [pagoForm] = Form.useForm();
+
+  const detallesDePago = getDetallesDePago(pago.id);
+  const entrega = getItemById(pago?.idEntrega, 'entrega');
+  const pedido = getItemById(entrega?.idPedido, 'pedido');
+  const cliente = getItemById(pedido?.idCliente, 'cliente');
+  const importes = detallesDePago.map((detalle) => {
+    const precio = getItemById(detalle.idPrecio, 'precio').valor;
+    const cantidad = getItemById(
+      detalle.idDetalleDeEntrega,
+      'detalleDeEntrega'
+    ).cantidad;
+
+    return precio * cantidad;
+  });
+  const importeTotal = importes.reduce(
+    (accumulator, currentValue) => accumulator + currentValue,
+    0
+  );
+
+  useEffect(() => {
+    if (open && pago && mode === 'edit') {
+      pagoForm.setFieldsValue({
+        fechaPago: dayjs(pago.fechaPago),
+        importeTotal: importeTotal
+      });
+    } else {
+      pagoForm.resetFields();
+    }
+  }, [open, pago, pagoForm, mode, cliente]);
+
+  const editPagoItems = [
+    { label: 'Cliente', children: cliente?.nombre },
+    { label: 'CUIT/CUIL', children: cliente?.cuit_cuil || '-' },
+    { label: 'Detalles de pago', children: cliente?.nombre }
+  ];
+
+  const metodosDePagoOptions = metodosDePago.map((metodo) => ({
+    label: metodo.nombre,
+    value: metodo.id
+  }));
 
   function handleFinish(values) {
     console.log('Formulario enviado', values);
@@ -44,25 +99,55 @@ export const PagosDrawer = ({ open, setOpen, pago, mode = 'view' }) => {
       }
     >
       {isViewMode ? (
-        <PagoInfo pago={pago} />
+        <PagoInfo pago={pago} detallesDePago={detallesDePago} />
       ) : (
         <Form
           form={pagoForm}
           name='pagosForm'
           layout='vertical'
           onFinish={handleFinish}
-          requiredMark='optional'
-        ></Form>
+          requiredMark={false}
+        >
+          <Descriptions column={1} items={editPagoItems} />
+
+          <DetallesDePagoList detallesDePago={detallesDePago} />
+
+          <Form.Item name='fechaPago' label='Fecha de pago'>
+            <DatePicker />
+          </Form.Item>
+
+          <Form.Item name='importeTotal' label='Importe total'>
+            <InputNumber formatter={(value) => `$ ${value}`} />
+          </Form.Item>
+
+          <Form.Item name='metodoDePago' label='Método de pago'>
+            <Select options={metodosDePagoOptions} />
+          </Form.Item>
+
+          <Form.Item name='estado' label='Estado'>
+            <Select
+              options={[
+                {
+                  label: 'Pagado',
+                  value: 'Pagado'
+                },
+                {
+                  label: 'Pendiente',
+                  value: 'Pendiente'
+                }
+              ]}
+            />
+          </Form.Item>
+        </Form>
       )}
     </Drawer>
   );
 };
 
-const PagoInfo = ({ pago }) => {
+const PagoInfo = ({ pago, detallesDePago }) => {
   const entrega = getItemById(pago.idEntrega, 'entrega');
   const pedido = getItemById(entrega.idPedido, 'pedido');
   const cliente = getItemById(pedido.idCliente, 'cliente');
-  const detallesDePago = getDetallesDePago(pago.id);
   const importes = detallesDePago.map((detalle) => {
     const precio = getItemById(detalle.idPrecio, 'precio').valor;
     const cantidad = getItemById(
@@ -93,13 +178,21 @@ const PagoInfo = ({ pago }) => {
     }
   ];
 
+  return (
+    <div>
+      <Descriptions column={1} items={pagoItems} />
+      <DetallesDePagoList detallesDePago={detallesDePago} />
+    </div>
+  );
+};
+
+const DetallesDePagoList = ({ detallesDePago }) => {
   const componentsDetallesDePago = detallesDePago.map((detalle) => (
     <DetallesDePago key={detalle.id} detalle={detalle} />
   ));
 
   return (
-    <div>
-      <Descriptions column={1} items={pagoItems} />
+    <>
       {detallesDePago.length > 0 && (
         <List
           className='pedidos-info-detalles-list'
@@ -112,7 +205,7 @@ const PagoInfo = ({ pago }) => {
           renderItem={(item) => <List.Item>{item}</List.Item>}
         />
       )}
-    </div>
+    </>
   );
 };
 

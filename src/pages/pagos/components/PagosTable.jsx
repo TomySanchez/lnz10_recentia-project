@@ -9,7 +9,7 @@ import {
 import { DataContext } from '../../../contexts';
 import { getDetallesDePago, getItemById } from '../../../utils';
 
-export const PagosTable = ({ onInfo }) => {
+export const PagosTable = ({ onInfo, onEdit }) => {
   const { pagos } = useContext(DataContext);
 
   const pagosColumns = [
@@ -149,7 +149,9 @@ export const PagosTable = ({ onInfo }) => {
       dataIndex: '',
       title: '',
       align: 'center',
-      render: (_, record) => <TableActions record={record} onInfo={onInfo} />
+      render: (_, record) => (
+        <TableActions record={record} onInfo={onInfo} onEdit={onEdit} />
+      )
     }
   ];
 

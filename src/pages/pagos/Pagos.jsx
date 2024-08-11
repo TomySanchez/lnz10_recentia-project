@@ -15,9 +15,15 @@ export const Pagos = () => {
     setOpenDrawer(true);
   }
 
+  function handleEdit(pago) {
+    setDrawerMode('edit');
+    setSelectedPago(pago);
+    setOpenDrawer(true);
+  }
+
   return (
     <MainContent title='Pagos' icon={<MdOutlinePayments size={40} />}>
-      <PagosTable onInfo={handleInfo} />
+      <PagosTable onInfo={handleInfo} onEdit={handleEdit} />
       <PagosDrawer
         open={openDrawer}
         setOpen={setOpenDrawer}
