@@ -8,7 +8,7 @@ export const EntregasPlanificarRecorridoModal = ({ open, setOpen }) => {
 
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 
-  const planificadorForm = Form.useForm();
+  const [planificadorForm] = Form.useForm();
 
   const entregasNoProgramadas = entregas.filter(
     (entrega) => entrega.estado === 'Sin programar'
