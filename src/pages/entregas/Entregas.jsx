@@ -3,6 +3,7 @@ import { MdOutlineLocalShipping } from 'react-icons/md';
 import { MainContent } from '../../layouts/MainContent';
 import { EntregasPlanificarRecorridoButton } from './components/EntregasPlanificarRecorridoButton';
 import { EntregasPlanificarRecorridoModal } from './components/EntregasPlanificarRecorridoModal';
+import { EntregasRecorridosTable } from './components/EntregasRecorridosTable';
 
 export const Entregas = () => {
   const [openPlanificarRecorridoModal, setOpenPlanificarRecorridoModal] =
@@ -18,6 +19,8 @@ export const Entregas = () => {
         />
       }
     >
+      <EntregasRecorridosTable />
+
       <EntregasPlanificarRecorridoModal
         open={openPlanificarRecorridoModal}
         setOpen={setOpenPlanificarRecorridoModal}

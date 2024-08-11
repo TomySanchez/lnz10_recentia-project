@@ -1,0 +1,78 @@
+import { useContext } from 'react';
+import { Table } from 'antd';
+import { TableActions } from '../../../components/tables';
+import { DataContext } from '../../../contexts';
+import { getDetallesDePago, getEntregas, getItemById } from '../../../utils';
+import { getPagos } from '../../../utils';
+
+export const EntregasRecorridosTable = () => {
+  const { recorridos } = useContext(DataContext);
+
+  const recorridosColumns = [
+    {
+      dataIndex: 'fecha',
+      title: 'Fecha',
+      align: 'center'
+    },
+    {
+      dataIndex: 'id',
+      title: 'Cantidad de entregas',
+      align: 'center',
+      render: (text) => getEntregas(text).length
+    },
+    {
+      dataIndex: 'id',
+      title: 'Monto total',
+      align: 'center',
+      render: (text) => {
+        const entregas = getEntregas(text);
+
+        const importesEntregas = entregas.map((entrega) => {
+          const pagos = getPagos(entrega.id);
+          const importesPagos = pagos.map((pago) => {
+            const detallesDePago = getDetallesDePago(pago.id);
+            const importes = detallesDePago.map((detalle) => {
+              const precio = getItemById(detalle.idPrecio, 'precio').valor;
+              const cantidad = getItemById(
+                detalle.idDetalleDeEntrega,
+                'detalleDeEntrega'
+              ).cantidad;
+
+              return precio * cantidad;
+            });
+            return importes.reduce(
+              (accumulator, currentValue) => accumulator + currentValue,
+              0
+            );
+          });
+          return importesPagos.reduce(
+            (accumulator, currentValue) => accumulator + currentValue,
+            0
+          );
+        });
+
+        const montoTotal = importesEntregas.reduce(
+          (accumulator, currentValue) => accumulator + currentValue,
+          0
+        );
+
+        return `$ ${montoTotal}`;
+      }
+    },
+    {
+      dataIndex: 'estado',
+      title: 'Estado',
+      align: 'center'
+    },
+    {
+      dataIndex: '',
+      title: '',
+      align: 'center',
+      render: (_, record) => <TableActions record={record} />
+    }
+  ];
+
+  return (
+    <Table rowKey='id' columns={recorridosColumns} dataSource={recorridos} />
+  );
+};
