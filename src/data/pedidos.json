@@ -14,5 +14,13 @@
     "esRecurrente": true,
     "cantSemanas": 1,
     "estado": "Activo"
+  },
+  {
+    "id": "3",
+    "idCliente": "3",
+    "fechaRegistro": "02/07/24",
+    "esRecurrente": true,
+    "cantSemanas": 1,
+    "estado": "Activo"
   }
 ]

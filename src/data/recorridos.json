@@ -38,5 +38,36 @@
     "id": "8",
     "fecha": "14/08/24",
     "estado": "Pendiente"
+  },
+
+  {
+    "id": "9",
+    "fecha": "09/07/24",
+    "estado": "Realizado"
+  },
+  {
+    "id": "9b",
+    "fecha": "16/07/24",
+    "estado": "Realizado"
+  },
+  {
+    "id": "10",
+    "fecha": "23/07/24",
+    "estado": "Realizado"
+  },
+  {
+    "id": "11",
+    "fecha": "30/07/24",
+    "estado": "Realizado"
+  },
+  {
+    "id": "12",
+    "fecha": "06/08/24",
+    "estado": "Pendiente"
+  },
+  {
+    "id": "13",
+    "fecha": "13/08/24",
+    "estado": "Pendiente"
   }
 ]

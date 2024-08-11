@@ -54,5 +54,48 @@
     "fechaPago": null,
     "idMetodoDePago": null,
     "estado": "Pendiente"
+  },
+
+  {
+    "id": "9",
+    "idEntrega": "9",
+    "fechaPago": "31/07/24",
+    "idMetodoDePago": "2",
+    "estado": "Pagado"
+  },
+  {
+    "id": "10",
+    "idEntrega": "9b",
+    "fechaPago": "31/07/24",
+    "idMetodoDePago": "2",
+    "estado": "Pagado"
+  },
+  {
+    "id": "11",
+    "idEntrega": "10",
+    "fechaPago": "31/07/24",
+    "idMetodoDePago": "2",
+    "estado": "Pagado"
+  },
+  {
+    "id": "12",
+    "idEntrega": "11",
+    "fechaPago": "31/07/24",
+    "idMetodoDePago": "2",
+    "estado": "Pagado"
+  },
+  {
+    "id": "13",
+    "idEntrega": "12",
+    "fechaPago": null,
+    "idMetodoDePago": null,
+    "estado": "Pendiente"
+  },
+  {
+    "id": "14",
+    "idEntrega": "13",
+    "fechaPago": null,
+    "idMetodoDePago": null,
+    "estado": "Pendiente"
   }
 ]

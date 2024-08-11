@@ -47,10 +47,47 @@
     "idProducto": "1",
     "cantidad": 2
   },
+
   {
     "id": "9",
-    "idEntrega": "8",
+    "idEntrega": "9",
+    "idProducto": "1",
+    "cantidad": 6
+  },
+  {
+    "id": "10",
+    "idEntrega": "9b",
+    "idProducto": "1",
+    "cantidad": 6
+  },
+  {
+    "id": "11",
+    "idEntrega": "10",
     "idProducto": "1",
     "cantidad": 3
+  },
+  {
+    "id": "11b",
+    "idEntrega": "10",
+    "idProducto": "2",
+    "cantidad": 1
+  },
+  {
+    "id": "12",
+    "idEntrega": "11",
+    "idProducto": "1",
+    "cantidad": 6
+  },
+  {
+    "id": "13",
+    "idEntrega": "12",
+    "idProducto": "1",
+    "cantidad": 6
+  },
+  {
+    "id": "14",
+    "idEntrega": "13",
+    "idProducto": "1",
+    "cantidad": 6
   }
 ]
