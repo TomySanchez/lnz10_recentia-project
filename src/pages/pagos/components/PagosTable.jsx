@@ -8,6 +8,7 @@ import {
 } from '../../../components/tables';
 import { DataContext } from '../../../contexts';
 import { getDetallesDePago, getItemById } from '../../../utils';
+import dayjs from 'dayjs';
 
 export const PagosTable = ({ onInfo, onEdit }) => {
   const { pagos } = useContext(DataContext);
@@ -18,7 +19,13 @@ export const PagosTable = ({ onInfo, onEdit }) => {
       title: 'Fecha de pago',
       align: 'center',
       render: (text) => (text ? text : '-'),
-      sorter: (rowA, rowB) => rowA.fechaPago - rowB.fechaPago,
+      sorter: (rowA, rowB) => {
+        const fechaA = dayjs(rowA.fechaPago, 'DD/MM/YY');
+        const fechaB = dayjs(rowB.fechaPago, 'DD/MM/YY');
+
+        return fechaA - fechaB;
+      },
+      defaultSortOrder: 'descend',
       filterIcon: () => <AiOutlineCalendar />,
       filterDropdown: ({
         setSelectedKeys,
