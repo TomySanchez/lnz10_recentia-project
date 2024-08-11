@@ -22,5 +22,61 @@
     "esRecurrente": true,
     "cantSemanas": 1,
     "estado": "Activo"
+  },
+  {
+    "id": "4",
+    "idCliente": "4",
+    "fechaRegistro": "03/07/24",
+    "esRecurrente": false,
+    "cantSemanas": null,
+    "estado": "Realizado"
+  },
+  {
+    "id": "5",
+    "idCliente": "5",
+    "fechaRegistro": "08/07/24",
+    "esRecurrente": false,
+    "cantSemanas": null,
+    "estado": "Realizado"
+  },
+  {
+    "id": "6",
+    "idCliente": "8",
+    "fechaRegistro": "09/07/24",
+    "esRecurrente": false,
+    "cantSemanas": null,
+    "estado": "Realizado"
+  },
+  {
+    "id": "7",
+    "idCliente": "10",
+    "fechaRegistro": "11/07/24",
+    "esRecurrente": false,
+    "cantSemanas": null,
+    "estado": "Realizado"
+  },
+  {
+    "id": "8",
+    "idCliente": "6",
+    "fechaRegistro": "17/07/24",
+    "esRecurrente": false,
+    "cantSemanas": null,
+    "estado": "Realizado"
+  },
+  {
+    "id": "9",
+    "idCliente": "10",
+    "fechaRegistro": "23/07/24",
+    "esRecurrente": false,
+    "cantSemanas": null,
+    "estado": "Realizado"
+  },
+  {
+    "id": "10",
+    "idCliente": "10",
+    "fechaRegistro": "25/07/24",
+    "esRecurrente": false,
+    "cantSemanas": null,
+    "estado": "Realizado"
   }
 ]

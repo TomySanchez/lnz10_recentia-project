@@ -95,5 +95,59 @@
     "idPago": "14",
     "idDetalleDeEntrega": "13",
     "idPrecio": "1"
+  },
+  {
+    "id": "17",
+    "idPago": "15",
+    "idDetalleDeEntrega": "15",
+    "idPrecio": "1"
+  },
+  {
+    "id": "18",
+    "idPago": "15",
+    "idDetalleDeEntrega": "16",
+    "idPrecio": "3"
+  },
+  {
+    "id": "19",
+    "idPago": "16",
+    "idDetalleDeEntrega": "17",
+    "idPrecio": "1"
+  },
+  {
+    "id": "20",
+    "idPago": "17",
+    "idDetalleDeEntrega": "18",
+    "idPrecio": "2"
+  },
+  {
+    "id": "20",
+    "idPago": "17",
+    "idDetalleDeEntrega": "19",
+    "idPrecio": "4"
+  },
+  {
+    "id": "21",
+    "idPago": "18",
+    "idDetalleDeEntrega": "20",
+    "idPrecio": "1"
+  },
+  {
+    "id": "22",
+    "idPago": "19",
+    "idDetalleDeEntrega": "21",
+    "idPrecio": "3"
+  },
+  {
+    "id": "23",
+    "idPago": "20",
+    "idDetalleDeEntrega": "22",
+    "idPrecio": "1"
+  },
+  {
+    "id": "24",
+    "idPago": "21",
+    "idDetalleDeEntrega": "23",
+    "idPrecio": "1"
   }
 ]

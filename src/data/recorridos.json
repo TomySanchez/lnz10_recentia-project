@@ -69,5 +69,10 @@
     "id": "13",
     "fecha": "13/08/24",
     "estado": "Pendiente"
+  },
+  {
+    "id": "14",
+    "fecha": "15/07/24",
+    "estado": "Realizado"
   }
 ]
