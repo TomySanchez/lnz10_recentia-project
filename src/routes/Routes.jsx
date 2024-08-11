@@ -6,11 +6,12 @@ import { ProtectedRoute } from './ProtectedRoute';
 import { isAuthenticated } from './isAuthenticated';
 import { Pagos } from '../pages/pagos/Pagos';
 import { Entregas } from '../pages/entregas/Entregas';
+import { Login } from '../pages/login/Login';
 
 export const Routes = () => {
   return (
     <RoutesRR>
-      {/* <Route path='/inicio' element={<Login />} /> */}
+      <Route path='/inicio' element={<Login />} />
       <Route
         path='/'
         element={
