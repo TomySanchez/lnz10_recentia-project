@@ -1,13 +1,28 @@
 import { Button, Form, Input } from 'antd';
 import { AiOutlineLock, AiOutlineUser } from 'react-icons/ai';
+import { useNavigate } from 'react-router-dom';
 
 export const LoginForm = () => {
+  const navigateTo = useNavigate();
+
+  const [loginForm] = Form.useForm();
+
   function handleFinish() {
     console.log('Formulario enviado');
+    navigateTo('/');
+  }
+
+  function handleClick() {
+    loginForm.submit();
   }
 
   return (
-    <Form className='LoginForm' name='loginForm' onFinish={handleFinish}>
+    <Form
+      className='LoginForm'
+      form={loginForm}
+      name='loginForm'
+      onFinish={handleFinish}
+    >
       <span className='login-brand-name'>recentia</span>
 
       <div>
@@ -45,7 +60,12 @@ export const LoginForm = () => {
       </div>
 
       <Form.Item>
-        <Button type='primary' className='login-form-submit' size='large'>
+        <Button
+          type='primary'
+          className='login-form-submit'
+          size='large'
+          onClick={handleClick}
+        >
           Ingresar
         </Button>
       </Form.Item>
