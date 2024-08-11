@@ -4,6 +4,7 @@ import { TableActions } from '../../../components/tables';
 import { DataContext } from '../../../contexts';
 import { getDetallesDePago, getEntregas, getItemById } from '../../../utils';
 import { getPagos } from '../../../utils';
+import dayjs from 'dayjs';
 
 export const EntregasRecorridosTable = () => {
   const { recorridos } = useContext(DataContext);
@@ -12,7 +13,14 @@ export const EntregasRecorridosTable = () => {
     {
       dataIndex: 'fecha',
       title: 'Fecha',
-      align: 'center'
+      align: 'center',
+      sorter: (rowA, rowB) => {
+        const fechaA = dayjs(rowA.fecha, 'DD/MM/YY');
+        const fechaB = dayjs(rowB.fecha, 'DD/MM/YY');
+
+        return fechaA - fechaB;
+      },
+      defaultSortOrder: 'descend'
     },
     {
       dataIndex: 'id',
