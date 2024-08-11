@@ -1,11 +1,32 @@
-import { Descriptions, Drawer, Form, List, Tag, Tooltip } from 'antd';
+import { Descriptions, Drawer, Form, List, Select, Tag, Tooltip } from 'antd';
 import { ButtonSave } from '../../../components/buttons';
 import { getDetallesDeEntrega, getItemById } from '../../../utils';
+import { useEffect } from 'react';
+import dayjs from 'dayjs';
 
 export const EntregasDrawer = ({ open, setOpen, entrega, mode = 'view' }) => {
   const [entregaForm] = Form.useForm();
 
   const detallesDeEntrega = getDetallesDeEntrega(entrega.id);
+
+  const pedido = getItemById(entrega.idPedido, 'pedido');
+  const cliente = getItemById(pedido?.idCliente, 'cliente');
+
+  useEffect(() => {
+    if (open && entrega && mode === 'edit') {
+      entregaForm.setFieldsValue({
+        cliente: cliente.nombre,
+        fechaEntrega: dayjs(entrega.fechaEntrega) || '-'
+      });
+    } else {
+      entregaForm.resetFields();
+    }
+  }, [open, entrega, entregaForm, mode, cliente]);
+
+  const entregaItems = [
+    { label: 'Cliente', children: cliente?.nombre },
+    { label: 'Fecha de entrega', children: entrega.fechaEntrega || '-' }
+  ];
 
   function handleFinish(values) {
     console.log('Formulario enviado', values);
@@ -48,7 +69,41 @@ export const EntregasDrawer = ({ open, setOpen, entrega, mode = 'view' }) => {
       {isViewMode ? (
         <EntregaInfo entrega={entrega} detallesDeEntrega={detallesDeEntrega} />
       ) : (
-        <></>
+        <Form
+          form={entregaForm}
+          name='entregaForm'
+          onFinish={handleFinish}
+          requiredMark='optional'
+        >
+          <Descriptions column={1} items={entregaItems} />
+
+          <Form.Item
+            style={{ marginTop: 16 }}
+            name='estado'
+            label='Estado'
+            rules={[
+              {
+                required: true,
+                message: 'Estado requerido'
+              }
+            ]}
+          >
+            <Select
+              options={[
+                {
+                  label: 'Realizada',
+                  value: 'Realizada'
+                },
+                {
+                  label: 'Pendiente',
+                  value: 'Pendiente'
+                }
+              ]}
+            />
+          </Form.Item>
+
+          <DetallesDeEntregaList detallesDeEntrega={detallesDeEntrega} />
+        </Form>
       )}
     </Drawer>
   );
