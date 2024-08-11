@@ -41,6 +41,7 @@ export const EntregasPlanificarRecorridoModal = ({ open, setOpen }) => {
       open={open}
       onOk={handleOk}
       onCancel={handleCancel}
+      okText='Crear recorrido'
       destroyOnClose
     >
       <Form form={planificadorForm} name='planificadorForm' layout='vertical'>
