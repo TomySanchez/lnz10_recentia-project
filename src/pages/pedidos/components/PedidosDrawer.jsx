@@ -220,7 +220,10 @@ const PedidoInfo = ({ pedido }) => {
 
   const pedidoItems = [
     { label: 'Fecha de registro', children: pedido.fechaRegistro },
-    { label: 'Cliente', children: pedido.idCliente },
+    {
+      label: 'Cliente',
+      children: getItemById(pedido.idCliente, 'cliente').nombre
+    },
     {
       label: 'Recurrencia',
       children:
