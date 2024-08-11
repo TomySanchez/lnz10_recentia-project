@@ -5,6 +5,7 @@ import { Pedidos } from '../pages/pedidos/Pedidos';
 import { ProtectedRoute } from './ProtectedRoute';
 import { isAuthenticated } from './isAuthenticated';
 import { Pagos } from '../pages/pagos/Pagos';
+import { Entregas } from '../pages/entregas/Entregas';
 
 export const Routes = () => {
   return (
@@ -30,7 +31,7 @@ export const Routes = () => {
       >
         <Route path='clientes' element={<Clientes />} />
         <Route path='pedidos' element={<Pedidos />} />
-        {/* <Route path='entregas' element={<Entregas />} /> */}
+        <Route path='entregas' element={<Entregas />} />
         <Route path='pagos' element={<Pagos />} />
         {/* <Route path='configuracion' element={<Configuracion />} /> */}
       </Route>
