@@ -1,10 +1,10 @@
 import { ConfiguracionContent } from '../components/ConfiguracionContent';
+import { ProductosTable } from './components/ProductosTable';
 
 export const Productos = () => {
   return (
-    <ConfiguracionContent
-      className='ProductsTab'
-      title='Productos'
-    ></ConfiguracionContent>
+    <ConfiguracionContent title='Productos'>
+      <ProductosTable />
+    </ConfiguracionContent>
   );
 };
