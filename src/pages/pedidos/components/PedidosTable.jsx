@@ -100,5 +100,12 @@ export const PedidosTable = ({ onEdit, onInfo }) => {
     }
   ];
 
-  return <Table rowKey='id' columns={pedidosColumns} dataSource={pedidos} />;
+  return (
+    <Table
+      rowKey='id'
+      columns={pedidosColumns}
+      dataSource={pedidos}
+      scroll={{ x: 'max-content' }}
+    />
+  );
 };

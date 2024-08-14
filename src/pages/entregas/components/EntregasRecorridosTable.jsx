@@ -165,6 +165,7 @@ export const EntregasRecorridosTable = ({
         columns={entregasColumns}
         dataSource={getEntregas(record.id)}
         pagination={false}
+        scroll={{ x: 'max-content' }}
       />
     );
   }
@@ -177,6 +178,7 @@ export const EntregasRecorridosTable = ({
       expandable={{
         expandedRowRender
       }}
+      scroll={{ x: 'max-content' }}
     />
   );
 };

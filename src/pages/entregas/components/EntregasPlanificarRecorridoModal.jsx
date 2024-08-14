@@ -80,6 +80,7 @@ export const EntregasPlanificarRecorridoModal = ({
         columns={entregasNoProgramadasColumns}
         dataSource={entregasNoProgramadas}
         pagination={false}
+        scroll={{ x: 'max-content' }}
       />
     </Modal>
   );

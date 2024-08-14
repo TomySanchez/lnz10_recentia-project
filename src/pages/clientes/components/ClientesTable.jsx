@@ -83,5 +83,12 @@ export const ClientesTable = ({ onInfo, onEdit }) => {
     }
   ];
 
-  return <Table rowKey='id' columns={clientesColumns} dataSource={clientes} />;
+  return (
+    <Table
+      rowKey='id'
+      columns={clientesColumns}
+      dataSource={clientes}
+      scroll={{ x: 'max-content' }}
+    />
+  );
 };

@@ -162,5 +162,12 @@ export const PagosTable = ({ onInfo, onEdit }) => {
     }
   ];
 
-  return <Table rowKey='id' columns={pagosColumns} dataSource={pagos} />;
+  return (
+    <Table
+      rowKey='id'
+      columns={pagosColumns}
+      dataSource={pagos}
+      scroll={{ x: 'max-content' }}
+    />
+  );
 };

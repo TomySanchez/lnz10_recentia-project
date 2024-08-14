@@ -43,5 +43,12 @@ export const ProductosTable = ({ onInfo, onEdit, open, setOpen, producto }) => {
     }
   ];
 
-  return <Table rowKey='id' columns={productsColumns} dataSource={productos} />;
+  return (
+    <Table
+      rowKey='id'
+      columns={productsColumns}
+      dataSource={productos}
+      scroll={{ x: 'max-content' }}
+    />
+  );
 };
