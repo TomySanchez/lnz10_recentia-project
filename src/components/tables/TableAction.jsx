@@ -1,12 +1,27 @@
 import { Tooltip } from 'antd';
-import { AiOutlineEdit, AiOutlineFileSearch } from 'react-icons/ai';
+import {
+  AiOutlineDelete,
+  AiOutlineEdit,
+  AiOutlineFileSearch
+} from 'react-icons/ai';
+import { ProductosDeletePopover } from '../../pages/configuracion/productos/components/ProductosDeletePopover';
 
 const icons = {
   edit: AiOutlineEdit,
-  info: AiOutlineFileSearch
+  info: AiOutlineFileSearch,
+  delete: AiOutlineDelete
 };
 
-export const TableAction = ({ type, tooltipTitle, onClick }) => {
+// Todo lo relacionado al popover de Eliminar producto es temporal
+
+export const TableAction = ({
+  type,
+  tooltipTitle,
+  onClick,
+  producto,
+  open,
+  setOpen
+}) => {
   const Icon = icons[type];
 
   const iconElement = (
@@ -16,8 +31,22 @@ export const TableAction = ({ type, tooltipTitle, onClick }) => {
   );
 
   return (
-    <Tooltip title={tooltipTitle}>
-      <span className='TableAction'>{iconElement}</span>
-    </Tooltip>
+    <>
+      {type === 'delete' ? (
+        <ProductosDeletePopover
+          producto={producto}
+          open={open}
+          setOpen={setOpen}
+        >
+          <Tooltip title={tooltipTitle}>
+            <span className='TableAction'>{iconElement}</span>
+          </Tooltip>
+        </ProductosDeletePopover>
+      ) : (
+        <Tooltip title={tooltipTitle}>
+          <span className='TableAction'>{iconElement}</span>
+        </Tooltip>
+      )}
+    </>
   );
 };

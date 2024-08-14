@@ -3,7 +3,7 @@ import { DataContext } from '../../../../contexts';
 import { Table, Tag } from 'antd';
 import { TableActions } from '../../../../components/tables';
 
-export const ProductosTable = ({ onEdit }) => {
+export const ProductosTable = ({ onInfo, onEdit, open, setOpen, producto }) => {
   const { productos } = useContext(DataContext);
 
   const productsColumns = [
@@ -29,7 +29,17 @@ export const ProductosTable = ({ onEdit }) => {
       dataIndex: '',
       title: '',
       align: 'center',
-      render: (_, record) => <TableActions record={record} onEdit={onEdit} />
+      render: (_, record) => (
+        <TableActions
+          type='producto'
+          record={record}
+          onInfo={onInfo}
+          onEdit={onEdit}
+          open={open}
+          setOpen={setOpen}
+          producto={producto}
+        />
+      )
     }
   ];
 

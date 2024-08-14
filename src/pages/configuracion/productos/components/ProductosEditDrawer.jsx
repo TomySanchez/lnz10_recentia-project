@@ -1,4 +1,4 @@
-import { Button, Drawer, Form, Input, InputNumber } from 'antd';
+import { Button, Drawer, Form, Input, InputNumber, Select } from 'antd';
 import { AiOutlineMinusCircle, AiOutlinePlus } from 'react-icons/ai';
 import { ButtonSave } from '../../../../components/buttons';
 import { useEffect } from 'react';
@@ -10,7 +10,8 @@ export const ProductosEditDrawer = ({ producto, open, setOpen }) => {
     if (open && producto) {
       editProductoForm.setFieldsValue({
         nombre: producto.nombre,
-        descripcion: producto.descripcion
+        descripcion: producto.descripcion,
+        estado: producto.estado
       });
     } else {
       editProductoForm.resetFields();
@@ -54,6 +55,25 @@ export const ProductosEditDrawer = ({ producto, open, setOpen }) => {
         <Form.Item name='descripcion' label='Descripción'>
           <Input />
         </Form.Item>
+
+        <Form.Item
+          name='estado'
+          label='Estado'
+          rules={[
+            {
+              required: true,
+              message: 'Estado requerido'
+            }
+          ]}
+        >
+          <Select
+            options={[
+              { label: 'Activo', value: 'Activo' },
+              { label: 'Descontinuado', value: 'Descontinuado' }
+            ]}
+          />
+        </Form.Item>
+
         <Form.Item>
           <div className='pedidos-drawer-detalles-container'>
             <span className='pedidos-drawer-detalles-title'>

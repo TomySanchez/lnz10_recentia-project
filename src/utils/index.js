@@ -6,6 +6,7 @@ import { getDetallesDePago } from './getDetallesDePago';
 import { getDetallesDePedido } from './getDetallesDePedido';
 import { getEntregas } from './getEntregas';
 import { getPagos } from './getPagos';
+import { getPrecios } from './getPrecios';
 import { getItemById } from './getItemById';
 
 export {
@@ -17,5 +18,6 @@ export {
   getDetallesDePedido,
   getEntregas,
   getPagos,
+  getPrecios,
   getItemById
 };

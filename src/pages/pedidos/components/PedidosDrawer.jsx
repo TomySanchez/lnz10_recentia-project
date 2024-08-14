@@ -214,9 +214,11 @@ export const PedidosDrawer = ({ open, setOpen, pedido, mode = 'add' }) => {
 };
 
 const PedidoInfo = ({ pedido }) => {
-  const detallesDePedido = getDetallesDePedido(pedido.id);
+  if (!pedido) {
+    return null;
+  }
 
-  if (!pedido) return null;
+  const detallesDePedido = getDetallesDePedido(pedido.id);
 
   const pedidoItems = [
     { label: 'Fecha de registro', children: pedido.fechaRegistro },

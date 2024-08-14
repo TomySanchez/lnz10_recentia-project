@@ -1,6 +1,14 @@
 import { TableAction } from './TableAction';
 
-export const TableActions = ({ record, onEdit, onInfo }) => {
+export const TableActions = ({
+  type,
+  record,
+  onEdit,
+  onInfo,
+  open,
+  setOpen,
+  producto
+}) => {
   const actions = [
     {
       type: 'info',
@@ -18,10 +26,24 @@ export const TableActions = ({ record, onEdit, onInfo }) => {
     });
   }
 
+  if (type && type === 'producto') {
+    actions.push({
+      type: 'delete',
+      tooltipTitle: 'Eliminar',
+      onClick: () => setOpen(true)
+    });
+  }
+
   return (
     <div className='TableActions'>
       {actions.map((action) => (
-        <TableAction key={action.type} {...action} />
+        <TableAction
+          key={action.type}
+          {...action}
+          producto={producto}
+          open={open}
+          setOpen={setOpen}
+        />
       ))}
     </div>
   );
