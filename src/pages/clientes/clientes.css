@@ -1,0 +1,13 @@
+.Acciones {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.Accion {
+  cursor: pointer;
+}
+
+.RegistrosButton {
+  font-weight: 500;
+}
