@@ -1,8 +1,8 @@
-import { Table, Tooltip } from 'antd';
 import { formatDireccion } from '../../../utils/formatDireccion';
 import { useContext } from 'react';
 import { DataContext } from '../../../contexts';
-import { AiOutlineEdit, AiOutlineFileSearch } from 'react-icons/ai';
+import { Table } from '../../../components/tables/Table';
+import { Acciones } from '../../../components/tables/Acciones';
 
 export const ClientesTable = ({ onInfo, onEdit }) => {
   const { clientes } = useContext(DataContext);
@@ -30,50 +30,12 @@ export const ClientesTable = ({ onInfo, onEdit }) => {
     {
       dataIndex: '',
       title: '',
+      align: 'center',
       render: (record) => (
-        <Acciones cliente={record} onInfo={onInfo} onEdit={onEdit} />
+        <Acciones item={record} onInfo={onInfo} onEdit={onEdit} />
       )
     }
   ];
 
-  return <Table rowKey='id' columns={clientesColumns} dataSource={clientes} />;
-};
-
-const Acciones = ({ cliente, onInfo, onEdit }) => {
-  return (
-    <div className='Acciones'>
-      <Accion type='info' onClick={() => onInfo(cliente)} />
-      <Accion type='edit' onClick={() => onEdit(cliente)} />
-    </div>
-  );
-};
-
-const Accion = ({ type, onClick }) => {
-  let accion = {
-    icon: '',
-    tooltipTitle: ''
-  };
-  switch (type) {
-    case 'info':
-      accion = {
-        icon: AiOutlineFileSearch,
-        tooltipTitle: 'Más información'
-      };
-      break;
-    case 'edit':
-      accion = {
-        icon: AiOutlineEdit,
-        tooltipTitle: 'Editar'
-      };
-  }
-
-  const Icon = accion.icon;
-
-  return (
-    <Tooltip title={accion.tooltipTitle}>
-      <span className='Accion'>
-        <Icon size={18} onClick={onClick} />
-      </span>
-    </Tooltip>
-  );
+  return <Table columns={clientesColumns} dataSource={clientes} />;
 };
