@@ -1,0 +1,84 @@
+[
+  {
+    "id": 1,
+    "calle": "Italia",
+    "numero": 1743,
+    "piso": null,
+    "departamento": null,
+    "idBarrio": 2
+  },
+  {
+    "id": 2,
+    "calle": "E. Gálvez",
+    "numero": 2456,
+    "piso": null,
+    "departamento": null,
+    "idBarrio": 7
+  },
+  {
+    "id": 3,
+    "calle": "Avenida Libertador",
+    "numero": 1789,
+    "piso": null,
+    "departamento": null,
+    "idBarrio": 39
+  },
+  {
+    "id": 4,
+    "calle": "Mitre",
+    "numero": 2101,
+    "piso": 4,
+    "departamento": "D",
+    "idBarrio": 34
+  },
+  {
+    "id": 5,
+    "calle": "Corrientes",
+    "numero": 102,
+    "piso": 5,
+    "departamento": "E",
+    "idBarrio": 5,
+    "idLocalidad": 2
+  },
+  {
+    "id": 6,
+    "calle": "San Martín",
+    "numero": 1103,
+    "piso": null,
+    "departamento": null,
+    "idBarrio": 12
+  },
+  {
+    "id": 7,
+    "calle": "Avenida Santa Fe",
+    "numero": 104,
+    "piso": 7,
+    "departamento": "G",
+    "idBarrio": 5,
+    "idLocalidad": 2
+  },
+  {
+    "id": 8,
+    "calle": "Moreno",
+    "numero": 705,
+    "piso": null,
+    "departamento": null,
+    "idBarrio": 8
+  },
+  {
+    "id": 9,
+    "calle": "Avenida Rivadavia",
+    "numero": 164,
+    "piso": null,
+    "departamento": null,
+    "idBarrio": 2
+  },
+  {
+    "id": 10,
+    "calle": "Lavalle",
+    "numero": 1607,
+    "piso": 10,
+    "departamento": "J",
+    "idBarrio": 22
+  }
+]

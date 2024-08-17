@@ -1,0 +1,197 @@
+[
+  {
+    "id": 1,
+    "nombre": "Almirante Brown",
+    "idLocalidad": 1
+  },
+  {
+    "id": 2,
+    "nombre": "Barrancas del Río",
+    "idLocalidad": 1
+  },
+  {
+    "id": 3,
+    "nombre": "Bello Horizonte",
+    "idLocalidad": 1
+  },
+  {
+    "id": 4,
+    "nombre": "Bernardino Rivadavia",
+    "idLocalidad": 1
+  },
+  {
+    "id": 5,
+    "nombre": "Carlos Pellegrini",
+    "idLocalidad": 1
+  },
+  {
+    "id": 6,
+    "nombre": "Centro Este",
+    "idLocalidad": 1
+  },
+  {
+    "id": 7,
+    "nombre": "Centro Norte",
+    "idLocalidad": 1
+  },
+  {
+    "id": 8,
+    "nombre": "Centro Oeste",
+    "idLocalidad": 1
+  },
+  {
+    "id": 9,
+    "nombre": "Centro Sur",
+    "idLocalidad": 1
+  },
+  {
+    "id": 10,
+    "nombre": "Domingo F. Sarmiento",
+    "idLocalidad": 1
+  },
+  {
+    "id": 11,
+    "nombre": "Eva Perón",
+    "idLocalidad": 1
+  },
+  {
+    "id": 12,
+    "nombre": "Felipe Neri Botta",
+    "idLocalidad": 1
+  },
+  {
+    "id": 13,
+    "nombre": "Florentino Ameghino",
+    "idLocalidad": 1
+  },
+  {
+    "id": 14,
+    "nombre": "General Güemes",
+    "idLocalidad": 1
+  },
+  {
+    "id": 15,
+    "nombre": "General Lamadrid",
+    "idLocalidad": 1
+  },
+  {
+    "id": 16,
+    "nombre": "General Paz",
+    "idLocalidad": 1
+  },
+  {
+    "id": 17,
+    "nombre": "General Roca - La Calera",
+    "idLocalidad": 1
+  },
+  {
+    "id": 18,
+    "nombre": "Industrial",
+    "idLocalidad": 1
+  },
+  {
+    "id": 19,
+    "nombre": "Las Acacias",
+    "idLocalidad": 1
+  },
+  {
+    "id": 20,
+    "nombre": "Las Playas",
+    "idLocalidad": 1
+  },
+  {
+    "id": 21,
+    "nombre": "Los Olmos",
+    "idLocalidad": 1
+  },
+  {
+    "id": 22,
+    "nombre": "Malvinas Argentinas",
+    "idLocalidad": 1
+  },
+  {
+    "id": 23,
+    "nombre": "Manuel Belgrano",
+    "idLocalidad": 1
+  },
+  {
+    "id": 24,
+    "nombre": "Mariano Moreno",
+    "idLocalidad": 1
+  },
+  {
+    "id": 25,
+    "nombre": "Nicolás Avellaneda",
+    "idLocalidad": 1
+  },
+  {
+    "id": 26,
+    "nombre": "Padre Carlos Mugica",
+    "idLocalidad": 1
+  },
+  {
+    "id": 27,
+    "nombre": "Palermo",
+    "idLocalidad": 1
+  },
+  {
+    "id": 28,
+    "nombre": "Parque Norte",
+    "idLocalidad": 1
+  },
+  {
+    "id": 29,
+    "nombre": "Ramón Carrillo",
+    "idLocalidad": 1
+  },
+  {
+    "id": 30,
+    "nombre": "Roque Sáenz Peña",
+    "idLocalidad": 1
+  },
+  {
+    "id": 31,
+    "nombre": "San Juan Bautista",
+    "idLocalidad": 1
+  },
+  {
+    "id": 32,
+    "nombre": "San Justo",
+    "idLocalidad": 1
+  },
+  {
+    "id": 33,
+    "nombre": "San Martín",
+    "idLocalidad": 1
+  },
+  {
+    "id": 34,
+    "nombre": "San Nicolás",
+    "idLocalidad": 1
+  },
+  {
+    "id": 35,
+    "nombre": "Santa Ana",
+    "idLocalidad": 1
+  },
+  {
+    "id": 36,
+    "nombre": "Trinitarios",
+    "idLocalidad": 1
+  },
+  {
+    "id": 37,
+    "nombre": "Villa Albertina",
+    "idLocalidad": 1
+  },
+  {
+    "id": 38,
+    "nombre": "Villa del Sur",
+    "idLocalidad": 1
+  },
+  {
+    "id": 39,
+    "nombre": "Vista Verde",
+    "idLocalidad": 1
+  }
+]
