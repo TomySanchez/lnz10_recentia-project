@@ -8,6 +8,36 @@
   cursor: pointer;
 }
 
-.RegistrosButton {
+.DrawerButton {
   font-weight: 500;
+}
+
+.ClientesAddButton {
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.clientes-drawer-address-container {
+  margin-bottom: 24px;
+  padding: 8px;
+  background-color: var(--light-extra-color);
+  border-radius: 8px;
+  border: 1px solid var(--light-color);
+}
+
+.clientes-drawer-address-title {
+  margin-bottom: 8px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--dark-medium-color);
+}
+
+.clientes-drawer-address-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.clientes-drawer-address-row > * {
+  width: 50%;
 }

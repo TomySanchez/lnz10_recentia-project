@@ -63,7 +63,6 @@ const Accion = ({ type, onClick }) => {
         icon: AiOutlineEdit,
         tooltipTitle: 'Editar'
       };
-      break;
   }
 
   const Icon = accion.icon;
