@@ -4,7 +4,7 @@ import esEs from 'antd/locale/es_ES';
 import { colorsPalette } from './utils/colorsPalette';
 
 function App() {
-  const { primaryColor, lightColor, white } = colorsPalette;
+  const { primaryColor, lightColor, lightExtraColor, white } = colorsPalette;
 
   return (
     <ConfigProvider
@@ -14,6 +14,15 @@ function App() {
           colorPrimary: primaryColor,
           colorPrimaryBg: lightColor,
           colorBgLayout: white
+        },
+        components: {
+          Layout: {
+            lightSiderBg: lightExtraColor,
+            lightTriggerBg: lightExtraColor
+          },
+          Menu: {
+            itemBg: lightExtraColor
+          }
         }
       }}
     >
