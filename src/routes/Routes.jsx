@@ -3,6 +3,7 @@ import { ProtectedRoute } from './ProtectedRoute';
 import { isAuthenticated } from './isAuthenticated';
 import { MainLayout } from '../layouts/MainLayout';
 import { Clientes } from '../pages/clientes/Clientes';
+import { Pedidos } from '../pages/pedidos/Pedidos';
 
 export const Routes = () => {
   return (
@@ -27,7 +28,7 @@ export const Routes = () => {
         }
       >
         <Route path='clientes' element={<Clientes />} />
-        {/* <Route path='pedidos' element={<Pedidos />} /> */}
+        <Route path='pedidos' element={<Pedidos />} />
         {/* <Route path='entregas' element={<Entregas />} /> */}
         {/* <Route path='pagos' element={<Pagos />} /> */}
         {/* <Route path='configuracion' element={<Configuracion />} /> */}
