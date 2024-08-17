@@ -9,7 +9,7 @@ export const MainLayout = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   return (
-    <Layout>
+    <Layout className='MainLayout'>
       <Sider
         className='main-layout-sider'
         collapsible
@@ -19,7 +19,7 @@ export const MainLayout = () => {
       >
         <Sidebar isCollapsed={isCollapsed} />
       </Sider>
-      <Content>
+      <Content className='main-layout-content'>
         <Outlet />
       </Content>
     </Layout>
