@@ -21,13 +21,19 @@ export const Clientes = () => {
     setDrawerMode('add');
   }
 
+  function handleEdit(cliente) {
+    setOpenDrawer(true);
+    setSelectedCliente(cliente);
+    setDrawerMode('edit');
+  }
+
   return (
     <MainContent
       title='Clientes'
       icon={<MdOutlineGroups size={40} />}
       extra={<ClientesAddButton onAdd={handleAdd} />}
     >
-      <ClientesTable onInfo={handleInfo} />
+      <ClientesTable onInfo={handleInfo} onEdit={handleEdit} />
       <ClientesDrawer
         mode={drawerMode}
         cliente={selectedCliente}

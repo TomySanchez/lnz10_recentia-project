@@ -4,7 +4,7 @@ import { useContext } from 'react';
 import { DataContext } from '../../../contexts';
 import { AiOutlineEdit, AiOutlineFileSearch } from 'react-icons/ai';
 
-export const ClientesTable = ({ onInfo }) => {
+export const ClientesTable = ({ onInfo, onEdit }) => {
   const { clientes } = useContext(DataContext);
 
   const clientesColumns = [
@@ -30,18 +30,20 @@ export const ClientesTable = ({ onInfo }) => {
     {
       dataIndex: '',
       title: '',
-      render: (record) => <Acciones cliente={record} onInfo={onInfo} />
+      render: (record) => (
+        <Acciones cliente={record} onInfo={onInfo} onEdit={onEdit} />
+      )
     }
   ];
 
   return <Table rowKey='id' columns={clientesColumns} dataSource={clientes} />;
 };
 
-const Acciones = ({ cliente, onInfo }) => {
+const Acciones = ({ cliente, onInfo, onEdit }) => {
   return (
     <div className='Acciones'>
       <Accion type='info' onClick={() => onInfo(cliente)} />
-      <Accion type='edit' />
+      <Accion type='edit' onClick={() => onEdit(cliente)} />
     </div>
   );
 };

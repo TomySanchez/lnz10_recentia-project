@@ -1,6 +1,6 @@
 import { Drawer, Descriptions, Form, Input, Select, Button } from 'antd';
 import { formatDireccion } from '../../../utils/formatDireccion';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { DataContext } from '../../../contexts';
 
 const { Item } = Descriptions;
@@ -20,7 +20,7 @@ export const ClientesDrawer = ({ mode, cliente, open, setOpen }) => {
       propsDrawer = {
         title: 'Nuevo cliente',
         extra: <DrawerButton text='Añadir' />,
-        children: <AddDrawer setOpen={setOpen} />
+        children: <AddOrEditDrawer setOpen={setOpen} />
       };
       break;
     case 'info':
@@ -29,11 +29,20 @@ export const ClientesDrawer = ({ mode, cliente, open, setOpen }) => {
         extra: <DrawerButton text='Registros' />,
         children: <InfoDrawer cliente={cliente} />
       };
+      break;
+    case 'edit':
+      propsDrawer = {
+        title: 'Editar cliente',
+        extra: <DrawerButton text='Guardar' />,
+        children: (
+          <AddOrEditDrawer editMode cliente={cliente} setOpen={setOpen} />
+        )
+      };
   }
 
   return (
     <Drawer
-      width={500}
+      width={480}
       title={propsDrawer.title}
       open={open}
       onClose={handleClose}
@@ -59,7 +68,7 @@ const InfoDrawer = ({ cliente }) => {
   );
 };
 
-const AddDrawer = ({ setOpen }) => {
+const AddOrEditDrawer = ({ editMode, cliente, setOpen }) => {
   const { barrios, localidades } = useContext(DataContext);
 
   const [clienteForm] = Form.useForm();
@@ -73,6 +82,25 @@ const AddDrawer = ({ setOpen }) => {
     label: localidad.nombre,
     value: localidad.id
   }));
+
+  useEffect(() => {
+    if (open && cliente && editMode) {
+      clienteForm.setFieldsValue({
+        nombre: cliente.nombre,
+        calle: cliente.direccion.calle,
+        numero: cliente.direccion.numero,
+        piso: cliente.direccion.piso,
+        departamento: cliente.direccion.departamento,
+        localidad: cliente.localidad.id,
+        barrio: cliente.barrio.id,
+        telefono: cliente.telefono,
+        cuit_cuil: cliente.cuit_cuil,
+        observaciones: cliente.observaciones
+      });
+    } else {
+      clienteForm.resetFields();
+    }
+  }, [cliente, clienteForm, editMode]);
 
   function handleFinish(values) {
     console.log('Formulario enviado', values);
