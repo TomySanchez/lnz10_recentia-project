@@ -1,7 +1,8 @@
 import {
   dataDetallesDeEntregas,
   dataDetallesDePagos,
-  dataDetallesDePedidos
+  dataDetallesDePedidos,
+  dataPrecios
 } from '../data';
 
 export function getDetalles(id, detailsType) {
@@ -20,6 +21,9 @@ export function getDetalles(id, detailsType) {
       data = dataDetallesDePedidos;
       entityId = 'idPedido';
       break;
+    case 'precios':
+      data = dataPrecios;
+      entityId = 'idProducto';
   }
 
   if (data) {
@@ -28,5 +32,6 @@ export function getDetalles(id, detailsType) {
     return item;
   } else {
     console.error('detailsType no es válido:', detailsType);
+    return [];
   }
 }

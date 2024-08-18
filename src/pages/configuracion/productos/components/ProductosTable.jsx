@@ -4,7 +4,7 @@ import { Table } from '../../../../components/tables/Table';
 import { Tag } from 'antd';
 import { Acciones } from '../../../../components/tables/Acciones';
 
-export const ProductosTable = () => {
+export const ProductosTable = ({ onInfo, onEdit }) => {
   const { productos } = useContext(DataContext);
 
   const productosColumns = [
@@ -30,7 +30,9 @@ export const ProductosTable = () => {
       dataIndex: '',
       title: '',
       align: 'center',
-      render: () => <Acciones />
+      render: (record) => (
+        <Acciones item={record} onInfo={onInfo} onEdit={onEdit} />
+      )
     }
   ];
 
