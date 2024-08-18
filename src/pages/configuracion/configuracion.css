@@ -1,0 +1,13 @@
+.ConfiguracionContent {
+  width: 100%;
+}
+.configuracion-content-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.configuracion-content-title-container {
+  font-size: 0.75rem;
+  color: var(--dark-medium-color);
+}
