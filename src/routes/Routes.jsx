@@ -4,11 +4,12 @@ import { isAuthenticated } from './isAuthenticated';
 import { MainLayout } from '../layouts/MainLayout';
 import { Clientes } from '../pages/clientes/Clientes';
 import { Pedidos } from '../pages/pedidos/Pedidos';
+import { Login } from '../pages/login/Login';
 
 export const Routes = () => {
   return (
     <RoutesRR>
-      {/* <Route path='/inicio' element={<Login />} /> */}
+      <Route path='/inicio' element={<Login />} />
       <Route
         path='/'
         element={
