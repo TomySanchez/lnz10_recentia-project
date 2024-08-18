@@ -9,3 +9,7 @@
   text-transform: uppercase;
   font-weight: 500;
 }
+
+.recorridos-drawer-entregas-table {
+  margin: 16px 0;
+}

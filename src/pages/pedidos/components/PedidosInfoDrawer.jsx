@@ -19,7 +19,7 @@ export const PedidosInfoDrawer = ({ pedido }) => {
       case 'Realizado':
         return 'green';
       case 'Pendiente':
-        return 'Pendiente';
+        return 'gold';
     }
   }
 

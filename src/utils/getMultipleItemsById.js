@@ -13,8 +13,6 @@ export function getMultipleItemsById(id, itemsType) {
       entityId = 'idEntrega';
   }
 
-  console.log('data:', data);
-
   if (data) {
     const item = data.filter((i) => i[entityId] == id);
 

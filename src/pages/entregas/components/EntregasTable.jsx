@@ -4,7 +4,7 @@ import { Acciones } from '../../../components/tables/Acciones';
 import { Table } from '../../../components/tables/Table';
 import { getMultipleItemsById } from '../../../utils/getMultipleItemsById';
 
-export const EntregasTable = ({ record }) => {
+export const EntregasTable = ({ className, recorrido }) => {
   const entregasColumns = [
     {
       dataIndex: 'idPedido',
@@ -49,9 +49,10 @@ export const EntregasTable = ({ record }) => {
 
   return (
     <Table
+      className={className}
       size='small'
       columns={entregasColumns}
-      dataSource={getMultipleItemsById(record.id, 'entregas')}
+      dataSource={getMultipleItemsById(recorrido.id, 'entregas')}
       pagination={false}
     />
   );
