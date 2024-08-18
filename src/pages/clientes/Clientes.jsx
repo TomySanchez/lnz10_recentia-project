@@ -3,7 +3,7 @@ import { MainContent } from '../../layouts/MainContent';
 import { MdOutlineGroups } from 'react-icons/md';
 import { ClientesTable } from './components/ClientesTable';
 import { ClientesDrawer } from './components/ClientesDrawer';
-import { ClientesAddButton } from './components/ClientesAddButton';
+import { AddButton } from '../../components/buttons/AddButton';
 
 export const Clientes = () => {
   const [openDrawer, setOpenDrawer] = useState(false);
@@ -31,7 +31,7 @@ export const Clientes = () => {
     <MainContent
       title='Clientes'
       icon={<MdOutlineGroups size={40} />}
-      extra={<ClientesAddButton onAdd={handleAdd} />}
+      extra={<AddButton element='cliente' onAdd={handleAdd} />}
     >
       <ClientesTable onInfo={handleInfo} onEdit={handleEdit} />
       <ClientesDrawer
@@ -40,11 +40,6 @@ export const Clientes = () => {
         open={openDrawer}
         setOpen={setOpenDrawer}
       />
-      {/* <ClientesInfoDrawer
-        cliente={selectedCliente}
-        open={openInfo}
-        setOpen={setOpenInfo}
-      /> */}
     </MainContent>
   );
 };

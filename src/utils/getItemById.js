@@ -1,9 +1,6 @@
 import {
   dataBarrios,
   dataClientes,
-  dataDetallesDeEntregas,
-  dataDetallesDePagos,
-  dataDetallesDePedidos,
   dataDirecciones,
   dataEntregas,
   dataLocalidades,
@@ -23,15 +20,6 @@ export function getItemById(id, itemType) {
       break;
     case 'cliente':
       data = dataClientes;
-      break;
-    case 'detalleDeEntrega':
-      data = dataDetallesDeEntregas;
-      break;
-    case 'detalleDePago':
-      data = dataDetallesDePagos;
-      break;
-    case 'detalleDePedidos':
-      data = dataDetallesDePedidos;
       break;
     case 'direccion':
       data = dataDirecciones;

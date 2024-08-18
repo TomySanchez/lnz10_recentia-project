@@ -1,0 +1,57 @@
+.pedidos-add-form-delivery-frequency {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pedidos-add-form-delivery-frequency-number-of-weeks {
+  width: 60px;
+}
+
+.pedidos-drawer-detalles-container {
+  margin: 16px 0;
+  padding: 12px 8px;
+  border-radius: 8px;
+  border: 1px solid var(--light-color);
+  background-color: var(--light-extra-color);
+}
+
+.pedidos-drawer-detalles-title {
+  margin: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--dark-medium-color);
+}
+
+.pedidos-drawer-detalle-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: fit-content;
+  margin: 0 8px;
+}
+
+.pedidos-drawer-detalles-container .ant-form-item {
+  margin: 8px 0;
+}
+
+.pedidos-info-detalles-list {
+  margin: 16px 0;
+  padding: 0 8px;
+  border-radius: 8px;
+  border: 1px solid var(--light-color);
+  background-color: var(--light-extra-color);
+}
+
+.pedidos-info-detalles-list-title {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--dark-medium-color);
+}
+
+.DetallesDePedido {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 8px;
+}

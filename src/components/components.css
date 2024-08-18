@@ -1,0 +1,18 @@
+.Acciones {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.Accion {
+  cursor: pointer;
+}
+
+.DrawerButton {
+  font-weight: 500;
+}
+
+.AddButton {
+  text-transform: uppercase;
+  font-weight: 500;
+}

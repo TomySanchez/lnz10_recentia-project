@@ -3,8 +3,9 @@ import { Table } from '../../../components/tables/Table';
 import { DataContext } from '../../../contexts';
 import { Acciones } from '../../../components/tables/Acciones';
 import { getItemById } from '../../../utils/getItemById';
+import { getFrecuenciaEntrega } from '../../../utils/getFrecuenciaEntrega';
 
-export const PedidosTable = () => {
+export const PedidosTable = ({ onInfo, onEdit }) => {
   const { pedidos } = useContext(DataContext);
 
   const pedidosColumns = [
@@ -22,14 +23,15 @@ export const PedidosTable = () => {
       dataIndex: 'cantSemanas',
       title: 'Frecuencia de entrega',
       align: 'center',
-      render: (text) =>
-        text ? (text === 1 ? 'Cada semana' : `Cada ${text} semanas`) : '-'
+      render: (text) => getFrecuenciaEntrega(text)
     },
     {
       dataIndex: '',
       title: '',
       align: 'center',
-      render: (record) => <Acciones item={record} />
+      render: (record) => (
+        <Acciones item={record} onInfo={onInfo} onEdit={onEdit} />
+      )
     }
   ];
 
