@@ -28,7 +28,7 @@ export const Drawer = ({
     case 'info':
       propsDrawer = {
         title: `Información de ${itemType}`,
-        extra: <DrawerButton text={extraButtonText} />
+        extra: extraButtonText && <DrawerButton text={extraButtonText} />
       };
       break;
     case 'edit':

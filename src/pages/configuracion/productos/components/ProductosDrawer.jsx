@@ -10,7 +10,6 @@ export const ProductosDrawer = ({ mode, producto, open, setOpen }) => {
       item={producto}
       open={open}
       setOpen={setOpen}
-      extraButtonText={mode === 'info' && 'Registros'}
     >
       {mode === 'info' ? (
         <ProductosInfoDrawer producto={producto} />
