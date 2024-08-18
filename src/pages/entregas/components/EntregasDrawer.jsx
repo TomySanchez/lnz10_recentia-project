@@ -1,4 +1,5 @@
 import { Drawer } from '../../../components/drawers/Drawer';
+import { EntregasEditDrawer } from './EntregasEditDrawer';
 import { EntregasInfoDrawer } from './EntregasInfoDrawer';
 
 export const EntregasDrawer = ({ mode, entrega, open, setOpen }) => {
@@ -10,7 +11,11 @@ export const EntregasDrawer = ({ mode, entrega, open, setOpen }) => {
       open={open}
       setOpen={setOpen}
     >
-      <EntregasInfoDrawer entrega={entrega} />
+      {mode === 'info' ? (
+        <EntregasInfoDrawer entrega={entrega} />
+      ) : (
+        <EntregasEditDrawer entrega={entrega} setOpen={setOpen} />
+      )}
     </Drawer>
   );
 };

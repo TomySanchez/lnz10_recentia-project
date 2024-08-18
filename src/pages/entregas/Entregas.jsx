@@ -29,6 +29,12 @@ export const Entregas = () => {
     setDrawerModeEntrega('info');
   }
 
+  function handleEditEntrega(entrega) {
+    setOpenDrawerEntrega(true);
+    setSelectedEntrega(entrega);
+    setDrawerModeEntrega('edit');
+  }
+
   return (
     <MainContent
       title='Entregas'
@@ -41,6 +47,7 @@ export const Entregas = () => {
       <RecorridosTable
         onInfoRecorrido={handleInfoRecorrido}
         onInfoEntrega={handleInfoEntrega}
+        onEditEntrega={handleEditEntrega}
       />
       <RecorridosPlanificarModal
         open={openPlanificarRecorridoModal}
@@ -52,6 +59,7 @@ export const Entregas = () => {
         open={openDrawerRecorrido}
         setOpen={setOpenDrawerRecorrido}
         onInfoEntrega={handleInfoEntrega}
+        onEditEntrega={handleEditEntrega}
       />
       <EntregasDrawer
         mode={drawerModeEntrega}

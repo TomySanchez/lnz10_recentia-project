@@ -6,7 +6,8 @@ export const RecorridosDrawer = ({
   recorrido,
   open,
   setOpen,
-  onInfoEntrega
+  onInfoEntrega,
+  onEditEntrega
 }) => {
   return (
     <Drawer
@@ -19,6 +20,7 @@ export const RecorridosDrawer = ({
       <RecorridosInfoDrawer
         recorrido={recorrido}
         onInfoEntrega={onInfoEntrega}
+        onEditEntrega={onEditEntrega}
       />
     </Drawer>
   );

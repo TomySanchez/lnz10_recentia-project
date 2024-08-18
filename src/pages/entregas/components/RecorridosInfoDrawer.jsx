@@ -5,7 +5,11 @@ import { EntregasTable } from './EntregasTable';
 
 const { Item } = Descriptions;
 
-export const RecorridosInfoDrawer = ({ recorrido, onInfoEntrega }) => {
+export const RecorridosInfoDrawer = ({
+  recorrido,
+  onInfoEntrega,
+  onEditEntrega
+}) => {
   function getColorTagEstado() {
     switch (recorrido.estado) {
       case 'Realizado':
@@ -37,6 +41,7 @@ export const RecorridosInfoDrawer = ({ recorrido, onInfoEntrega }) => {
         className='recorridos-drawer-entregas-table'
         recorrido={recorrido}
         onInfo={onInfoEntrega}
+        onEdit={onEditEntrega}
       />
     </>
   );

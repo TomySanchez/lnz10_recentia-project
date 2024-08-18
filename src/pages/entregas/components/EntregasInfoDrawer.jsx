@@ -48,7 +48,7 @@ export const EntregasInfoDrawer = ({ entrega }) => {
           className='pedidos-info-detalles-list'
           header={
             <span className='pedidos-info-detalles-list-title'>
-              Detalles de pedido
+              Detalles de entrega
             </span>
           }
           dataSource={componentsDetallesDeEntrega}
