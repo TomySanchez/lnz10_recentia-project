@@ -5,18 +5,28 @@ import { RecorridosPlanificarButton } from './components/RecorridosPlanificarBut
 import { useState } from 'react';
 import { RecorridosPlanificarModal } from './components/RecorridosPlanificarModal';
 import { RecorridosDrawer } from './components/RecorridosDrawer';
+import { EntregasDrawer } from './components/EntregasDrawer';
 
 export const Entregas = () => {
   const [openPlanificarRecorridoModal, setOpenPlanificarRecorridoModal] =
     useState(false);
-  const [drawerMode, setDrawerMode] = useState('info');
+  const [drawerModeRecorrido, setDrawerModeRecorrido] = useState('info');
   const [openDrawerRecorrido, setOpenDrawerRecorrido] = useState(false);
   const [selectedRecorrido, setSelectedRecorrido] = useState(null);
+  const [drawerModeEntrega, setDrawerModeEntrega] = useState('info');
+  const [openDrawerEntrega, setOpenDrawerEntrega] = useState(false);
+  const [selectedEntrega, setSelectedEntrega] = useState(null);
 
   function handleInfoRecorrido(recorrido) {
     setOpenDrawerRecorrido(true);
     setSelectedRecorrido(recorrido);
-    setDrawerMode('info');
+    setDrawerModeRecorrido('info');
+  }
+
+  function handleInfoEntrega(entrega) {
+    setOpenDrawerEntrega(true);
+    setSelectedEntrega(entrega);
+    setDrawerModeEntrega('info');
   }
 
   return (
@@ -28,16 +38,26 @@ export const Entregas = () => {
       }
     >
       <h3 className='recorridos-title'>Tabla de recorridos</h3>
-      <RecorridosTable onInfo={handleInfoRecorrido} />
+      <RecorridosTable
+        onInfoRecorrido={handleInfoRecorrido}
+        onInfoEntrega={handleInfoEntrega}
+      />
       <RecorridosPlanificarModal
         open={openPlanificarRecorridoModal}
         setOpen={setOpenPlanificarRecorridoModal}
       />
       <RecorridosDrawer
-        mode={drawerMode}
+        mode={drawerModeRecorrido}
         recorrido={selectedRecorrido}
         open={openDrawerRecorrido}
         setOpen={setOpenDrawerRecorrido}
+        onInfoEntrega={handleInfoEntrega}
+      />
+      <EntregasDrawer
+        mode={drawerModeEntrega}
+        entrega={selectedEntrega}
+        open={openDrawerEntrega}
+        setOpen={setOpenDrawerEntrega}
       />
     </MainContent>
   );

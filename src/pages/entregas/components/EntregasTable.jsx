@@ -4,7 +4,7 @@ import { Acciones } from '../../../components/tables/Acciones';
 import { Table } from '../../../components/tables/Table';
 import { getMultipleItemsById } from '../../../utils/getMultipleItemsById';
 
-export const EntregasTable = ({ className, recorrido }) => {
+export const EntregasTable = ({ className, recorrido, onInfo }) => {
   const entregasColumns = [
     {
       dataIndex: 'idPedido',
@@ -43,7 +43,7 @@ export const EntregasTable = ({ className, recorrido }) => {
       dataIndex: '',
       title: '',
       align: 'center',
-      render: (record) => <Acciones />
+      render: (record) => <Acciones item={record} onInfo={onInfo} />
     }
   ];
 

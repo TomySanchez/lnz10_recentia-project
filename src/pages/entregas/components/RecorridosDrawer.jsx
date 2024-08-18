@@ -1,7 +1,13 @@
 import { Drawer } from '../../../components/drawers/Drawer';
 import { RecorridosInfoDrawer } from './RecorridosInfoDrawer';
 
-export const RecorridosDrawer = ({ mode, recorrido, open, setOpen }) => {
+export const RecorridosDrawer = ({
+  mode,
+  recorrido,
+  open,
+  setOpen,
+  onInfoEntrega
+}) => {
   return (
     <Drawer
       itemType='recorrido'
@@ -10,7 +16,10 @@ export const RecorridosDrawer = ({ mode, recorrido, open, setOpen }) => {
       open={open}
       setOpen={setOpen}
     >
-      <RecorridosInfoDrawer recorrido={recorrido} />
+      <RecorridosInfoDrawer
+        recorrido={recorrido}
+        onInfoEntrega={onInfoEntrega}
+      />
     </Drawer>
   );
 };

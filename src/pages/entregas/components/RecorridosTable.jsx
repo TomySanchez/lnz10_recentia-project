@@ -7,7 +7,7 @@ import { getMontoTotal } from '../../../utils/getMontoTotal';
 import { Acciones } from '../../../components/tables/Acciones';
 import { EntregasTable } from './EntregasTable';
 
-export const RecorridosTable = ({ onInfo }) => {
+export const RecorridosTable = ({ onInfoRecorrido, onInfoEntrega }) => {
   const { recorridos } = useContext(DataContext);
 
   const recorridosColumns = [
@@ -55,7 +55,7 @@ export const RecorridosTable = ({ onInfo }) => {
       dataIndex: '',
       title: '',
       align: 'center',
-      render: (record) => <Acciones item={record} onInfo={onInfo} />
+      render: (record) => <Acciones item={record} onInfo={onInfoRecorrido} />
     }
   ];
 
@@ -64,7 +64,9 @@ export const RecorridosTable = ({ onInfo }) => {
       columns={recorridosColumns}
       dataSource={recorridos}
       expandable={{
-        expandedRowRender: (record) => <EntregasTable recorrido={record} />
+        expandedRowRender: (record) => (
+          <EntregasTable recorrido={record} onInfo={onInfoEntrega} />
+        )
       }}
     />
   );
