@@ -5,6 +5,7 @@ export const Table = ({
   columns,
   dataSource,
   expandable,
+  rowSelection,
   pagination
 }) => {
   return (
@@ -14,6 +15,7 @@ export const Table = ({
       columns={columns}
       dataSource={dataSource}
       expandable={expandable}
+      rowSelection={rowSelection}
       pagination={pagination}
     />
   );
