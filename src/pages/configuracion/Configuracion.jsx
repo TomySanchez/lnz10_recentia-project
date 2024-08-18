@@ -1,13 +1,15 @@
 import { Tabs } from 'antd';
 import { MdOutlineSettings, MdOutlineShoppingBag } from 'react-icons/md';
 import { MainContent } from '../../layouts/MainContent';
+import { Productos } from './productos/Productos';
 
 export const Configuracion = () => {
   const tabItems = [
     {
       key: 'products',
       label: 'Productos',
-      icon: <MdOutlineShoppingBag />
+      icon: <MdOutlineShoppingBag />,
+      children: <Productos />
     }
   ];
 
