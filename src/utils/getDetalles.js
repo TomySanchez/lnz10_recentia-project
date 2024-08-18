@@ -2,6 +2,7 @@ import {
   dataDetallesDeEntregas,
   dataDetallesDePagos,
   dataDetallesDePedidos,
+  dataEntregas,
   dataPrecios
 } from '../data';
 
@@ -24,6 +25,10 @@ export function getDetalles(id, detailsType) {
     case 'precios':
       data = dataPrecios;
       entityId = 'idProducto';
+      break;
+    case 'recorridos':
+      data = dataEntregas;
+      entityId = 'idRecorrido';
   }
 
   if (data) {
