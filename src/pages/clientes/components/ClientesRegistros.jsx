@@ -29,11 +29,11 @@ export const ClientesRegistros = () => {
       }
     >
       {selectedRegistros === 'Pedidos' ? (
-        <RegistrosPedidos />
+        <RegistrosPedidos cliente={cliente} />
       ) : selectedRegistros === 'Entregas' ? (
-        <RegistrosEntregas />
+        <RegistrosEntregas cliente={cliente} />
       ) : (
-        <RegistrosPagos />
+        <RegistrosPagos cliente={cliente} />
       )}
     </MainContent>
   );
