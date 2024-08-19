@@ -22,3 +22,13 @@
 .clientes-drawer-address-row > * {
   width: 50%;
 }
+
+.clientes-registros-extra-container {
+  display: flex;
+  gap: 64px;
+  align-items: center;
+}
+
+.clientes-registros-volver-button {
+  font-weight: 500;
+}
