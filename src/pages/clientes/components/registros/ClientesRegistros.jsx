@@ -1,11 +1,10 @@
 import { useState } from 'react';
 import { MdOutlinePerson } from 'react-icons/md';
-import { MainContent } from '../../../layouts/MainContent';
+import { MainContent } from '../../../../layouts/MainContent';
 import { useLocation } from 'react-router-dom';
 import { ClientesChangeRegistro } from './ClientesChangeRegistro';
-import { RegistrosPagos } from './registros/RegistrosPagos';
-import { RegistrosPedidos } from './registros/RegistrosPedidos';
-import { RegistrosEntregas } from './registros/RegistrosEntregas';
+import { RegistrosPedidos } from './RegistrosPedidos';
+import { RegistrosEntregas } from './RegistrosEntregas';
 
 export const ClientesRegistros = () => {
   const location = useLocation();
@@ -30,10 +29,8 @@ export const ClientesRegistros = () => {
     >
       {selectedRegistros === 'Pedidos' ? (
         <RegistrosPedidos cliente={cliente} />
-      ) : selectedRegistros === 'Entregas' ? (
-        <RegistrosEntregas cliente={cliente} />
       ) : (
-        <RegistrosPagos cliente={cliente} />
+        <RegistrosEntregas cliente={cliente} />
       )}
     </MainContent>
   );

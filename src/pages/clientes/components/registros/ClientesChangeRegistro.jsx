@@ -7,7 +7,7 @@ export const ClientesChangeRegistro = ({
   return (
     <Segmented
       size='large'
-      options={['Pedidos', 'Entregas', 'Pagos']}
+      options={['Pedidos', 'Entregas']}
       value={selectedRegistros}
       onChange={(value) => setSelectedRegistros(value)}
     />

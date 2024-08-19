@@ -7,7 +7,7 @@ import { Pedidos } from '../pages/pedidos/Pedidos';
 import { Login } from '../pages/login/Login';
 import { Configuracion } from '../pages/configuracion/Configuracion';
 import { Entregas } from '../pages/entregas/Entregas';
-import { ClientesRegistros } from '../pages/clientes/components/ClientesRegistros';
+import { ClientesRegistros } from '../pages/clientes/components/registros/ClientesRegistros';
 
 export const Routes = () => {
   return (
