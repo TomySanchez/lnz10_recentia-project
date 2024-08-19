@@ -7,6 +7,7 @@ export const Drawer = ({
   open,
   setOpen,
   extraButtonText,
+  onExtraButtonClick,
   children
 }) => {
   function handleClose() {
@@ -28,7 +29,9 @@ export const Drawer = ({
     case 'info':
       propsDrawer = {
         title: `Información de ${itemType}`,
-        extra: extraButtonText && <DrawerButton text={extraButtonText} />
+        extra: extraButtonText && (
+          <DrawerButton text={extraButtonText} onClick={onExtraButtonClick} />
+        )
       };
       break;
     case 'edit':

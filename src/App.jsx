@@ -4,7 +4,8 @@ import esEs from 'antd/locale/es_ES';
 import { colorsPalette } from './utils/colorsPalette';
 
 function App() {
-  const { primaryColor, lightColor, lightExtraColor, white } = colorsPalette;
+  const { darkMediumColor, primaryColor, lightColor, lightExtraColor, white } =
+    colorsPalette;
 
   return (
     <ConfigProvider
@@ -22,6 +23,15 @@ function App() {
           },
           Menu: {
             itemBg: lightExtraColor
+          },
+          Segmented: {
+            itemActiveBg: lightExtraColor,
+            itemColor: darkMediumColor,
+            itemHoverBg: lightColor,
+            itemHoverColor: darkMediumColor,
+            itemSelectedBg: lightColor,
+            itemSelectedColor: darkMediumColor,
+            trackBg: lightExtraColor
           }
         }
       }}
