@@ -19,7 +19,7 @@ export const RegistrosEntregas = ({ cliente }) => {
     {
       dataIndex: 'idRecorrido',
       title: 'Fecha de entrega',
-      render: (text) => getItemById(text, 'recorrido').fecha || '-'
+      render: (text) => getItemById(text, 'recorrido')?.fecha || '-'
     },
     {
       dataIndex: 'id',
