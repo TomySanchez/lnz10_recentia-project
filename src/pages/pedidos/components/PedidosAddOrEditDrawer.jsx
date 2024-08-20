@@ -9,7 +9,9 @@ import { colorsPalette } from '../../../utils/colorsPalette';
 export const PedidosAddOrEditDrawer = ({ editMode, pedido, setOpen }) => {
   const { clientes, productos } = useContext(DataContext);
 
-  const [esRecurrente, setEsRecurrente] = useState(pedido.esRecurrente);
+  const [esRecurrente, setEsRecurrente] = useState(
+    pedido?.esRecurrente || false
+  );
 
   const [pedidoForm] = Form.useForm();
 
@@ -54,7 +56,7 @@ export const PedidosAddOrEditDrawer = ({ editMode, pedido, setOpen }) => {
       requiredMark='optional'
     >
       <Form.Item name='fechaRegistro' label='Fecha de registro' required>
-        <DatePicker format='DD/MM/YY' />
+        <DatePicker format='DD/MM/YY' defaultValue={dayjs()} />
       </Form.Item>
 
       <Form.Item name='cliente' label='Cliente' required>
