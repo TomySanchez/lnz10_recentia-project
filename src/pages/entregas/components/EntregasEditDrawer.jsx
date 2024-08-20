@@ -12,11 +12,13 @@ import { colorsPalette } from '../../../utils/colorsPalette';
 import { useContext, useEffect } from 'react';
 import { DataContext } from '../../../contexts';
 import { getDetalles } from '../../../utils/getDetalles';
+import dayjs from 'dayjs';
 
 const { Item } = Descriptions;
 
 export const EntregasEditDrawer = ({ entrega, setOpen }) => {
-  const { productos, metodosDePago, detallesDePagos } = useContext(DataContext);
+  const { productos, metodosDePago, detallesDePagos, pagos } =
+    useContext(DataContext);
 
   const [entregaForm] = Form.useForm();
 
@@ -43,12 +45,16 @@ export const EntregasEditDrawer = ({ entrega, setOpen }) => {
     return cliente;
   }
 
+  function getPago() {
+    return pagos.find((pago) => pago.idEntrega == entrega.id);
+  }
+
   useEffect(() => {
     if (open && entrega) {
       entregaForm.setFieldsValue({
         cliente: getCliente().nombre,
         recorrido: getItemById(entrega.idRecorrido, 'recorrido').fecha,
-        estado: entrega.estado,
+        estadoDeEntrega: entrega.estado,
         detallesDeEntrega: detallesDeEntrega.map((detalle) => {
           const detalleDePago = detallesDePagos.find(
             (detallePago) => detallePago.idDetalleDeEntrega == detalle.id
@@ -61,7 +67,11 @@ export const EntregasEditDrawer = ({ entrega, setOpen }) => {
             cantidad: detalle.cantidad,
             precio: precio.descripcion
           };
-        })
+        }),
+        estadoDePago: getPago()?.estado,
+        fechaPago: dayjs(getPago()?.fechaPago),
+        metodoDePago: getItemById(getPago()?.idMetodoDePago, 'metodoDePago')
+          ?.nombre
       });
     } else {
       entregaForm.resetFields();
@@ -91,6 +101,7 @@ export const EntregasEditDrawer = ({ entrega, setOpen }) => {
       <Form.Item
         style={{ margin: '16px 0' }}
         label='Estado de la entrega'
+        name='estadoDeEntrega'
         required
       >
         <Select
@@ -175,7 +186,7 @@ export const EntregasEditDrawer = ({ entrega, setOpen }) => {
       <div className='entregas-pago-info-container'>
         <h3>Pago</h3>
 
-        <Form.Item label='Estado del pago' required>
+        <Form.Item name='estadoDePago' label='Estado del pago' required>
           <Select
             options={[
               {
@@ -190,11 +201,11 @@ export const EntregasEditDrawer = ({ entrega, setOpen }) => {
           />
         </Form.Item>
 
-        <Form.Item label='Fecha de pago'>
+        <Form.Item name='fechaPago' label='Fecha de pago'>
           <DatePicker format='DD/MM/YY' />
         </Form.Item>
 
-        <Form.Item label='Método de pago'>
+        <Form.Item name='metodoDePago' label='Método de pago'>
           <Select options={metodosDePagoOptions} />
         </Form.Item>
 
