@@ -1,10 +1,15 @@
 import { Descriptions, List, Tag, Tooltip } from 'antd';
 import { getItemById } from '../../../utils/getItemById';
 import { getDetalles } from '../../../utils/getDetalles';
+import { useContext } from 'react';
+import { DataContext } from '../../../contexts';
+import { getMontoTotal } from '../../../utils/getMontoTotal';
 
 const { Item } = Descriptions;
 
 export const EntregasInfoDrawer = ({ entrega }) => {
+  const { pagos } = useContext(DataContext);
+
   const detallesDeEntrega = getDetalles(entrega.id, 'entregas');
 
   function getCliente() {
@@ -14,9 +19,13 @@ export const EntregasInfoDrawer = ({ entrega }) => {
     return cliente;
   }
 
-  function getColorTagEstado() {
-    switch (entrega.estado) {
+  const pago = pagos.find((pago) => pago.idEntrega == entrega.id);
+
+  function getColorTagEstado(estado) {
+    switch (estado) {
       case 'Realizada':
+        return 'green';
+      case 'Pagado':
         return 'green';
       case 'Pendiente':
         return 'gold';
@@ -34,8 +43,8 @@ export const EntregasInfoDrawer = ({ entrega }) => {
       <Descriptions column={1}>
         <Item label='Cliente'>{getCliente().nombre}</Item>
 
-        <Item label='Estado'>
-          <Tag color={getColorTagEstado()}>{entrega.estado}</Tag>
+        <Item label='Estado de la entrega'>
+          <Tag color={getColorTagEstado(entrega.estado)}>{entrega.estado}</Tag>
         </Item>
 
         <Item label='Recorrido'>
@@ -55,11 +64,38 @@ export const EntregasInfoDrawer = ({ entrega }) => {
           renderItem={(item) => <List.Item>{item}</List.Item>}
         />
       )}
+
+      <div className='entregas-pago-info-container'>
+        <h3>Pago</h3>
+        <Descriptions column={1}>
+          <Item label='Estado del pago'>
+            <Tag color={getColorTagEstado(pago.estado)}>{pago.estado}</Tag>
+          </Item>
+
+          <Item label='CUIT/CUIL'>{getCliente().cuit_cuil || '-'}</Item>
+
+          <Item label='Fecha de pago'>{pago.fechaPago || '-'}</Item>
+
+          <Item label='Método de pago'>
+            {getItemById(pago.idMetodoDePago, 'metodoDePago')?.nombre || '-'}
+          </Item>
+
+          <Item label='Importe total'>
+            {`$ ${getMontoTotal(pago.id)}` || '-'}
+          </Item>
+        </Descriptions>
+      </div>
     </>
   );
 };
 
 const DetallesDeEntrega = ({ detalle }) => {
+  const { detallesDePagos } = useContext(DataContext);
+
+  const detalleDePago = detallesDePagos.find(
+    (detallePago) => detallePago.idDetalleDeEntrega == detalle.id
+  );
+
   return (
     <div className='DetallesDePedido'>
       <Tooltip title='Producto'>
@@ -68,6 +104,10 @@ const DetallesDeEntrega = ({ detalle }) => {
 
       <Tooltip title='Cantidad'>
         <span>{detalle.cantidad}</span>
+      </Tooltip>
+
+      <Tooltip title='Precio por unidad'>
+        <span>$ {getItemById(detalleDePago.idPrecio, 'precio').valor}</span>
       </Tooltip>
     </div>
   );

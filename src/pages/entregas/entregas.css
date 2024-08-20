@@ -13,3 +13,10 @@
 .recorridos-drawer-entregas-table {
   margin: 16px 0;
 }
+
+.entregas-pago-info-container h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--dark-medium-color);
+  margin: 32px 0 16px 0;
+}

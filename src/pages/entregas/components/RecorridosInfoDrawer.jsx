@@ -1,7 +1,7 @@
 import { Descriptions, Tag } from 'antd';
 import { getMultipleItemsById } from '../../../utils/getMultipleItemsById';
-import { getMontoTotal } from '../../../utils/getMontoTotal';
 import { EntregasTable } from './EntregasTable';
+import { getMontoTotalRecorrido } from '../../../utils/getMontoTotalRecorrido';
 
 const { Item } = Descriptions;
 
@@ -34,7 +34,7 @@ export const RecorridosInfoDrawer = ({
           {getMultipleItemsById(recorrido.id, 'entregas').length}
         </Item>
 
-        <Item label='Monto total'>{getMontoTotal(recorrido.id)}</Item>
+        <Item label='Monto total'>{getMontoTotalRecorrido(recorrido.id)}</Item>
       </Descriptions>
 
       <EntregasTable

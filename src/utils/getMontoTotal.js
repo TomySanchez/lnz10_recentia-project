@@ -1,40 +1,25 @@
-import { getDetalles } from './getDetalles';
+import { dataDetallesDePagos } from '../data';
 import { getItemById } from './getItemById';
-import { getMultipleItemsById } from './getMultipleItemsById';
 
-export function getMontoTotal(idRecorrido) {
-  const entregas = getMultipleItemsById(idRecorrido, 'entregas');
+export function getMontoTotal(idPago) {
+  const detallesDePago = dataDetallesDePagos.filter(
+    (detalle) => detalle.idPago == idPago
+  );
 
-  const importesEntregas = entregas.map((entrega) => {
-    const pagos = getMultipleItemsById(entrega.id, 'pagos');
+  const importesDetallesDePago = detallesDePago.map((detalle) => {
+    const precio = getItemById(detalle.idPrecio, 'precio').valor;
+    const cantidad = getItemById(
+      detalle.idDetalleDeEntrega,
+      'detalleDeEntrega'
+    ).cantidad;
 
-    const importesPagos = pagos.map((pago) => {
-      const detallesDePago = getDetalles(pago.id, 'pagos');
-      const importes = detallesDePago.map((detalle) => {
-        const precio = getItemById(detalle.idPrecio, 'precio').valor;
-        const cantidad = getItemById(
-          detalle.idDetalleDeEntrega,
-          'detalleDeEntrega'
-        ).cantidad;
-
-        return precio * cantidad;
-      });
-      return importes.reduce(
-        (accumulator, currentValue) => accumulator + currentValue,
-        0
-      );
-    });
-
-    return importesPagos.reduce(
-      (accumulator, currentValue) => accumulator + currentValue,
-      0
-    );
+    return precio * cantidad;
   });
 
-  const montoTotal = importesEntregas.reduce(
+  const montoTotal = importesDetallesDePago.reduce(
     (accumulator, currentValue) => accumulator + currentValue,
     0
   );
 
-  return `$ ${montoTotal}`;
+  return montoTotal;
 }

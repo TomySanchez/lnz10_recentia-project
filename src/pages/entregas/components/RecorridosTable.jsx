@@ -3,9 +3,9 @@ import { Table } from '../../../components/tables/Table';
 import { DataContext } from '../../../contexts';
 import { Tag } from 'antd';
 import { getMultipleItemsById } from '../../../utils/getMultipleItemsById';
-import { getMontoTotal } from '../../../utils/getMontoTotal';
 import { Acciones } from '../../../components/tables/Acciones';
 import { EntregasTable } from './EntregasTable';
+import { getMontoTotalRecorrido } from '../../../utils/getMontoTotalRecorrido';
 
 export const RecorridosTable = ({
   onInfoRecorrido,
@@ -30,7 +30,7 @@ export const RecorridosTable = ({
       dataIndex: 'id',
       title: 'Monto total',
       align: 'center',
-      render: (text) => getMontoTotal(text)
+      render: (text) => getMontoTotalRecorrido(text)
     },
     {
       dataIndex: 'estado',
