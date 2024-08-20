@@ -72,7 +72,7 @@ export const EntregasInfoDrawer = ({ entrega }) => {
             <Tag color={getColorTagEstado(pago.estado)}>{pago.estado}</Tag>
           </Item>
 
-          <Item label='CUIT/CUIL'>{getCliente().cuit_cuil || '-'}</Item>
+          {/* <Item label='CUIT/CUIL'>{getCliente().cuit_cuil || '-'}</Item> */}
 
           <Item label='Fecha de pago'>{pago.fechaPago || '-'}</Item>
 
