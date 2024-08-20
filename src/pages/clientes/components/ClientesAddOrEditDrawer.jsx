@@ -82,6 +82,7 @@ export const ClientesAddOrEditDrawer = ({ editMode, cliente, setOpen }) => {
               options={localidadOptions}
               showSearch={true}
               popupMatchSelectWidth={200}
+              defaultValue={1}
             />
           </Form.Item>
 
