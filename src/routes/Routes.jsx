@@ -8,6 +8,7 @@ import { Login } from '../pages/login/Login';
 import { Configuracion } from '../pages/configuracion/Configuracion';
 import { Entregas } from '../pages/entregas/Entregas';
 import { ClientesRegistros } from '../pages/clientes/components/registros/ClientesRegistros';
+import { PedidosListaEntregas } from '../pages/pedidos/components/listaEntregas/PedidosListaEntregas';
 
 export const Routes = () => {
   return (
@@ -34,6 +35,10 @@ export const Routes = () => {
         <Route path='clientes' element={<Clientes />} />
         <Route path='clientes/registros' element={<ClientesRegistros />} />
         <Route path='pedidos' element={<Pedidos />} />
+        <Route
+          path='pedidos/lista-de-entregas'
+          element={<PedidosListaEntregas />}
+        />
         <Route path='entregas' element={<Entregas />} />
         {/* <Route path='pagos' element={<Pagos />} /> */}
         <Route path='configuracion' element={<Configuracion />} />
