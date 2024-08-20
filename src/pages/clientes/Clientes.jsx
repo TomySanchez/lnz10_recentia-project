@@ -33,7 +33,8 @@ export const Clientes = () => {
       icon={<MdOutlineGroups size={40} />}
       extra={<AddButton element='cliente' onAdd={handleAdd} />}
     >
-      <ClientesTable onInfo={handleInfo} onEdit={handleEdit} />
+      {<ClientesTable onInfo={handleInfo} onEdit={handleEdit} />}
+
       <ClientesDrawer
         mode={drawerMode}
         cliente={selectedCliente}

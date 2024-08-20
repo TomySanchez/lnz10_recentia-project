@@ -2,6 +2,7 @@ import { ConfigProvider } from 'antd';
 import { Routes } from './routes/Routes';
 import esEs from 'antd/locale/es_ES';
 import { colorsPalette } from './utils/colorsPalette';
+import { ResponsiveProvider } from './contexts/ResponsiveContext';
 
 function App() {
   const { darkMediumColor, primaryColor, lightColor, lightExtraColor, white } =
@@ -36,9 +37,11 @@ function App() {
         }
       }}
     >
-      <div className='App'>
-        <Routes />
-      </div>
+      <ResponsiveProvider>
+        <div className='App'>
+          <Routes />
+        </div>
+      </ResponsiveProvider>
     </ConfigProvider>
   );
 }
