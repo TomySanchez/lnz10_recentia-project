@@ -30,11 +30,11 @@ export const Sidebar = ({ isCollapsed }) => {
       label: 'Entregas',
       icon: <MdOutlineLocalShipping />
     },
-    {
+    /* {
       key: '/pagos',
       label: 'Pagos',
       icon: <MdOutlinePayments />
-    },
+    }, */
     {
       key: '/configuracion',
       label: 'Configuración',
