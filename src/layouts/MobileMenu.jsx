@@ -1,7 +1,15 @@
 import { Button, Drawer } from 'antd';
 import logo from '/assets/images/logo-recentia.png';
+import { useNavigate } from 'react-router-dom';
 
 export const MobileMenu = ({ open, setOpen }) => {
+  const navigateTo = useNavigate();
+
+  function handleNavigate(ruta) {
+    console.log('ruta:', ruta);
+    navigateTo(ruta);
+  }
+
   function handleClose() {
     setOpen(false);
   }
@@ -9,7 +17,7 @@ export const MobileMenu = ({ open, setOpen }) => {
   return (
     <Drawer
       className='MobileMenu'
-      height={250}
+      height={290}
       placement='top'
       open={open}
       onClose={handleClose}
@@ -25,17 +33,25 @@ export const MobileMenu = ({ open, setOpen }) => {
         <span className='mobile-menu-brand-name'>recentia</span>
       </div>
 
-      <MobileMenuButton>Clientes</MobileMenuButton>
-      <MobileMenuButton>Pedidos</MobileMenuButton>
-      <MobileMenuButton>Entregas</MobileMenuButton>
-      <MobileMenuButton>Cerrar sesión</MobileMenuButton>
+      <MobileMenuButton onClick={() => handleNavigate('/clientes')}>
+        Clientes
+      </MobileMenuButton>
+      <MobileMenuButton onClick={() => handleNavigate('/pedidos')}>
+        Pedidos
+      </MobileMenuButton>
+      <MobileMenuButton onClick={() => handleNavigate('/entregas')}>
+        Entregas
+      </MobileMenuButton>
+      <MobileMenuButton onClick={() => handleNavigate('inicio')}>
+        Cerrar sesión
+      </MobileMenuButton>
     </Drawer>
   );
 };
 
-const MobileMenuButton = ({ children }) => {
+const MobileMenuButton = ({ onClick, children }) => {
   return (
-    <Button size='large' type='text'>
+    <Button size='large' type='text' onClick={onClick}>
       {children}
     </Button>
   );
