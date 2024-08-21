@@ -6,6 +6,7 @@ import { getMultipleItemsById } from '../../../utils/getMultipleItemsById';
 import { Acciones } from '../../../components/tables/Acciones';
 import { EntregasTable } from './EntregasTable';
 import { getMontoTotalRecorrido } from '../../../utils/getMontoTotalRecorrido';
+import dayjs from 'dayjs';
 
 export const RecorridosTable = ({
   onInfoRecorrido,
@@ -18,7 +19,14 @@ export const RecorridosTable = ({
     {
       dataIndex: 'fecha',
       title: 'Fecha',
-      align: 'center'
+      align: 'center',
+      sorter: (rowA, rowB) => {
+        const fechaA = dayjs(rowA.fecha, 'DD/MM/YY');
+        const fechaB = dayjs(rowB.fecha, 'DD/MM/YY');
+
+        return fechaA - fechaB;
+      },
+      defaultSortOrder: 'descend'
     },
     {
       dataIndex: 'id',
