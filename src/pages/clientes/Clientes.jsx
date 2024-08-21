@@ -23,9 +23,10 @@ export const Clientes = () => {
     setDevice(device);
   }
 
-  function handleAdd() {
+  function handleAdd(device) {
     setOpenDrawer(true);
     setDrawerMode('add');
+    setDevice(device);
   }
 
   function handleEdit(cliente, device) {
@@ -47,7 +48,11 @@ export const Clientes = () => {
         </MainContent>
       ) : (
         <MobileContent title='Clientes' icon={<MdOutlineGroups size={50} />}>
-          <ClientesMobile onInfo={handleInfo} onEdit={handleEdit} />
+          <ClientesMobile
+            onInfo={handleInfo}
+            onEdit={handleEdit}
+            onAdd={handleAdd}
+          />
         </MobileContent>
       )}
 

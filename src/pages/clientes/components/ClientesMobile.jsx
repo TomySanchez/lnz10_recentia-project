@@ -8,14 +8,10 @@ import {
   AiOutlinePlus
 } from 'react-icons/ai';
 
-export const ClientesMobile = ({ onInfo, onEdit }) => {
+export const ClientesMobile = ({ onInfo, onEdit, onAdd }) => {
   const { clientes } = useContext(DataContext);
 
   const [searchTerm, setSearchTerm] = useState('');
-
-  function handleAdd() {
-    console.log('add');
-  }
 
   const filteredClientes = clientes.filter((cliente) => {
     const nombreMatch = cliente.nombre
@@ -35,7 +31,7 @@ export const ClientesMobile = ({ onInfo, onEdit }) => {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
-        <Button type='primary' onClick={handleAdd}>
+        <Button type='primary' onClick={() => onAdd('mobile')}>
           <AiOutlinePlus size={20} />
         </Button>
       </div>
