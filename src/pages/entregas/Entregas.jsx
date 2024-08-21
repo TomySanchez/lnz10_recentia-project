@@ -16,11 +16,24 @@ export const Entregas = () => {
   const [drawerModeEntrega, setDrawerModeEntrega] = useState('info');
   const [openDrawerEntrega, setOpenDrawerEntrega] = useState(false);
   const [selectedEntrega, setSelectedEntrega] = useState(null);
+  const [planificadorRecorridoMode, setPlanificadorRecorridoMode] =
+    useState('add');
+
+  function handleAddRecorrido() {
+    setOpenPlanificarRecorridoModal(true);
+    setPlanificadorRecorridoMode('add');
+  }
 
   function handleInfoRecorrido(recorrido) {
     setOpenDrawerRecorrido(true);
     setSelectedRecorrido(recorrido);
     setDrawerModeRecorrido('info');
+  }
+
+  function handleEditRecorrido(recorrido) {
+    setOpenPlanificarRecorridoModal(true);
+    setSelectedRecorrido(recorrido);
+    setPlanificadorRecorridoMode('edit');
   }
 
   function handleInfoEntrega(entrega) {
@@ -39,17 +52,18 @@ export const Entregas = () => {
     <MainContent
       title='Entregas'
       icon={<MdOutlineLocalShipping size={40} />}
-      extra={
-        <RecorridosPlanificarButton setOpen={setOpenPlanificarRecorridoModal} />
-      }
+      extra={<RecorridosPlanificarButton onAdd={handleAddRecorrido} />}
     >
       <h3 className='recorridos-title'>Tabla de recorridos</h3>
       <RecorridosTable
         onInfoRecorrido={handleInfoRecorrido}
+        onEditRecorrido={handleEditRecorrido}
         onInfoEntrega={handleInfoEntrega}
         onEditEntrega={handleEditEntrega}
       />
       <RecorridosPlanificarModal
+        mode={planificadorRecorridoMode}
+        recorrido={selectedRecorrido}
         open={openPlanificarRecorridoModal}
         setOpen={setOpenPlanificarRecorridoModal}
       />

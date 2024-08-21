@@ -10,6 +10,7 @@ import dayjs from 'dayjs';
 
 export const RecorridosTable = ({
   onInfoRecorrido,
+  onEditRecorrido,
   onInfoEntrega,
   onEditEntrega
 }) => {
@@ -67,7 +68,13 @@ export const RecorridosTable = ({
       dataIndex: '',
       title: '',
       align: 'center',
-      render: (record) => <Acciones item={record} onInfo={onInfoRecorrido} />
+      render: (record) => (
+        <Acciones
+          item={record}
+          onInfo={onInfoRecorrido}
+          onEdit={onEditRecorrido}
+        />
+      )
     }
   ];
 
