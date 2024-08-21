@@ -7,6 +7,8 @@ import { Acciones } from '../../../components/tables/Acciones';
 import { EntregasTable } from './EntregasTable';
 import { getMontoTotalRecorrido } from '../../../utils/getMontoTotalRecorrido';
 import dayjs from 'dayjs';
+import { AiOutlineCalendar } from 'react-icons/ai';
+import { SelectFechaTabla } from '../../../components/tables/SelectFechaTabla';
 
 export const RecorridosTable = ({
   onInfoRecorrido,
@@ -27,7 +29,21 @@ export const RecorridosTable = ({
 
         return fechaA - fechaB;
       },
-      defaultSortOrder: 'descend'
+      defaultSortOrder: 'descend',
+      filterIcon: () => <AiOutlineCalendar />,
+      filterDropdown: ({
+        setSelectedKeys,
+        selectedKeys,
+        confirm,
+        clearFilters
+      }) => (
+        <SelectFechaTabla
+          setSelectedKeys={setSelectedKeys}
+          selectedKeys={selectedKeys}
+          confirm={confirm}
+          clearFilters={clearFilters}
+        />
+      )
     },
     {
       dataIndex: 'id',
@@ -62,7 +78,22 @@ export const RecorridosTable = ({
         }
 
         return <Tag color={colorTag}>{text}</Tag>;
-      }
+      },
+      filters: [
+        {
+          text: 'Pendiente',
+          value: 'Pendiente'
+        },
+        {
+          text: 'Realizado',
+          value: 'Realizado'
+        },
+        {
+          text: 'Cancelado',
+          value: 'Cancelado'
+        }
+      ],
+      onFilter: (value, record) => record.estado === value
     },
     {
       dataIndex: '',
