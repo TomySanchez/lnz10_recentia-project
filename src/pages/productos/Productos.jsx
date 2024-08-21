@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { ConfiguracionContent } from '../components/ConfiguracionContent';
+import { AddButton } from '../../components/buttons/AddButton';
+import { MainContent } from '../../layouts/MainContent';
+import { MdOutlineShoppingBag } from 'react-icons/md';
 import { ProductosTable } from './components/ProductosTable';
 import { ProductosDrawer } from './components/ProductosDrawer';
-import { AddButton } from '../../../components/buttons/AddButton';
 
 export const Productos = () => {
   const [openDrawer, setOpenDrawer] = useState(false);
@@ -27,8 +28,9 @@ export const Productos = () => {
   }
 
   return (
-    <ConfiguracionContent
+    <MainContent
       title='Productos'
+      icon={<MdOutlineShoppingBag size={40} />}
       extra={<AddButton element='producto' onAdd={handleAdd} />}
     >
       <ProductosTable onInfo={handleInfo} onEdit={handleEdit} />
@@ -38,6 +40,6 @@ export const Productos = () => {
         open={openDrawer}
         setOpen={setOpenDrawer}
       />
-    </ConfiguracionContent>
+    </MainContent>
   );
 };

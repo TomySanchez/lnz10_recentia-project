@@ -1,8 +1,8 @@
 import { useContext } from 'react';
-import { DataContext } from '../../../../contexts';
-import { Table } from '../../../../components/tables/Table';
+import { DataContext } from '../../../contexts';
+import { Table } from '../../../components/tables/Table';
 import { Tag } from 'antd';
-import { Acciones } from '../../../../components/tables/Acciones';
+import { Acciones } from '../../../components/tables/Acciones';
 
 export const ProductosTable = ({ onInfo, onEdit }) => {
   const { productos } = useContext(DataContext);

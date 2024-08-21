@@ -5,10 +5,10 @@ import { MainLayout } from '../layouts/MainLayout';
 import { Clientes } from '../pages/clientes/Clientes';
 import { Pedidos } from '../pages/pedidos/Pedidos';
 import { Login } from '../pages/login/Login';
-import { Configuracion } from '../pages/configuracion/Configuracion';
 import { Entregas } from '../pages/entregas/Entregas';
 import { ClientesRegistros } from '../pages/clientes/components/registros/ClientesRegistros';
 import { PedidosListaEntregas } from '../pages/pedidos/components/listaEntregas/PedidosListaEntregas';
+import { Productos } from '../pages/productos/Productos';
 
 export const Routes = () => {
   return (
@@ -41,7 +41,8 @@ export const Routes = () => {
         />
         <Route path='entregas' element={<Entregas />} />
         {/* <Route path='pagos' element={<Pagos />} /> */}
-        <Route path='configuracion' element={<Configuracion />} />
+        <Route path='productos' element={<Productos />} />
+        {/* <Route path='configuracion' element={<Configuracion />} /> */}
       </Route>
       {/* <Route path='*' element={<NotFound />} /> */}
     </RoutesRR>

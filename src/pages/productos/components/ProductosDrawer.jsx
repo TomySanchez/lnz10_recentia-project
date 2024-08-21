@@ -1,4 +1,4 @@
-import { Drawer } from '../../../../components/drawers/Drawer';
+import { Drawer } from '../../../components/drawers/Drawer';
 import { ProductosAddOrEditDrawer } from './ProductosAddOrEditDrawer';
 import { ProductosInfoDrawer } from './ProductosInfoDrawer';
 
@@ -15,7 +15,7 @@ export const ProductosDrawer = ({ mode, producto, open, setOpen }) => {
         <ProductosInfoDrawer producto={producto} />
       ) : (
         <ProductosAddOrEditDrawer
-          editMode={mode === 'edit'}
+          mode={mode}
           producto={producto}
           setOpen={setOpen}
         />

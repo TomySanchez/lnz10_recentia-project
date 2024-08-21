@@ -1,5 +1,5 @@
 import { Descriptions, List, Tag, Tooltip } from 'antd';
-import { getDetalles } from '../../../../utils/getDetalles';
+import { getDetalles } from '../../../utils/getDetalles';
 
 const { Item } = Descriptions;
 

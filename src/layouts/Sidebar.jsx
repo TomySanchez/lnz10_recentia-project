@@ -5,9 +5,8 @@ import {
   MdOutlineGroups,
   MdOutlineLocalShipping,
   MdOutlineLogout,
-  MdOutlinePayments,
   MdOutlineReceiptLong,
-  MdOutlineSettings
+  MdOutlineShoppingBag
 } from 'react-icons/md';
 
 export const Sidebar = ({ isCollapsed }) => {
@@ -36,10 +35,15 @@ export const Sidebar = ({ isCollapsed }) => {
       icon: <MdOutlinePayments />
     }, */
     {
+      key: '/productos',
+      label: 'Productos',
+      icon: <MdOutlineShoppingBag />
+    },
+    /* {
       key: '/configuracion',
       label: 'Configuración',
       icon: <MdOutlineSettings />
-    },
+    }, */
     {
       key: '/inicio',
       label: 'Cerrar sesión',
