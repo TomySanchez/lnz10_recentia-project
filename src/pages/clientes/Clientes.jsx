@@ -6,6 +6,7 @@ import { ClientesDrawer } from './components/ClientesDrawer';
 import { AddButton } from '../../components/buttons/AddButton';
 import { ResponsiveContext } from '../../contexts/ResponsiveContext';
 import { ClientesMobile } from './components/ClientesMobile';
+import { MobileContent } from '../../layouts/MobileContent';
 
 export const Clientes = () => {
   const windowWidth = useContext(ResponsiveContext);
@@ -32,17 +33,19 @@ export const Clientes = () => {
   }
 
   return (
-    <MainContent
-      title='Clientes'
-      icon={<MdOutlineGroups size={40} />}
-      extra={
-        windowWidth > 700 && <AddButton element='cliente' onAdd={handleAdd} />
-      }
-    >
+    <>
       {windowWidth > 700 ? (
-        <ClientesTable onInfo={handleInfo} onEdit={handleEdit} />
+        <MainContent
+          title='Clientes'
+          icon={<MdOutlineGroups size={40} />}
+          extra={<AddButton element='cliente' onAdd={handleAdd} />}
+        >
+          <ClientesTable onInfo={handleInfo} onEdit={handleEdit} />
+        </MainContent>
       ) : (
-        <ClientesMobile />
+        <MobileContent title='Clientes' icon={<MdOutlineGroups size={50} />}>
+          <ClientesMobile />
+        </MobileContent>
       )}
 
       <ClientesDrawer
@@ -51,6 +54,6 @@ export const Clientes = () => {
         open={openDrawer}
         setOpen={setOpenDrawer}
       />
-    </MainContent>
+    </>
   );
 };

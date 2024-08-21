@@ -32,7 +32,7 @@ export const MainLayout = () => {
         </Sider>
       ) : (
         <>
-          <span>
+          <span className='mobile-menu-container'>
             <MdOutlineMenu
               className='mobile-menu-icon pointer'
               size={40}
