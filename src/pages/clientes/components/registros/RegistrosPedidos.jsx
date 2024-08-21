@@ -3,6 +3,7 @@ import { Table } from '../../../../components/tables/Table';
 import { DataContext } from '../../../../contexts';
 import { getFrecuenciaEntrega } from '../../../../utils/getFrecuenciaEntrega';
 import { Acciones } from '../../../../components/tables/Acciones';
+import dayjs from 'dayjs';
 
 export const RegistrosPedidos = ({ cliente }) => {
   const { pedidos } = useContext(DataContext);
@@ -15,7 +16,14 @@ export const RegistrosPedidos = ({ cliente }) => {
     {
       dataIndex: 'fechaRegistro',
       title: 'Fecha de registro',
-      align: 'center'
+      align: 'center',
+      sorter: (rowA, rowB) => {
+        const fechaA = dayjs(rowA.fechaRegistro, 'DD/MM/YY');
+        const fechaB = dayjs(rowB.fechaRegistro, 'DD/MM/YY');
+
+        return fechaA - fechaB;
+      },
+      defaultSortOrder: 'descend'
     },
     {
       dataIndex: 'cantSemanas',

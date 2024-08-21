@@ -5,6 +5,7 @@ import { getItemById } from '../../../../utils/getItemById';
 import { Tag } from 'antd';
 import { Acciones } from '../../../../components/tables/Acciones';
 import { getDetalles } from '../../../../utils/getDetalles';
+import dayjs from 'dayjs';
 
 export const RegistrosEntregas = ({ cliente }) => {
   const { entregas, pagos } = useContext(DataContext);
@@ -19,11 +20,26 @@ export const RegistrosEntregas = ({ cliente }) => {
     {
       dataIndex: 'idRecorrido',
       title: 'Fecha de entrega',
-      render: (text) => getItemById(text, 'recorrido')?.fecha || '-'
+      align: 'center',
+      render: (text) => getItemById(text, 'recorrido')?.fecha || '-',
+      sorter: (rowA, rowB) => {
+        const fechaA = dayjs(
+          getItemById(rowA.idRecorrido, 'recorrido')?.fecha,
+          'DD/MM/YY'
+        );
+        const fechaB = dayjs(
+          getItemById(rowB.idRecorrido, 'recorrido')?.fecha,
+          'DD/MM/YY'
+        );
+
+        return fechaA - fechaB;
+      },
+      defaultSortOrder: 'descend'
     },
     {
       dataIndex: 'id',
       title: 'Monto total',
+      align: 'center',
       render: (text) => {
         const pagoDeEntrega = pagos.find((pago) => pago.idEntrega == text);
         const detallesDePago = getDetalles(pagoDeEntrega.id, 'pagos');
