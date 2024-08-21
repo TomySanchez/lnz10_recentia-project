@@ -43,7 +43,7 @@ export const MobileMenu = ({ open, setOpen }) => {
       <MobileMenuButton onClick={() => handleNavigate('/entregas')}>
         Entregas
       </MobileMenuButton>
-      <MobileMenuButton onClick={() => handleNavigate('inicio')}>
+      <MobileMenuButton onClick={() => handleNavigate('/inicio')}>
         Cerrar sesión
       </MobileMenuButton>
     </Drawer>
