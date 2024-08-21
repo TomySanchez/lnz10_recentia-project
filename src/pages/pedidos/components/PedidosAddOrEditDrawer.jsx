@@ -5,6 +5,7 @@ import { getItemById } from '../../../utils/getItemById';
 import { DataContext } from '../../../contexts';
 import { AiOutlineMinusCircle, AiOutlinePlus } from 'react-icons/ai';
 import { colorsPalette } from '../../../utils/colorsPalette';
+import { getDetalles } from '../../../utils/getDetalles.js';
 
 export const PedidosAddOrEditDrawer = ({ editMode, pedido, setOpen }) => {
   const { clientes, productos } = useContext(DataContext);
@@ -14,6 +15,8 @@ export const PedidosAddOrEditDrawer = ({ editMode, pedido, setOpen }) => {
   );
 
   const [pedidoForm] = Form.useForm();
+
+  const detallesDePedido = getDetalles(pedido.id, 'pedidos');
 
   const clientesOptions = clientes
     .map((cliente) => ({
@@ -35,7 +38,13 @@ export const PedidosAddOrEditDrawer = ({ editMode, pedido, setOpen }) => {
         fechaRegistro: dayjs(pedido.fechaRegistro),
         cliente: getItemById(pedido.idCliente, 'cliente').nombre,
         esRecurrente: pedido.esRecurrente,
-        cantSemanas: pedido.cantSemanas
+        cantSemanas: pedido.cantSemanas,
+        detallesDePedido: detallesDePedido.map((detalle) => {
+          return {
+            producto: getItemById(detalle.idProducto, 'producto').nombre,
+            cantidad: detalle.cantidad
+          };
+        })
       });
     } else {
       pedidoForm.resetFields();
