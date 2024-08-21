@@ -32,3 +32,43 @@
 .clientes-registros-volver-button {
   font-weight: 500;
 }
+
+.mobile-input-container {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 32px;
+}
+
+.mobile-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 16px 0;
+  height: 200px;
+}
+
+.mobile-card h4 {
+  font-size: 1.5rem;
+  color: var(--dark-medium-color);
+}
+
+.mobile-card p {
+  margin: 16px 0;
+  font-size: 1rem;
+}
+
+/* .mobile-card .ant-card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+} */
+
+.mobile-buttons-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 64px;
+  margin-top: 32px;
+}
