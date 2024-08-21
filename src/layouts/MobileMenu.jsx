@@ -8,6 +8,7 @@ export const MobileMenu = ({ open, setOpen }) => {
   function handleNavigate(ruta) {
     console.log('ruta:', ruta);
     navigateTo(ruta);
+    setOpen(false);
   }
 
   function handleClose() {
