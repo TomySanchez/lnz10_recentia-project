@@ -22,3 +22,9 @@
   gap: 8px;
   padding: 8px;
 }
+
+.SelectFechaTabla {
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+}

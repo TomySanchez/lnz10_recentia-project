@@ -5,6 +5,9 @@ import { Acciones } from '../../../components/tables/Acciones';
 import { getItemById } from '../../../utils/getItemById';
 import { getFrecuenciaEntrega } from '../../../utils/getFrecuenciaEntrega';
 import dayjs from 'dayjs';
+import { AiOutlineCalendar, AiOutlineSearch } from 'react-icons/ai';
+import { SelectFechaTabla } from '../../../components/tables/SelectFechaTabla';
+import { BuscadorTabla } from '../../../components/tables/BuscadorTabla';
 
 export const PedidosTable = ({ onInfo, onEdit }) => {
   const { pedidos } = useContext(DataContext);
@@ -20,7 +23,21 @@ export const PedidosTable = ({ onInfo, onEdit }) => {
 
         return fechaA - fechaB;
       },
-      defaultSortOrder: 'descend'
+      defaultSortOrder: 'descend',
+      filterIcon: () => <AiOutlineCalendar />,
+      filterDropdown: ({
+        setSelectedKeys,
+        selectedKeys,
+        confirm,
+        clearFilters
+      }) => (
+        <SelectFechaTabla
+          setSelectedKeys={setSelectedKeys}
+          selectedKeys={selectedKeys}
+          confirm={confirm}
+          clearFilters={clearFilters}
+        />
+      )
     },
     {
       dataIndex: 'idCliente',
@@ -31,7 +48,28 @@ export const PedidosTable = ({ onInfo, onEdit }) => {
         const clienteB = getItemById(rowB.idCliente, 'cliente').nombre;
 
         return clienteA.localeCompare(clienteB);
-      }
+      },
+      filterIcon: () => <AiOutlineSearch />,
+      onFilter: (value, record) => {
+        const cliente = getItemById(record.idCliente, 'cliente').nombre;
+        return cliente
+          .toLowerCase()
+          .trim()
+          .includes(value.toLowerCase().trim());
+      },
+      filterDropdown: ({
+        setSelectedKeys,
+        selectedKeys,
+        confirm,
+        clearFilters
+      }) => (
+        <BuscadorTabla
+          setSelectedKeys={setSelectedKeys}
+          selectedKeys={selectedKeys}
+          confirm={confirm}
+          clearFilters={clearFilters}
+        />
+      )
     },
     {
       dataIndex: 'cantSemanas',
