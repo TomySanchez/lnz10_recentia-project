@@ -39,13 +39,10 @@
   margin-bottom: 32px;
 }
 
-.mobile-card {
+.mobile-card .ant-card-body {
   display: flex;
-  flex-direction: column;
   justify-content: space-between;
-  gap: 16px;
-  margin: 16px 0;
-  height: 200px;
+  align-items: center;
 }
 
 .mobile-card h4 {
@@ -58,17 +55,8 @@
   font-size: 1rem;
 }
 
-/* .mobile-card .ant-card-body {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
-} */
-
 .mobile-buttons-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 64px;
-  margin-top: 32px;
+  flex-direction: column;
+  gap: 16px;
 }

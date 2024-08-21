@@ -2,7 +2,11 @@ import { Button, Card, Input, Tooltip } from 'antd';
 import { useContext, useState } from 'react';
 import { DataContext } from '../../../contexts';
 import { formatDireccion } from '../../../utils/formatDireccion';
-import { AiOutlineEdit, AiOutlineFileSearch } from 'react-icons/ai';
+import {
+  AiOutlineEdit,
+  AiOutlineFileSearch,
+  AiOutlinePlus
+} from 'react-icons/ai';
 
 export const ClientesMobile = () => {
   const { clientes } = useContext(DataContext);
@@ -40,14 +44,16 @@ export const ClientesMobile = () => {
           onChange={(e) => setSearchTerm(e.target.value)}
         />
         <Button type='primary' onClick={handleAdd}>
-          +
+          <AiOutlinePlus size={20} />
         </Button>
       </div>
 
       {filteredClientes.map((cliente, index) => (
         <Card key={index} className='mobile-card'>
-          <h4>{cliente.nombre}</h4>
-          <p>{formatDireccion(cliente.direccion)}</p>
+          <div>
+            <h4>{cliente.nombre}</h4>
+            <p>{formatDireccion(cliente.direccion)}</p>
+          </div>
 
           <div className='mobile-buttons-container'>
             <Tooltip title='Más información'>
