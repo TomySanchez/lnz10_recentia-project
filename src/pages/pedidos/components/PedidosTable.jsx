@@ -4,6 +4,7 @@ import { DataContext } from '../../../contexts';
 import { Acciones } from '../../../components/tables/Acciones';
 import { getItemById } from '../../../utils/getItemById';
 import { getFrecuenciaEntrega } from '../../../utils/getFrecuenciaEntrega';
+import dayjs from 'dayjs';
 
 export const PedidosTable = ({ onInfo, onEdit }) => {
   const { pedidos } = useContext(DataContext);
@@ -12,12 +13,25 @@ export const PedidosTable = ({ onInfo, onEdit }) => {
     {
       dataIndex: 'fechaRegistro',
       title: 'Fecha de registro',
-      align: 'center'
+      align: 'center',
+      sorter: (rowA, rowB) => {
+        const fechaA = dayjs(rowA.fechaRegistro, 'DD/MM/YY');
+        const fechaB = dayjs(rowB.fechaRegistro, 'DD/MM/YY');
+
+        return fechaA - fechaB;
+      },
+      defaultSortOrder: 'descend'
     },
     {
       dataIndex: 'idCliente',
       title: 'Cliente',
-      render: (text) => getItemById(text, 'cliente').nombre
+      render: (text) => getItemById(text, 'cliente').nombre,
+      sorter: (rowA, rowB) => {
+        const clienteA = getItemById(rowA.idCliente, 'cliente').nombre;
+        const clienteB = getItemById(rowB.idCliente, 'cliente').nombre;
+
+        return clienteA.localeCompare(clienteB);
+      }
     },
     {
       dataIndex: 'cantSemanas',
