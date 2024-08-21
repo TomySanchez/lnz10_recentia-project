@@ -6,6 +6,8 @@ import { getDetalles } from '../../../../utils/getDetalles';
 import { useContext } from 'react';
 import { DataContext } from '../../../../contexts';
 import dayjs from 'dayjs';
+import { AiOutlineCalendar } from 'react-icons/ai';
+import { SelectFechaTabla } from '../../../../components/tables/SelectFechaTabla';
 
 export const ListaEntregasTable = ({ pedido }) => {
   const { entregas, pagos } = useContext(DataContext);
@@ -32,7 +34,21 @@ export const ListaEntregasTable = ({ pedido }) => {
 
         return fechaA - fechaB;
       },
-      defaultSortOrder: 'descend'
+      defaultSortOrder: 'descend',
+      filterIcon: () => <AiOutlineCalendar />,
+      filterDropdown: ({
+        setSelectedKeys,
+        selectedKeys,
+        confirm,
+        clearFilters
+      }) => (
+        <SelectFechaTabla
+          setSelectedKeys={setSelectedKeys}
+          selectedKeys={selectedKeys}
+          confirm={confirm}
+          clearFilters={clearFilters}
+        />
+      )
     },
     {
       dataIndex: 'id',
@@ -78,7 +94,26 @@ export const ListaEntregasTable = ({ pedido }) => {
         }
 
         return <Tag color={colorTag}>{text}</Tag>;
-      }
+      },
+      filters: [
+        {
+          text: 'Pendiente',
+          value: 'Pendiente'
+        },
+        {
+          text: 'Realizada',
+          value: 'Realizada'
+        },
+        {
+          text: 'Cancelada',
+          value: 'Cancelada'
+        },
+        {
+          text: 'Sin programar',
+          value: 'Sin programar'
+        }
+      ],
+      onFilter: (value, record) => record.estado === value
     },
     {
       dataIndex: 'id',
@@ -100,6 +135,20 @@ export const ListaEntregasTable = ({ pedido }) => {
         }
 
         return <Tag color={colorTag}>{pagoDeEntrega.estado}</Tag>;
+      },
+      filters: [
+        {
+          text: 'Pendiente',
+          value: 'Pendiente'
+        },
+        {
+          text: 'Pagado',
+          value: 'Pagado'
+        }
+      ],
+      onFilter: (value, record) => {
+        const pagoDeEntrega = pagos.find((pago) => pago.idEntrega == record.id);
+        return pagoDeEntrega.estado === value;
       }
     },
     {
