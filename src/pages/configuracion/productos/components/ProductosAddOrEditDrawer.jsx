@@ -1,16 +1,24 @@
-import { Button, Form, Input, InputNumber } from 'antd';
+import { Button, Form, Input, InputNumber, Select } from 'antd';
 import { AiOutlineMinusCircle, AiOutlinePlus } from 'react-icons/ai';
 import { colorsPalette } from '../../../../utils/colorsPalette';
 import { useEffect } from 'react';
+import { getMultipleItemsById } from '../../../../utils/getMultipleItemsById';
 
 export const ProductosAddOrEditDrawer = ({ editMode, producto, setOpen }) => {
   const [productoForm] = Form.useForm();
+
+  const precios = getMultipleItemsById(producto.id, 'precios');
 
   useEffect(() => {
     if (open && producto && editMode) {
       productoForm.setFieldsValue({
         nombre: producto.nombre,
-        descripcion: producto.descripcion
+        descripcion: producto.descripcion,
+        estado: producto.estado,
+        listaPrecios: precios.map((precio) => ({
+          descripcion: precio.descripcion,
+          valor: precio.valor
+        }))
       });
     } else {
       productoForm.resetFields();
@@ -36,6 +44,21 @@ export const ProductosAddOrEditDrawer = ({ editMode, producto, setOpen }) => {
 
       <Form.Item name='descripcion' label='Descripción'>
         <Input.TextArea autoSize={{ minRows: 2, maxRows: 2 }} />
+      </Form.Item>
+
+      <Form.Item name='estado' label='Estado' required>
+        <Select
+          options={[
+            {
+              label: 'Activo',
+              value: 'Activo'
+            },
+            {
+              label: 'Descontinuado',
+              value: 'Descontinuado'
+            }
+          ]}
+        />
       </Form.Item>
 
       <Form.Item>

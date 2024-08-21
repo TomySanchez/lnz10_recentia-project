@@ -1,4 +1,4 @@
-import { dataEntregas, dataPagos } from '../data';
+import { dataEntregas, dataPagos, dataPrecios } from '../data';
 
 export function getMultipleItemsById(id, itemsType) {
   let data;
@@ -11,6 +11,10 @@ export function getMultipleItemsById(id, itemsType) {
     case 'pagos':
       data = dataPagos;
       entityId = 'idEntrega';
+      break;
+    case 'precios':
+      data = dataPrecios;
+      entityId = 'idProducto';
   }
 
   if (data) {
