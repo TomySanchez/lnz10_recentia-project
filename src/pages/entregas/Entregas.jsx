@@ -64,8 +64,8 @@ export const Entregas = () => {
       <RecorridosPlanificarModal
         mode={planificadorRecorridoMode}
         recorrido={selectedRecorrido}
-        open={openPlanificarRecorridoModal}
-        setOpen={setOpenPlanificarRecorridoModal}
+        openModal={openPlanificarRecorridoModal}
+        setOpenModal={setOpenPlanificarRecorridoModal}
       />
       <RecorridosDrawer
         mode={drawerModeRecorrido}

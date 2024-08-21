@@ -8,8 +8,8 @@ import dayjs from 'dayjs';
 export const RecorridosPlanificarModal = ({
   mode,
   recorrido,
-  open,
-  setOpen
+  openModal,
+  setOpenModal
 }) => {
   const { entregas } = useContext(DataContext);
 
@@ -30,12 +30,8 @@ export const RecorridosPlanificarModal = ({
     }
   }, [planificadorForm, open, recorrido, mode]);
 
-  if (!recorrido) {
-    return null;
-  }
-
   const entregasProgramadas = entregas.filter(
-    (entrega) => entrega.idRecorrido == recorrido.id
+    (entrega) => entrega.idRecorrido == recorrido?.id
   );
 
   function getDataSource() {
@@ -108,17 +104,17 @@ export const RecorridosPlanificarModal = ({
   }
 
   function handleOk() {
-    setOpen(false);
+    setOpenModal(false);
   }
 
   function handleCancel() {
-    setOpen(false);
+    setOpenModal(false);
   }
 
   return (
     <Modal
       title='Planificar recorrido'
-      open={open}
+      open={openModal}
       onOk={handleOk}
       onCancel={handleCancel}
       okText='Crear recorrido'
