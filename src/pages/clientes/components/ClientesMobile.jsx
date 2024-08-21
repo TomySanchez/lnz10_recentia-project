@@ -8,21 +8,13 @@ import {
   AiOutlinePlus
 } from 'react-icons/ai';
 
-export const ClientesMobile = () => {
+export const ClientesMobile = ({ onInfo, onEdit }) => {
   const { clientes } = useContext(DataContext);
 
   const [searchTerm, setSearchTerm] = useState('');
 
   function handleAdd() {
     console.log('add');
-  }
-
-  function handleInfo() {
-    console.log('info');
-  }
-
-  function handleEdit() {
-    console.log('edit');
   }
 
   const filteredClientes = clientes.filter((cliente) => {
@@ -58,13 +50,19 @@ export const ClientesMobile = () => {
           <div className='mobile-buttons-container'>
             <Tooltip title='Más información'>
               <span className='pointer'>
-                <AiOutlineFileSearch size={24} onClick={handleInfo} />
+                <AiOutlineFileSearch
+                  size={24}
+                  onClick={() => onInfo(cliente, 'mobile')}
+                />
               </span>
             </Tooltip>
 
             <Tooltip title='Editar'>
               <span className='pointer'>
-                <AiOutlineEdit size={24} onClick={handleEdit} />
+                <AiOutlineEdit
+                  size={24}
+                  onClick={() => onEdit(cliente, 'mobile')}
+                />
               </span>
             </Tooltip>
           </div>

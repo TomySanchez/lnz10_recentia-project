@@ -2,6 +2,7 @@ import { Drawer as DrawerAntd } from 'antd';
 import { DrawerButton } from './DrawerButton';
 
 export const Drawer = ({
+  width,
   itemType,
   mode,
   open,
@@ -43,7 +44,7 @@ export const Drawer = ({
 
   return (
     <DrawerAntd
-      width={480}
+      width={width || 480}
       title={propsDrawer.title}
       open={open}
       onClose={handleClose}

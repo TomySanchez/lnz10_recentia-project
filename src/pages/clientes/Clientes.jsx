@@ -14,11 +14,13 @@ export const Clientes = () => {
   const [openDrawer, setOpenDrawer] = useState(false);
   const [selectedCliente, setSelectedCliente] = useState(null);
   const [drawerMode, setDrawerMode] = useState('add');
+  const [device, setDevice] = useState('computer');
 
-  function handleInfo(cliente) {
+  function handleInfo(cliente, device) {
     setOpenDrawer(true);
     setSelectedCliente(cliente);
     setDrawerMode('info');
+    setDevice(device);
   }
 
   function handleAdd() {
@@ -26,10 +28,11 @@ export const Clientes = () => {
     setDrawerMode('add');
   }
 
-  function handleEdit(cliente) {
+  function handleEdit(cliente, device) {
     setOpenDrawer(true);
     setSelectedCliente(cliente);
     setDrawerMode('edit');
+    setDevice(device);
   }
 
   return (
@@ -44,11 +47,12 @@ export const Clientes = () => {
         </MainContent>
       ) : (
         <MobileContent title='Clientes' icon={<MdOutlineGroups size={50} />}>
-          <ClientesMobile />
+          <ClientesMobile onInfo={handleInfo} onEdit={handleEdit} />
         </MobileContent>
       )}
 
       <ClientesDrawer
+        device={device}
         mode={drawerMode}
         cliente={selectedCliente}
         open={openDrawer}
