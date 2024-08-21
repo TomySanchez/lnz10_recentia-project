@@ -6,6 +6,8 @@ import { Tag } from 'antd';
 import { Acciones } from '../../../../components/tables/Acciones';
 import { getDetalles } from '../../../../utils/getDetalles';
 import dayjs from 'dayjs';
+import { AiOutlineCalendar } from 'react-icons/ai';
+import { SelectFechaTabla } from '../../../../components/tables/SelectFechaTabla';
 
 export const RegistrosEntregas = ({ cliente }) => {
   const { entregas, pagos } = useContext(DataContext);
@@ -34,7 +36,21 @@ export const RegistrosEntregas = ({ cliente }) => {
 
         return fechaA - fechaB;
       },
-      defaultSortOrder: 'descend'
+      defaultSortOrder: 'descend',
+      filterIcon: () => <AiOutlineCalendar />,
+      filterDropdown: ({
+        setSelectedKeys,
+        selectedKeys,
+        confirm,
+        clearFilters
+      }) => (
+        <SelectFechaTabla
+          setSelectedKeys={setSelectedKeys}
+          selectedKeys={selectedKeys}
+          confirm={confirm}
+          clearFilters={clearFilters}
+        />
+      )
     },
     {
       dataIndex: 'id',
@@ -80,7 +96,22 @@ export const RegistrosEntregas = ({ cliente }) => {
         }
 
         return <Tag color={colorTag}>{text}</Tag>;
-      }
+      },
+      filters: [
+        {
+          text: 'Pendiente',
+          value: 'Pendiente'
+        },
+        {
+          text: 'Realizada',
+          value: 'Realizada'
+        },
+        {
+          text: 'Cancelada',
+          value: 'Cancelada'
+        }
+      ],
+      onFilter: (value, record) => record.estado === value
     },
     {
       dataIndex: 'id',
@@ -102,6 +133,20 @@ export const RegistrosEntregas = ({ cliente }) => {
         }
 
         return <Tag color={colorTag}>{pagoDeEntrega.estado}</Tag>;
+      },
+      filters: [
+        {
+          text: 'Pendiente',
+          value: 'Pendiente'
+        },
+        {
+          text: 'Pagado',
+          value: 'Pagado'
+        }
+      ],
+      onFilter: (value, record) => {
+        const pagoDeEntrega = pagos.find((pago) => pago.idEntrega == record.id);
+        return pagoDeEntrega.estado === value;
       }
     },
     {

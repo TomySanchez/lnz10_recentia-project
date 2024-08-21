@@ -4,6 +4,8 @@ import { DataContext } from '../../../../contexts';
 import { getFrecuenciaEntrega } from '../../../../utils/getFrecuenciaEntrega';
 import { Acciones } from '../../../../components/tables/Acciones';
 import dayjs from 'dayjs';
+import { AiOutlineCalendar, AiOutlineSearch } from 'react-icons/ai';
+import { SelectFechaTabla } from '../../../../components/tables/SelectFechaTabla';
 
 export const RegistrosPedidos = ({ cliente }) => {
   const { pedidos } = useContext(DataContext);
@@ -23,7 +25,21 @@ export const RegistrosPedidos = ({ cliente }) => {
 
         return fechaA - fechaB;
       },
-      defaultSortOrder: 'descend'
+      defaultSortOrder: 'descend',
+      filterIcon: () => <AiOutlineCalendar />,
+      filterDropdown: ({
+        setSelectedKeys,
+        selectedKeys,
+        confirm,
+        clearFilters
+      }) => (
+        <SelectFechaTabla
+          setSelectedKeys={setSelectedKeys}
+          selectedKeys={selectedKeys}
+          confirm={confirm}
+          clearFilters={clearFilters}
+        />
+      )
     },
     {
       dataIndex: 'cantSemanas',
