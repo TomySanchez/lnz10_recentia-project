@@ -4,6 +4,7 @@ import { DataContext } from '../../../contexts';
 import { getItemById } from '../../../utils/getItemById';
 import { Table } from '../../../components/tables/Table';
 import dayjs from 'dayjs';
+import { Acciones } from '../../../components/tables/Acciones';
 
 export const RecorridosPlanificarModal = ({
   mode,
@@ -62,6 +63,12 @@ export const RecorridosPlanificarModal = ({
 
             return cliente.nombre;
           }
+        },
+        {
+          dataIndex: '',
+          title: '',
+          align: 'center',
+          render: (record) => <Acciones item={record} />
         }
       ];
     } else {
@@ -98,6 +105,12 @@ export const RecorridosPlanificarModal = ({
 
             return <Tag color={colorTag}>{text}</Tag>;
           }
+        },
+        {
+          dataIndex: '',
+          title: '',
+          align: 'center',
+          render: (record) => <Acciones item={record} />
         }
       ];
     }
