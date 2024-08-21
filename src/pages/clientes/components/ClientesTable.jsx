@@ -10,18 +10,23 @@ export const ClientesTable = ({ onInfo, onEdit }) => {
   const clientesColumns = [
     {
       dataIndex: 'nombre',
-      title: 'Nombre'
+      title: 'Nombre',
+      sorter: (rowA, rowB) => rowA.nombre.localeCompare(rowB.nombre)
     },
     {
       dataIndex: 'idDireccion',
       title: 'Dirección',
-      render: (_, record) => formatDireccion(record.direccion)
+      render: (_, record) => formatDireccion(record.direccion),
+      sorter: (rowA, rowB) =>
+        rowA.direccion.calle.localeCompare(rowB.direccion.calle)
     },
     {
       dataIndex: 'barrio',
       title: 'Barrio',
       render: (_, record) =>
-        `${record.barrio.nombre}, ${record.localidad.nombre}`
+        `${record.barrio.nombre}, ${record.localidad.nombre}`,
+      sorter: (rowA, rowB) =>
+        rowA.barrio.nombre.localeCompare(rowB.barrio.nombre)
     },
     {
       dataIndex: 'observaciones',
