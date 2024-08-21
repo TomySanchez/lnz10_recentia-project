@@ -16,3 +16,9 @@
   text-transform: uppercase;
   font-weight: 500;
 }
+
+.BuscadorTabla {
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+}
