@@ -5,6 +5,7 @@ import { getItemById } from '../../../../utils/getItemById';
 import { getDetalles } from '../../../../utils/getDetalles';
 import { useContext } from 'react';
 import { DataContext } from '../../../../contexts';
+import dayjs from 'dayjs';
 
 export const ListaEntregasTable = ({ pedido }) => {
   const { entregas, pagos } = useContext(DataContext);
@@ -18,7 +19,20 @@ export const ListaEntregasTable = ({ pedido }) => {
       dataIndex: 'idRecorrido',
       title: 'Fecha de entrega',
       align: 'center',
-      render: (text) => getItemById(text, 'recorrido')?.fecha || '-'
+      render: (text) => getItemById(text, 'recorrido')?.fecha || '-',
+      sorter: (rowA, rowB) => {
+        const fechaA = dayjs(
+          getItemById(rowA.idRecorrido, 'recorrido')?.fecha,
+          'DD/MM/YY'
+        );
+        const fechaB = dayjs(
+          getItemById(rowB.idRecorrido, 'recorrido')?.fecha,
+          'DD/MM/YY'
+        );
+
+        return fechaA - fechaB;
+      },
+      defaultSortOrder: 'descend'
     },
     {
       dataIndex: 'id',
