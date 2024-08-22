@@ -45,6 +45,10 @@
   align-items: center;
 }
 
+.mobile-card {
+  margin-bottom: 16px;
+}
+
 .mobile-card h4 {
   font-size: 1.5rem;
   color: var(--dark-medium-color);

@@ -2,10 +2,15 @@ import { MdOutlineReceiptLong } from 'react-icons/md';
 import { MainContent } from '../../layouts/MainContent';
 import { PedidosTable } from './components/PedidosTable';
 import { PedidosDrawer } from './components/PedidosDrawer';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { AddButton } from '../../components/buttons/AddButton';
+import { PedidosMobile } from './components/PedidosMobile';
+import { MobileContent } from '../../layouts/MobileContent';
+import { ResponsiveContext } from '../../contexts/ResponsiveContext';
 
 export const Pedidos = () => {
+  const windowWidth = useContext(ResponsiveContext);
+
   const [openDrawer, setOpenDrawer] = useState(false);
   const [selectedPedido, setSelectedPedido] = useState(null);
   const [drawerMode, setDrawerMode] = useState('add');
@@ -28,19 +33,30 @@ export const Pedidos = () => {
   }
 
   return (
-    <MainContent
-      title='Pedidos'
-      icon={<MdOutlineReceiptLong size={40} />}
-      extra={<AddButton element='pedido' onAdd={handleAdd} />}
-    >
-      <PedidosTable onInfo={handleInfo} onEdit={handleEdit} />
+    <>
+      {windowWidth > 700 ? (
+        <MainContent
+          title='Pedidos'
+          icon={<MdOutlineReceiptLong size={40} />}
+          extra={<AddButton element='pedido' onAdd={handleAdd} />}
+        >
+          <PedidosTable onInfo={handleInfo} onEdit={handleEdit} />
 
-      <PedidosDrawer
-        mode={drawerMode}
-        pedido={selectedPedido}
-        open={openDrawer}
-        setOpen={setOpenDrawer}
-      />
-    </MainContent>
+          <PedidosDrawer
+            mode={drawerMode}
+            pedido={selectedPedido}
+            open={openDrawer}
+            setOpen={setOpenDrawer}
+          />
+        </MainContent>
+      ) : (
+        <MobileContent
+          title='Pedidos'
+          icon={<MdOutlineReceiptLong size={50} />}
+        >
+          <PedidosMobile />
+        </MobileContent>
+      )}
+    </>
   );
 };
