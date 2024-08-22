@@ -7,11 +7,23 @@ import {
   AiOutlinePlus
 } from 'react-icons/ai';
 import { getItemById } from '../../../utils/getItemById';
+import dayjs from 'dayjs';
 
 export const PedidosMobile = () => {
   const { pedidos } = useContext(DataContext);
 
   const [searchTerm, setSearchTerm] = useState('');
+
+  const filteredPedidos = pedidos
+    .filter((pedido) => {
+      const cliente = getItemById(pedido.idCliente, 'cliente');
+      const nombreCliente = cliente?.nombre?.toLowerCase() || '';
+      const fechaRegistro = pedido.fechaRegistro.toLowerCase();
+      const search = searchTerm.toLowerCase();
+
+      return nombreCliente.includes(search) || fechaRegistro.includes(search);
+    })
+    .sort((a, b) => dayjs(b.fechaRegistro) - dayjs(a.fechaRegistro));
 
   return (
     <div>
@@ -26,7 +38,7 @@ export const PedidosMobile = () => {
         </Button>
       </div>
 
-      {pedidos.map((pedido, index) => (
+      {filteredPedidos.map((pedido, index) => (
         <Card key={index} className='mobile-card pedidos-mobile-card'>
           <div>
             <h4>{pedido.fechaRegistro}</h4>
