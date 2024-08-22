@@ -64,7 +64,12 @@
 
 @media (max-width: 500px) {
   .Login {
+    justify-content: space-between;
     gap: 0;
+  }
+
+  .login-brand {
+    margin-top: 32px;
   }
 
   .LoginForm {
