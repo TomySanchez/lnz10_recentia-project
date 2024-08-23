@@ -5,7 +5,7 @@ const { Item } = Descriptions;
 
 export const ClientesInfoDrawer = ({ cliente }) => {
   return (
-    <Descriptions column={1}>
+    <Descriptions column={1} labelStyle={{ color: '#000000aa' }}>
       <Item label='Nombre'>{cliente.nombre}</Item>
       <Item label='Dirección'>{`${formatDireccion(cliente.direccion)}, ${
         cliente.barrio.nombre

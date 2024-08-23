@@ -14,7 +14,7 @@ export const ProductosInfoDrawer = ({ producto }) => {
 
   return (
     <>
-      <Descriptions column={1}>
+      <Descriptions column={1} labelStyle={{ color: '#000000aa' }}>
         <Item label='Nombre'>{producto.nombre}</Item>
         <Item label='Descripción'>{producto.descripcion || '-'}</Item>
         <Item label='Estado'>

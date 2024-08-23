@@ -23,7 +23,7 @@ export const RecorridosInfoDrawer = ({
 
   return (
     <>
-      <Descriptions column={1}>
+      <Descriptions column={1} labelStyle={{ color: '#000000aa' }}>
         <Item label='Fecha'>{recorrido.fecha}</Item>
 
         <Item label='Estado'>

@@ -91,7 +91,7 @@ export const EntregasEditDrawer = ({ entrega, setOpen }) => {
       onFinish={handleFinish}
       requiredMark='optional'
     >
-      <Descriptions column={1}>
+      <Descriptions column={1} labelStyle={{ color: '#000000aa' }}>
         <Item label='Cliente'>{getCliente().nombre}</Item>
         <Item label='Recorrido'>
           {getItemById(entrega.idRecorrido, 'recorrido').fecha || '-'}
@@ -209,7 +209,7 @@ export const EntregasEditDrawer = ({ entrega, setOpen }) => {
           <Select options={metodosDePagoOptions} />
         </Form.Item>
 
-        <Descriptions column={1}>
+        <Descriptions column={1} labelStyle={{ color: '#000000aa' }}>
           <Item label='Monto total'>$ 5000</Item>
         </Descriptions>
       </div>

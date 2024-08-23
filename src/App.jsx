@@ -18,6 +18,9 @@ function App() {
           colorBgLayout: white
         },
         components: {
+          Form: {
+            labelColor: '#000000aa'
+          },
           Layout: {
             lightSiderBg: lightExtraColor,
             lightTriggerBg: lightExtraColor

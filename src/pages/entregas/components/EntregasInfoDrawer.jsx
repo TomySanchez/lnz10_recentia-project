@@ -40,7 +40,7 @@ export const EntregasInfoDrawer = ({ entrega }) => {
 
   return (
     <>
-      <Descriptions column={1}>
+      <Descriptions column={1} labelStyle={{ color: '#000000aa' }}>
         <Item label='Cliente'>{getCliente().nombre}</Item>
 
         <Item label='Estado de la entrega'>
@@ -67,7 +67,7 @@ export const EntregasInfoDrawer = ({ entrega }) => {
 
       <div className='entregas-pago-info-container'>
         <h3>Pago</h3>
-        <Descriptions column={1}>
+        <Descriptions column={1} labelStyle={{ color: '#000000aa' }}>
           <Item label='Estado del pago'>
             <Tag color={getColorTagEstado(pago.estado)}>{pago.estado}</Tag>
           </Item>

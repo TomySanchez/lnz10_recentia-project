@@ -29,7 +29,7 @@ export const PedidosInfoDrawer = ({ pedido }) => {
 
   return (
     <>
-      <Descriptions column={1}>
+      <Descriptions column={1} labelStyle={{ color: '#000000aa' }}>
         <Item label='Tipo de pedido'>
           <Tag color={colorTagTipoPedido}>
             {pedido.esRecurrente ? 'Recurrente' : 'No recurrente'}
