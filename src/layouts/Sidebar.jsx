@@ -13,7 +13,7 @@ export const Sidebar = ({ isCollapsed }) => {
   const navigateTo = useNavigate();
   const location = useLocation();
 
-  const itemsMenu = [
+  const itemsMenuTop = [
     {
       key: '/clientes',
       label: 'Clientes',
@@ -38,22 +38,27 @@ export const Sidebar = ({ isCollapsed }) => {
       key: '/productos',
       label: 'Productos',
       icon: <MdOutlineShoppingBag />
-    },
+    }
     /* {
       key: '/configuracion',
       label: 'Configuración',
       icon: <MdOutlineSettings />
     }, */
-    {
-      key: '/inicio',
-      label: 'Cerrar sesión',
-      icon: <MdOutlineLogout />
-    }
   ];
+
+  const itemsMenuBottom = {
+    key: '/inicio',
+    label: 'Cerrar sesión',
+    icon: <MdOutlineLogout />
+  };
 
   function handleMenuClick(e) {
     navigateTo(e.key);
   }
+
+  /* function handleNewClick() {
+    console.log('Nuevo botón clickeado');
+  } */
 
   return (
     <div className='Sidebar'>
@@ -62,15 +67,48 @@ export const Sidebar = ({ isCollapsed }) => {
         {!isCollapsed && <span className='sidebar-brand-name'>recentia</span>}
       </div>
 
+      {/* <div className='sidebar-new-button-container'>
+        <Popover trigger='click' placement='right' content={PopoverContent}>
+          <Button
+            className='sidebar-new-button'
+            type='primary'
+            icon={<MdAdd size={18} />}
+            onClick={handleNewClick}
+            block
+          >
+            {!isCollapsed && 'NUEVO'}
+          </Button>
+        </Popover>
+      </div> */}
+
       <div className='sidebar-menu-container'>
         <Menu
           className='sidebar-menu'
           mode='inline'
-          items={itemsMenu}
+          items={itemsMenuTop}
           defaultSelectedKeys={[location.pathname]}
+          onClick={handleMenuClick}
+        />
+      </div>
+
+      <div className='sidebar-logout-container'>
+        <Menu
+          className='sidebar-menu'
+          mode='inline'
+          items={[itemsMenuBottom]}
           onClick={handleMenuClick}
         />
       </div>
     </div>
   );
 };
+
+/* const PopoverContent = () => {
+  return (
+    <div className='PopoverContent'>
+      <Button size='small'>Cliente</Button>
+      <Button size='small'>Pedido</Button>
+      <Button size='small'>Recorrido</Button>
+    </div>
+  );
+}; */

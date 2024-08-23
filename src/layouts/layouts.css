@@ -20,6 +20,17 @@
 }
 
 .Sidebar {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.sidebar-menu-container {
+  flex-grow: 1;
+}
+
+.sidebar-logout-container {
+  margin-top: auto;
 }
 
 .sidebar-brand {
@@ -45,10 +56,19 @@
   overflow: hidden;
 }
 
-.sidebar-menu-container {
+.sidebar-new-button-container {
+  padding: 0 16px;
+  margin-bottom: 16px;
 }
 
-.sidebar-menu {
+.sidebar-new-button {
+  font-weight: 600;
+}
+
+.PopoverContent {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 /* MAIN CONTENT: */
@@ -81,9 +101,6 @@
   align-items: center;
   gap: 8px;
   color: var(--dark-color);
-}
-
-.main-content-extra-container {
 }
 
 /* MOBILE MENU: */
