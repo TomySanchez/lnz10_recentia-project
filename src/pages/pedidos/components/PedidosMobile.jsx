@@ -39,20 +39,20 @@ export const PedidosMobile = () => {
       </div>
 
       {filteredPedidos.map((pedido, index) => (
-        <Card key={index} className='mobile-card pedidos-mobile-card'>
+        <Card key={index} className='mobile-card '>
           <div>
             <h4>{pedido.fechaRegistro}</h4>
             <p>{getItemById(pedido.idCliente, 'cliente').nombre}</p>
           </div>
 
-          <div className='pedidos-mobile-footer'>
+          <div className='mobile-footer'>
             {/* {pedido.esRecurrente && (
               <Tag color={pedido.esRecurrente && 'gold'}>
                 {pedido.esRecurrente && 'Recurrente'}
               </Tag>
             )} */}
 
-            <div className='pedidos-mobile-buttons-container'>
+            <div className='mobile-buttons-container'>
               <Tooltip title='Más información'>
                 <span className='pointer'>
                   <AiOutlineFileSearch size={24} />
