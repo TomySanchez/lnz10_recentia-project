@@ -65,6 +65,20 @@ export const RecorridosPlanificarModal = ({
           }
         },
         {
+          dataIndex: 'id',
+          title: 'Disponibilidad',
+          render: (text) => {
+            switch (text) {
+              case '21':
+                return 'Lunes a la tarde';
+              case '13':
+                return 'Jueves a la tarde';
+              case '8':
+                return 'Viernes a la mañana';
+            }
+          }
+        },
+        {
           dataIndex: '',
           title: '',
           align: 'center',
@@ -81,6 +95,22 @@ export const RecorridosPlanificarModal = ({
             const cliente = getItemById(pedido.idCliente, 'cliente');
 
             return cliente.nombre;
+          }
+        },
+        {
+          dataIndex: 'id',
+          title: 'Disponibilidad',
+          render: (text) => {
+            switch (text) {
+              case '21':
+                return 'Lunes a la tarde';
+              case '13':
+                return 'Jueves a la tarde';
+              case '8':
+                return 'Viernes a la mañana';
+              default:
+                return 'Lunes a la mañana';
+            }
           }
         },
         {
