@@ -38,7 +38,7 @@ export const ClientesMobile = ({ onInfo, onEdit, onAdd }) => {
 
       {filteredClientes.map((cliente, index) => (
         <Card key={index} className='mobile-card'>
-          <div>
+          <div className='mobile-info-container'>
             <h4>{cliente.nombre}</h4>
             <p>{formatDireccion(cliente.direccion)}</p>
           </div>

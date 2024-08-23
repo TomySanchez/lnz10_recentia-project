@@ -29,7 +29,7 @@ export const PedidosMobile = () => {
     <div>
       <div className='mobile-input-container'>
         <Input.Search
-          placeholder='Buscar cliente o fecha de registro'
+          placeholder='Buscar cliente o fecha'
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
@@ -40,7 +40,7 @@ export const PedidosMobile = () => {
 
       {filteredPedidos.map((pedido, index) => (
         <Card key={index} className='mobile-card '>
-          <div>
+          <div className='mobile-info-container'>
             <h4>{pedido.fechaRegistro}</h4>
             <p>{getItemById(pedido.idCliente, 'cliente').nombre}</p>
           </div>
