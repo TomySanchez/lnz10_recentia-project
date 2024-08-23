@@ -82,7 +82,7 @@ export const RecorridosPlanificarModal = ({
           dataIndex: '',
           title: '',
           align: 'center',
-          render: (record) => <Acciones item={record} />
+          render: (record) => <Acciones entityType='entregas' item={record} />
         }
       ];
     } else {
@@ -140,7 +140,7 @@ export const RecorridosPlanificarModal = ({
           dataIndex: '',
           title: '',
           align: 'center',
-          render: (record) => <Acciones item={record} />
+          render: (record) => <Acciones entityType='entregas' item={record} />
         }
       ];
     }

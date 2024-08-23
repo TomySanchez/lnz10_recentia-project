@@ -31,7 +31,12 @@ export const ProductosTable = ({ onInfo, onEdit }) => {
       title: '',
       align: 'center',
       render: (record) => (
-        <Acciones item={record} onInfo={onInfo} onEdit={onEdit} />
+        <Acciones
+          entityType='productos'
+          item={record}
+          onInfo={onInfo}
+          onEdit={onEdit}
+        />
       )
     }
   ];

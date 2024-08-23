@@ -155,7 +155,7 @@ export const ListaEntregasTable = ({ pedido }) => {
       dataIndex: '',
       title: '',
       align: 'center',
-      render: (record) => <Acciones item={record} />
+      render: (record) => <Acciones entityType='entregas' item={record} />
     }
   ];
 

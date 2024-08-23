@@ -101,6 +101,7 @@ export const RecorridosTable = ({
       align: 'center',
       render: (record) => (
         <Acciones
+          entityType='recorridos'
           item={record}
           onInfo={onInfoRecorrido}
           onEdit={onEditRecorrido}

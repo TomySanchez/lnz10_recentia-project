@@ -4,7 +4,7 @@ import { DataContext } from '../../../../contexts';
 import { getFrecuenciaEntrega } from '../../../../utils/getFrecuenciaEntrega';
 import { Acciones } from '../../../../components/tables/Acciones';
 import dayjs from 'dayjs';
-import { AiOutlineCalendar, AiOutlineSearch } from 'react-icons/ai';
+import { AiOutlineCalendar } from 'react-icons/ai';
 import { SelectFechaTabla } from '../../../../components/tables/SelectFechaTabla';
 
 export const RegistrosPedidos = ({ cliente }) => {
@@ -51,7 +51,7 @@ export const RegistrosPedidos = ({ cliente }) => {
       dataIndex: '',
       title: '',
       align: 'center',
-      render: (record) => <Acciones item={record} />
+      render: (record) => <Acciones entityType='pedidos' item={record} />
     }
   ];
 

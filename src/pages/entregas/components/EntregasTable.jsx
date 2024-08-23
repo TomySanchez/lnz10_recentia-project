@@ -93,7 +93,12 @@ export const EntregasTable = ({ className, recorrido, onInfo, onEdit }) => {
       title: '',
       align: 'center',
       render: (record) => (
-        <Acciones item={record} onInfo={onInfo} onEdit={onEdit} />
+        <Acciones
+          entityType='entregas'
+          item={record}
+          onInfo={onInfo}
+          onEdit={onEdit}
+        />
       )
     }
   ];

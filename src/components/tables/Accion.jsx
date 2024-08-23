@@ -1,5 +1,10 @@
 import { Tooltip } from 'antd';
-import { AiOutlineEdit, AiOutlineFileSearch } from 'react-icons/ai';
+import {
+  AiOutlineEdit,
+  AiOutlineFileSearch,
+  AiOutlineStop,
+  AiOutlineDelete
+} from 'react-icons/ai';
 
 export const Accion = ({ type, onClick }) => {
   let accion = {
@@ -17,6 +22,18 @@ export const Accion = ({ type, onClick }) => {
       accion = {
         icon: AiOutlineEdit,
         tooltipTitle: 'Editar'
+      };
+      break;
+    case 'cancel':
+      accion = {
+        icon: AiOutlineStop,
+        tooltipTitle: 'Cancelar'
+      };
+      break;
+    case 'delete':
+      accion = {
+        icon: AiOutlineDelete,
+        tooltipTitle: 'Eliminar'
       };
   }
 

@@ -82,7 +82,12 @@ export const PedidosTable = ({ onInfo, onEdit }) => {
       title: '',
       align: 'center',
       render: (record) => (
-        <Acciones item={record} onInfo={onInfo} onEdit={onEdit} />
+        <Acciones
+          entityType='pedidos'
+          item={record}
+          onInfo={onInfo}
+          onEdit={onEdit}
+        />
       )
     }
   ];
