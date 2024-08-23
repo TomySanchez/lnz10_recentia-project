@@ -96,14 +96,6 @@ export const ClientesAddOrEditDrawer = ({ editMode, cliente, setOpen }) => {
         </div>
       </div>
 
-      <Form.Item name='telefono' label='Teléfono'>
-        <Input />
-      </Form.Item>
-
-      <Form.Item name='cuit_cuil' label='CUIT/CUIL'>
-        <Input />
-      </Form.Item>
-
       <Form.Item name='disponibilidad' label='Disponibilidad' required>
         <div className='clientes-disponibilidad-edit-container'>
           <span>Los</span>
@@ -153,6 +145,14 @@ export const ClientesAddOrEditDrawer = ({ editMode, cliente, setOpen }) => {
             ]}
           />
         </div>
+      </Form.Item>
+
+      <Form.Item name='telefono' label='Teléfono'>
+        <Input />
+      </Form.Item>
+
+      <Form.Item name='cuit_cuil' label='CUIT/CUIL'>
+        <Input />
       </Form.Item>
 
       <Form.Item name='observaciones' label='Observaciones'>

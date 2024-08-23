@@ -10,6 +10,7 @@ export const ClientesInfoDrawer = ({ cliente }) => {
       <Item label='Dirección'>{`${formatDireccion(cliente.direccion)}, ${
         cliente.barrio.nombre
       }, ${cliente.localidad.nombre}`}</Item>
+      <Item label='Disponibilidad'>Los martes a la tarde</Item>
       <Item label='Teléfono'>{cliente.telefono || '-'}</Item>
       <Item label='CUIT/CUIL'>{cliente.cuit_cuil || '-'}</Item>
       <Item label='Observaciones'>{cliente.observaciones || '-'}</Item>
