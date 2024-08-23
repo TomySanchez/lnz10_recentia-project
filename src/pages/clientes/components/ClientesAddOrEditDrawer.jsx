@@ -104,6 +104,57 @@ export const ClientesAddOrEditDrawer = ({ editMode, cliente, setOpen }) => {
         <Input />
       </Form.Item>
 
+      <Form.Item name='disponibilidad' label='Disponibilidad' required>
+        <div className='clientes-disponibilidad-edit-container'>
+          <span>Los</span>
+          <Select
+            className='clientes-disponibilidad-select'
+            size='small'
+            dropdownStyle={{ width: 100 }}
+            style={{ width: 100 }}
+            options={[
+              {
+                label: 'Lunes',
+                value: '1'
+              },
+              {
+                label: 'Martes',
+                value: '2'
+              },
+              {
+                label: 'Miércoles',
+                value: '3'
+              },
+              {
+                label: 'Jueves',
+                value: '4'
+              },
+              {
+                label: 'Viernes',
+                value: '5'
+              }
+            ]}
+          />
+          <span>a la</span>
+          <Select
+            className='clientes-disponibilidad-select'
+            size='small'
+            dropdownStyle={{ width: 100 }}
+            style={{ width: 100 }}
+            options={[
+              {
+                label: 'Mañana',
+                value: '1'
+              },
+              {
+                label: 'Tarde',
+                value: '2'
+              }
+            ]}
+          />
+        </div>
+      </Form.Item>
+
       <Form.Item name='observaciones' label='Observaciones'>
         <Input.TextArea autoSize={{ minRows: 2, maxRows: 2 }} />
       </Form.Item>
