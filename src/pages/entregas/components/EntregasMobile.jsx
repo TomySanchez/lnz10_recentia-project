@@ -53,7 +53,7 @@ export const EntregasMobile = () => {
 
       <Table
         className='entregas-mobile-table'
-        size='small'
+        // size='small'
         rowSelection={{
           selectedRowKeys,
           onChange: setSelectedRowKeys
