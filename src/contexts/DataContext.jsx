@@ -1,7 +1,6 @@
 import { createContext, useEffect, useState } from 'react';
 import {
   dataBarrios,
-  dataClientes,
   dataDetallesDeEntregas,
   dataDetallesDePagos,
   dataDetallesDePedidos,
@@ -15,6 +14,7 @@ import {
   dataProductos,
   dataRecorridos
 } from '../data';
+import { getClientes } from '../services/clientes';
 
 export const DataContext = createContext();
 
@@ -35,15 +35,14 @@ export const DataProvider = ({ children }) => {
   const [recorridos, setRecorridos] = useState([]);
 
   useEffect(() => {
+    getClientes()
+      .then((res) => {
+        setClientes(res.data);
+      })
+      .catch((err) => console.error(err));
+
     setBarrios(dataBarrios);
-    setClientes(
-      transformClientes(
-        dataClientes,
-        dataDirecciones,
-        dataBarrios,
-        dataLocalidades
-      )
-    );
+    setClientes();
     setDetallesDeEntregas(dataDetallesDeEntregas);
     setDetallesDePagos(dataDetallesDePagos);
     setDetallesDePedidos(dataDetallesDePedidos);
@@ -57,27 +56,6 @@ export const DataProvider = ({ children }) => {
     setProductos(dataProductos);
     setRecorridos(dataRecorridos);
   }, []);
-
-  function transformClientes(clientes, direcciones, barrios, localidades) {
-    return clientes.map((cliente) => {
-      const direccion = direcciones.find(
-        (direccion) => direccion.id === cliente.idDireccion
-      );
-      const barrio = direccion
-        ? barrios.find((barrio) => barrio.id === direccion.idBarrio)
-        : null;
-      const localidad = barrio
-        ? localidades.find((localidad) => localidad.id === barrio.idLocalidad)
-        : null;
-
-      return {
-        ...cliente,
-        direccion: { ...direccion },
-        barrio: { ...barrio },
-        localidad: { ...localidad }
-      };
-    });
-  }
 
   return (
     <DataContext.Provider
