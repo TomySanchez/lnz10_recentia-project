@@ -1,5 +1,4 @@
 import dataBarrios from './barrios.json';
-import dataClientes from './clientes.json';
 import dataDetallesDeEntregas from './detallesDeEntregas.json';
 import dataDetallesDePagos from './detallesDePagos.json';
 import dataDetallesDePedidos from './detallesDePedidos.json';
@@ -15,7 +14,6 @@ import dataRecorridos from './recorridos.json';
 
 export {
   dataBarrios,
-  dataClientes,
   dataDetallesDeEntregas,
   dataDetallesDePagos,
   dataDetallesDePedidos,

@@ -1,6 +1,5 @@
 import {
   dataBarrios,
-  dataClientes,
   dataDetallesDeEntregas,
   dataDetallesDePagos,
   dataDetallesDePedidos,
@@ -21,9 +20,9 @@ export function getItemById(id, itemType) {
     case 'barrio':
       data = dataBarrios;
       break;
-    case 'cliente':
+    /* case 'cliente':
       data = dataClientes;
-      break;
+      break; */
     case 'detalleDeEntrega':
       data = dataDetallesDeEntregas;
       break;
