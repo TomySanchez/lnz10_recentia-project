@@ -7,7 +7,7 @@ import { Table } from '../../../components/tables/Table';
 import { Acciones } from '../../../components/tables/Acciones';
 
 export const EntregasMobile = () => {
-  const { recorridos } = useContext(DataContext);
+  const { clientes, recorridos } = useContext(DataContext);
 
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 
@@ -17,7 +17,7 @@ export const EntregasMobile = () => {
 
   const datosEntrega = entregasActuales.map((entrega) => {
     const pedido = getItemById(entrega.idPedido, 'pedido');
-    const cliente = getItemById(pedido.idCliente, 'cliente');
+    const cliente = getItemById(pedido.idCliente, clientes);
 
     return {
       nombreCliente: cliente.nombre

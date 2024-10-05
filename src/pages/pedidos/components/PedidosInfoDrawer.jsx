@@ -2,10 +2,14 @@ import { Descriptions, List, Tag, Tooltip } from 'antd';
 import { getItemById } from '../../../utils/getItemById';
 import { getFrecuenciaEntrega } from '../../../utils/getFrecuenciaEntrega';
 import { getDetalles } from '../../../utils/getDetalles';
+import { useContext } from 'react';
+import { DataContext } from '../../../contexts';
 
 const { Item } = Descriptions;
 
 export const PedidosInfoDrawer = ({ pedido }) => {
+  const { clientes } = useContext(DataContext);
+
   const detallesDePedido = getDetalles(pedido.id, 'pedidos');
 
   const colorTagTipoPedido = pedido.esRecurrente ? 'gold' : 'pink';
@@ -43,7 +47,7 @@ export const PedidosInfoDrawer = ({ pedido }) => {
         <Item label='Fecha de registro'>{pedido.fechaRegistro}</Item>
 
         <Item label='Cliente'>
-          {getItemById(pedido.idCliente, 'cliente').nombre}
+          {getItemById(pedido.idCliente, clientes).nombre}
         </Item>
 
         <Item label='Frecuencia de entrega'>

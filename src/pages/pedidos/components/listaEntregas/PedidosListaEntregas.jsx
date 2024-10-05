@@ -4,8 +4,12 @@ import { getItemById } from '../../../../utils/getItemById';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Button } from 'antd';
 import { ListaEntregasTable } from './ListaEntregasTable';
+import { useContext } from 'react';
+import { DataContext } from '../../../../contexts';
 
 export const PedidosListaEntregas = () => {
+  const { clientes } = useContext(DataContext);
+
   const navigateTo = useNavigate();
   const location = useLocation();
   const pedido = location.state?.pedido;
@@ -30,7 +34,7 @@ export const PedidosListaEntregas = () => {
       }
     >
       <h3 className='recorridos-title'>
-        Pedido de {getItemById(pedido.idCliente, 'cliente').nombre} -{' '}
+        Pedido de {getItemById(pedido.idCliente, clientes).nombre} -{' '}
         {pedido.fechaRegistro}
       </h3>
 

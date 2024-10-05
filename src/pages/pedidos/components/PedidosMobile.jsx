@@ -10,13 +10,13 @@ import { getItemById } from '../../../utils/getItemById';
 import dayjs from 'dayjs';
 
 export const PedidosMobile = () => {
-  const { pedidos } = useContext(DataContext);
+  const { clientes, pedidos } = useContext(DataContext);
 
   const [searchTerm, setSearchTerm] = useState('');
 
   const filteredPedidos = pedidos
     .filter((pedido) => {
-      const cliente = getItemById(pedido.idCliente, 'cliente');
+      const cliente = getItemById(pedido.idCliente, clientes);
       const nombreCliente = cliente?.nombre?.toLowerCase() || '';
       const fechaRegistro = pedido.fechaRegistro.toLowerCase();
       const search = searchTerm.toLowerCase();
@@ -42,7 +42,7 @@ export const PedidosMobile = () => {
         <Card key={index} className='mobile-card '>
           <div className='mobile-info-container'>
             <h4>{pedido.fechaRegistro}</h4>
-            <p>{getItemById(pedido.idCliente, 'cliente').nombre}</p>
+            <p>{getItemById(pedido.idCliente, clientes).nombre}</p>
           </div>
 
           <div className='mobile-footer'>

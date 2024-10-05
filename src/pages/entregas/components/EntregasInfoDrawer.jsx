@@ -8,13 +8,13 @@ import { getMontoTotal } from '../../../utils/getMontoTotal';
 const { Item } = Descriptions;
 
 export const EntregasInfoDrawer = ({ entrega }) => {
-  const { pagos } = useContext(DataContext);
+  const { clientes, pagos } = useContext(DataContext);
 
   const detallesDeEntrega = getDetalles(entrega.id, 'entregas');
 
   function getCliente() {
     const pedido = getItemById(entrega.idPedido, 'pedido');
-    const cliente = getItemById(pedido.idCliente, 'cliente');
+    const cliente = getItemById(pedido.idCliente, clientes);
 
     return cliente;
   }

@@ -12,7 +12,7 @@ export const RecorridosPlanificarModal = ({
   openModal,
   setOpenModal
 }) => {
-  const { entregas } = useContext(DataContext);
+  const { clientes, entregas } = useContext(DataContext);
 
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 
@@ -59,9 +59,9 @@ export const RecorridosPlanificarModal = ({
           title: 'Cliente',
           render: (text) => {
             const pedido = getItemById(text, 'pedido');
-            const cliente = getItemById(pedido.idCliente, 'cliente');
+            const cliente = getItemById(pedido.idCliente, clientes);
 
-            return cliente.nombre;
+            return cliente?.nombre;
           }
         },
         {
@@ -92,9 +92,9 @@ export const RecorridosPlanificarModal = ({
           title: 'Cliente',
           render: (text) => {
             const pedido = getItemById(text, 'pedido');
-            const cliente = getItemById(pedido.idCliente, 'cliente');
+            const cliente = getItemById(pedido.idCliente, clientes);
 
-            return cliente.nombre;
+            return cliente?.nombre;
           }
         },
         {

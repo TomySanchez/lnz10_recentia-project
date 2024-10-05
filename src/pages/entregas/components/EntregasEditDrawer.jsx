@@ -17,7 +17,7 @@ import dayjs from 'dayjs';
 const { Item } = Descriptions;
 
 export const EntregasEditDrawer = ({ entrega, setOpen }) => {
-  const { productos, metodosDePago, detallesDePagos, pagos } =
+  const { clientes, productos, metodosDePago, detallesDePagos, pagos } =
     useContext(DataContext);
 
   const [entregaForm] = Form.useForm();
@@ -40,7 +40,7 @@ export const EntregasEditDrawer = ({ entrega, setOpen }) => {
 
   function getCliente() {
     const pedido = getItemById(entrega.idPedido, 'pedido');
-    const cliente = getItemById(pedido.idCliente, 'cliente');
+    const cliente = getItemById(pedido.idCliente, clientes);
 
     return cliente;
   }
