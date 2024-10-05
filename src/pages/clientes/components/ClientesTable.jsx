@@ -32,9 +32,9 @@ export const ClientesTable = ({ onInfo, onEdit }) => {
       )
     },
     {
-      dataIndex: 'idDireccion',
+      dataIndex: 'direccion',
       title: 'Dirección',
-      render: (_, record) => formatDireccion(record.direccion),
+      render: (text) => formatDireccion(text),
       sorter: (rowA, rowB) =>
         rowA.direccion.calle.localeCompare(rowB.direccion.calle),
       filterIcon: () => <AiOutlineSearch />,
@@ -58,17 +58,15 @@ export const ClientesTable = ({ onInfo, onEdit }) => {
       )
     },
     {
-      dataIndex: 'barrio',
+      dataIndex: 'direccion',
       title: 'Barrio',
-      render: (_, record) =>
-        `${record.barrio.nombre}, ${record.localidad.nombre}`,
-      sorter: (rowA, rowB) =>
-        rowA.barrio.nombre.localeCompare(rowB.barrio.nombre),
+      render: (text) => `${text.barrio}, ${text.localidad}`,
+      sorter: (rowA, rowB) => rowA.barrio.localeCompare(rowB.barrio),
       filters: barrios.map((barrio) => ({
         text: barrio.nombre,
         value: barrio.nombre
       })),
-      onFilter: (value, record) => record.barrio.nombre === value
+      onFilter: (value, record) => record.direccion.barrio === value
     },
     {
       dataIndex: 'observaciones',
