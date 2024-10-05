@@ -10,7 +10,7 @@ import { SelectFechaTabla } from '../../../components/tables/SelectFechaTabla';
 import { BuscadorTabla } from '../../../components/tables/BuscadorTabla';
 
 export const PedidosTable = ({ onInfo, onEdit }) => {
-  const { pedidos } = useContext(DataContext);
+  const { clientes, pedidos } = useContext(DataContext);
 
   const pedidosColumns = [
     {
@@ -42,16 +42,16 @@ export const PedidosTable = ({ onInfo, onEdit }) => {
     {
       dataIndex: 'idCliente',
       title: 'Cliente',
-      render: (text) => getItemById(text, 'cliente').nombre,
+      render: (text) => getItemById(text, clientes)?.nombre,
       sorter: (rowA, rowB) => {
-        const clienteA = getItemById(rowA.idCliente, 'cliente').nombre;
-        const clienteB = getItemById(rowB.idCliente, 'cliente').nombre;
+        const clienteA = getItemById(rowA.idCliente, clientes)?.nombre;
+        const clienteB = getItemById(rowB.idCliente, clientes)?.nombre;
 
         return clienteA.localeCompare(clienteB);
       },
       filterIcon: () => <AiOutlineSearch />,
       onFilter: (value, record) => {
-        const cliente = getItemById(record.idCliente, 'cliente').nombre;
+        const cliente = getItemById(record.idCliente, clientes)?.nombre;
         return cliente
           .toLowerCase()
           .trim()
