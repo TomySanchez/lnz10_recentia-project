@@ -1,6 +1,5 @@
 import { createContext, useEffect, useState } from 'react';
 import {
-  dataBarrios,
   dataDetallesDeEntregas,
   dataDetallesDePagos,
   dataDetallesDePedidos,
@@ -15,6 +14,7 @@ import {
   dataRecorridos
 } from '../data';
 import { getClientes } from '../services/clientes';
+import { getBarrios } from '../services/barrios';
 
 export const DataContext = createContext();
 
@@ -35,14 +35,18 @@ export const DataProvider = ({ children }) => {
   const [recorridos, setRecorridos] = useState([]);
 
   useEffect(() => {
+    getBarrios()
+      .then((res) => {
+        setBarrios(res.data);
+      })
+      .catch((err) => console.error(err));
+
     getClientes()
       .then((res) => {
         setClientes(res.data);
       })
       .catch((err) => console.error(err));
 
-    setBarrios(dataBarrios);
-    setClientes();
     setDetallesDeEntregas(dataDetallesDeEntregas);
     setDetallesDePagos(dataDetallesDePagos);
     setDetallesDePedidos(dataDetallesDePedidos);
