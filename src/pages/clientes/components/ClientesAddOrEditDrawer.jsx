@@ -1,20 +1,18 @@
 import { useContext, useEffect } from 'react';
 import { DataContext } from '../../../contexts';
 import { Form, Input, Select } from 'antd';
+import { getItemById } from '../../../utils/getItemById';
 
 export const ClientesAddOrEditDrawer = ({ editMode, cliente, setOpen }) => {
-  const { barrios, localidades } = useContext(DataContext);
+  const { barrios } = useContext(DataContext);
 
   const [clienteForm] = Form.useForm();
 
   const barrioOptions = barrios.map((barrio) => ({
-    label: barrio.nombre,
+    label: `${barrio.nombre} (${
+      getItemById(barrio.idLocalidad, 'localidad')?.nombre
+    })`,
     value: barrio.id
-  }));
-
-  const localidadOptions = localidades.map((localidad) => ({
-    label: localidad.nombre,
-    value: localidad.id
   }));
 
   useEffect(() => {
@@ -76,24 +74,9 @@ export const ClientesAddOrEditDrawer = ({ editMode, cliente, setOpen }) => {
           </Form.Item>
         </div>
 
-        <div className='clientes-drawer-address-row'>
-          <Form.Item name='localidad' label='Localidad' required>
-            <Select
-              options={localidadOptions}
-              showSearch={true}
-              popupMatchSelectWidth={200}
-              defaultValue={1}
-            />
-          </Form.Item>
-
-          <Form.Item name='barrio' label='Barrio' required>
-            <Select
-              options={barrioOptions}
-              showSearch={true}
-              popupMatchSelectWidth={200}
-            />
-          </Form.Item>
-        </div>
+        <Form.Item name='barrio' label='Barrio' required>
+          <Select options={barrioOptions} showSearch={true} />
+        </Form.Item>
       </div>
 
       <Form.Item name='disponibilidad' label='Disponibilidad' required>
