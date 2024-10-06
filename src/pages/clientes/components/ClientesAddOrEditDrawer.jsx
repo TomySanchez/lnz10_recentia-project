@@ -3,10 +3,8 @@ import { DataContext } from '../../../contexts';
 import { Form, Input, Select } from 'antd';
 import { getItemById } from '../../../utils/getItemById';
 
-export const ClientesAddOrEditDrawer = ({ editMode, cliente, setOpen }) => {
+export const ClientesAddOrEditDrawer = ({ editMode, cliente, clienteForm }) => {
   const { barrios } = useContext(DataContext);
-
-  const [clienteForm] = Form.useForm();
 
   const barrioOptions = barrios.map((barrio) => ({
     label: `${barrio.nombre} (${
@@ -34,17 +32,11 @@ export const ClientesAddOrEditDrawer = ({ editMode, cliente, setOpen }) => {
     }
   }, [cliente, clienteForm, editMode]);
 
-  function handleFinish(values) {
-    console.log('Formulario enviado', values);
-    setOpen(false);
-  }
-
   return (
     <Form
       form={clienteForm}
       name='clientesForm'
       layout='vertical'
-      onFinish={handleFinish}
       requiredMark='optional'
     >
       <Form.Item name='nombre' label='Nombre' required>
