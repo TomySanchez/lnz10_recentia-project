@@ -65,19 +65,33 @@ export const DataProvider = ({ children }) => {
     <DataContext.Provider
       value={{
         barrios,
+        setBarrios,
         clientes,
+        setClientes,
         detallesDeEntregas,
+        setDetallesDeEntregas,
         detallesDePagos,
+        setDetallesDePagos,
         detallesDePedidos,
+        setDetallesDePedidos,
         direcciones,
+        setDirecciones,
         entregas,
+        setEntregas,
         localidades,
+        setLocalidades,
         metodosDePago,
+        setMetodosDePago,
         pagos,
+        setPagos,
         pedidos,
+        setPedidos,
         precios,
+        setPrecios,
         productos,
-        recorridos
+        setProductos,
+        recorridos,
+        setRecorridos
       }}
     >
       {children}
