@@ -38,7 +38,7 @@ export const Drawer = ({
     case 'edit':
       propsDrawer = {
         title: `Editar ${itemType}`,
-        extra: <DrawerButton text='Guardar' />
+        extra: <DrawerButton text='Guardar' onClick={onExtraButtonClick} />
       };
   }
 

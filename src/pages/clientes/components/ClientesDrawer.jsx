@@ -5,7 +5,7 @@ import { ClientesInfoDrawer } from './ClientesInfoDrawer';
 import { useContext } from 'react';
 import { ResponsiveContext } from '../../../contexts/ResponsiveContext';
 import { Form } from 'antd';
-import { addCliente } from '../../../services/clientes';
+import { addCliente, editCliente } from '../../../services/clientes';
 import { DataContext } from '../../../contexts';
 import { getItemById } from '../../../utils/getItemById';
 
@@ -27,7 +27,7 @@ export const ClientesDrawer = ({
     navigateTo(`registros`, { state: { cliente } });
   }
 
-  function addItem() {
+  function handleAddCliente() {
     const values = clienteForm.getFieldsValue();
 
     const formattedValues = {
@@ -87,6 +87,88 @@ export const ClientesDrawer = ({
       .catch((err) => console.error(err));
   }
 
+  function handleEditCliente() {
+    const values = clienteForm.getFieldsValue();
+
+    const formattedValues = {
+      cliente: {
+        id: cliente.id,
+        nombre: values.nombre,
+        telefono: values.telefono,
+        cuit_cuil: values.cuit_cuil,
+        observaciones: values.observaciones
+      },
+      direccion: {
+        idDireccion: cliente.direccion.idDireccion,
+        calle: values.calle,
+        numero: values.numero,
+        piso: values.piso,
+        departamento: values.departamento,
+        idBarrio: values.barrio
+      }
+    };
+
+    editCliente(formattedValues)
+      .then(() => {
+        setDirecciones((prevDirecciones) => {
+          const newDirecciones = [...prevDirecciones];
+
+          const index = newDirecciones.findIndex(
+            (direccion) => direccion.id == formattedValues.direccion.idDireccion
+          );
+
+          if (index !== -1) {
+            newDirecciones[index] = {
+              ...newDirecciones[index],
+              ...formattedValues.direccion
+            };
+          }
+
+          return newDirecciones;
+        });
+
+        const barrio = getItemById(values.barrio, 'barrio');
+        const localidad = getItemById(barrio?.idLocalidad, 'localidad');
+
+        setClientes((prevClientes) => {
+          const newClientes = [...prevClientes];
+
+          const index = newClientes.findIndex(
+            (cliente) => cliente.id == formattedValues.cliente.id
+          );
+
+          if (index !== -1) {
+            newClientes[index] = {
+              ...newClientes[index],
+              ...formattedValues.cliente,
+              direccion: {
+                barrio: barrio?.nombre,
+                idLocalidad: barrio?.idLocalidad,
+                localidad: localidad?.nombre,
+                ...formattedValues.direccion
+              }
+            };
+          }
+
+          return newClientes;
+        });
+        setOpen(false);
+      })
+      .catch((err) => console.error(err));
+  }
+
+  function getOnExtraButtonClick() {
+    if (mode === 'info' && device === 'computer') {
+      return goToRegistros;
+    } else if (mode === 'add') {
+      return handleAddCliente;
+    } else if (mode === 'edit') {
+      return handleEditCliente;
+    } else {
+      return null;
+    }
+  }
+
   return (
     <Drawer
       width={device === 'mobile' && windowWidth}
@@ -95,13 +177,7 @@ export const ClientesDrawer = ({
       item={cliente}
       open={open}
       setOpen={setOpen}
-      onExtraButtonClick={
-        mode === 'info' && device === 'computer'
-          ? goToRegistros
-          : mode === 'add'
-          ? addItem
-          : () => console.error('Error')
-      }
+      onExtraButtonClick={getOnExtraButtonClick()}
       extraButtonText={mode === 'info' && device === 'computer' && 'Registros'}
     >
       {mode === 'info' ? (
