@@ -48,8 +48,6 @@ export const DataProvider = ({ children }) => {
     getPedidos()
       .then((res) => {
         setPedidos(res.data);
-
-        console.log('res.data:', res.data);
       })
       .catch((err) => console.error(err));
 

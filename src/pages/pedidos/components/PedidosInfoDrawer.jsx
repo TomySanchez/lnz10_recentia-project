@@ -9,11 +9,7 @@ const { Item } = Descriptions;
 export const PedidosInfoDrawer = ({ pedido }) => {
   const { clientes } = useContext(DataContext);
 
-  console.log('pedido:', pedido);
-
   const { detallesPedido } = pedido;
-
-  console.log('detallesPedido:', detallesPedido);
 
   const colorTagTipoPedido = pedido.esRecurrente ? 'gold' : 'pink';
 

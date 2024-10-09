@@ -5,7 +5,6 @@ import { getItemById } from '../../../utils/getItemById';
 import { DataContext } from '../../../contexts';
 import { AiOutlineMinusCircle, AiOutlinePlus } from 'react-icons/ai';
 import { colorsPalette } from '../../../utils/colorsPalette';
-import { getDetalles } from '../../../utils/getDetalles.js';
 
 export const PedidosAddOrEditDrawer = ({ editMode, pedido, setOpen }) => {
   const { clientes, productos } = useContext(DataContext);
@@ -16,7 +15,7 @@ export const PedidosAddOrEditDrawer = ({ editMode, pedido, setOpen }) => {
 
   const [pedidoForm] = Form.useForm();
 
-  const detallesDePedido = getDetalles(pedido.id, 'pedidos');
+  const { detallesPedido } = pedido;
 
   const clientesOptions = clientes
     .map((cliente) => ({
@@ -39,7 +38,7 @@ export const PedidosAddOrEditDrawer = ({ editMode, pedido, setOpen }) => {
         cliente: getItemById(pedido.idCliente, clientes).nombre,
         esRecurrente: pedido.esRecurrente,
         cantSemanas: pedido.cantSemanas,
-        detallesDePedido: detallesDePedido.map((detalle) => {
+        detallesPedido: detallesPedido.map((detalle) => {
           return {
             producto: getItemById(detalle.idProducto, 'producto').nombre,
             cantidad: detalle.cantidad
@@ -76,7 +75,7 @@ export const PedidosAddOrEditDrawer = ({ editMode, pedido, setOpen }) => {
         <span className='pedidos-drawer-detalles-title'>
           Detalles de pedidos
         </span>
-        <Form.List name='detallesDePedido'>
+        <Form.List name='detallesPedido'>
           {(fields, { add, remove }) => (
             <div style={{ margin: '12px 0' }}>
               {fields.map(({ key, name, ...restField }) => (
