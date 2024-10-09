@@ -13,6 +13,7 @@ import {
 } from '../data';
 import { getClientes } from '../services/clientes';
 import { getBarrios } from '../services/barrios';
+import { getPedidos } from '../services/pedidos';
 
 export const DataContext = createContext();
 
@@ -21,7 +22,6 @@ export const DataProvider = ({ children }) => {
   const [clientes, setClientes] = useState([]);
   const [detallesDeEntregas, setDetallesDeEntregas] = useState([]);
   const [detallesDePagos, setDetallesDePagos] = useState([]);
-  const [detallesDePedidos, setDetallesDePedidos] = useState([]);
   const [direcciones, setDirecciones] = useState([]);
   const [entregas, setEntregas] = useState([]);
   const [localidades, setLocalidades] = useState([]);
@@ -45,15 +45,21 @@ export const DataProvider = ({ children }) => {
       })
       .catch((err) => console.error(err));
 
+    getPedidos()
+      .then((res) => {
+        setPedidos(res.data);
+
+        console.log('res.data:', res.data);
+      })
+      .catch((err) => console.error(err));
+
     setDetallesDeEntregas(dataDetallesDeEntregas);
     setDetallesDePagos(dataDetallesDePagos);
-    setDetallesDePedidos([]); // TODO
     setDirecciones(dataDirecciones);
     setEntregas(dataEntregas);
     setLocalidades(dataLocalidades);
     setMetodosDePago(dataMetodosDePago);
     setPagos(dataPagos);
-    setPedidos([]); // TODO
     setPrecios(dataPrecios);
     setProductos(dataProductos);
     setRecorridos(dataRecorridos);
@@ -70,8 +76,6 @@ export const DataProvider = ({ children }) => {
         setDetallesDeEntregas,
         detallesDePagos,
         setDetallesDePagos,
-        detallesDePedidos,
-        setDetallesDePedidos,
         direcciones,
         setDirecciones,
         entregas,
