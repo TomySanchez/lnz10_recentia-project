@@ -10,10 +10,10 @@ import { AiOutlineCalendar } from 'react-icons/ai';
 import { SelectFechaTabla } from '../../../../components/tables/SelectFechaTabla';
 
 export const RegistrosEntregas = ({ cliente }) => {
-  const { entregas, pagos } = useContext(DataContext);
+  const { entregas, pagos, pedidos } = useContext(DataContext);
 
   const filteredEntregas = entregas.filter((entrega) => {
-    const pedido = getItemById(entrega.idPedido, 'pedido');
+    const pedido = getItemById(entrega.idPedido, pedidos);
 
     return pedido.idCliente == cliente.id;
   });

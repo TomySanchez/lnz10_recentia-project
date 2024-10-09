@@ -17,8 +17,14 @@ import dayjs from 'dayjs';
 const { Item } = Descriptions;
 
 export const EntregasEditDrawer = ({ entrega, setOpen }) => {
-  const { clientes, productos, metodosDePago, detallesDePagos, pagos } =
-    useContext(DataContext);
+  const {
+    clientes,
+    pedidos,
+    productos,
+    metodosDePago,
+    detallesDePagos,
+    pagos
+  } = useContext(DataContext);
 
   const [entregaForm] = Form.useForm();
 
@@ -39,7 +45,7 @@ export const EntregasEditDrawer = ({ entrega, setOpen }) => {
     .sort((a, b) => a.label.localeCompare(b.label));
 
   function getCliente() {
-    const pedido = getItemById(entrega.idPedido, 'pedido');
+    const pedido = getItemById(entrega.idPedido, pedidos);
     const cliente = getItemById(pedido.idCliente, clientes);
 
     return cliente;

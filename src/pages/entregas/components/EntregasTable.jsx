@@ -8,17 +8,19 @@ import { useContext } from 'react';
 import { DataContext } from '../../../contexts';
 
 export const EntregasTable = ({ className, recorrido, onInfo, onEdit }) => {
-  const { clientes, pagos } = useContext(DataContext);
+  const { clientes, pagos, pedidos } = useContext(DataContext);
+
+  console.log('clientes:', clientes);
 
   const entregasColumns = [
     {
       dataIndex: 'idPedido',
       title: 'Cliente',
       render: (item) => {
-        const pedido = getItemById(item, 'pedido');
+        const pedido = getItemById(item, pedidos);
         const cliente = getItemById(pedido.idCliente, clientes);
 
-        return cliente.nombre;
+        return cliente?.nombre;
       }
     },
     {
