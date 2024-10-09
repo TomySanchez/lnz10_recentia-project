@@ -1,7 +1,6 @@
 import {
   dataDetallesDeEntregas,
   dataDetallesDePagos,
-  dataDetallesDePedidos,
   dataEntregas,
   dataPrecios
 } from '../data';
@@ -18,10 +17,10 @@ export function getDetalles(id, detailsType) {
       data = dataDetallesDePagos;
       entityId = 'idPago';
       break;
-    case 'pedidos':
+    /* case 'pedidos':
       data = dataDetallesDePedidos;
       entityId = 'idPedido';
-      break;
+      break; */
     case 'precios':
       data = dataPrecios;
       entityId = 'idProducto';

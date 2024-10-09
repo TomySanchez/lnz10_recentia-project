@@ -2,13 +2,11 @@ import { createContext, useEffect, useState } from 'react';
 import {
   dataDetallesDeEntregas,
   dataDetallesDePagos,
-  dataDetallesDePedidos,
   dataDirecciones,
   dataEntregas,
   dataLocalidades,
   dataMetodosDePago,
   dataPagos,
-  dataPedidos,
   dataPrecios,
   dataProductos,
   dataRecorridos
@@ -49,13 +47,13 @@ export const DataProvider = ({ children }) => {
 
     setDetallesDeEntregas(dataDetallesDeEntregas);
     setDetallesDePagos(dataDetallesDePagos);
-    setDetallesDePedidos(dataDetallesDePedidos);
+    setDetallesDePedidos([]); // TODO
     setDirecciones(dataDirecciones);
     setEntregas(dataEntregas);
     setLocalidades(dataLocalidades);
     setMetodosDePago(dataMetodosDePago);
     setPagos(dataPagos);
-    setPedidos(dataPedidos);
+    setPedidos([]); // TODO
     setPrecios(dataPrecios);
     setProductos(dataProductos);
     setRecorridos(dataRecorridos);

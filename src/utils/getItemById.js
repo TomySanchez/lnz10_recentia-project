@@ -2,13 +2,11 @@ import {
   dataBarrios,
   dataDetallesDeEntregas,
   dataDetallesDePagos,
-  dataDetallesDePedidos,
   dataDirecciones,
   dataEntregas,
   dataLocalidades,
   dataMetodosDePago,
   dataPagos,
-  dataPedidos,
   dataPrecios,
   dataProductos,
   dataRecorridos
@@ -33,9 +31,9 @@ export function getItemById(id, itemType_itemsArray) {
       case 'detalleDeEntrega':
         data = dataDetallesDeEntregas;
         break;
-      case 'detalleDePedido':
+      /* case 'detalleDePedido':
         data = dataDetallesDePedidos;
-        break;
+        break; */
       case 'detalleDePago':
         data = dataDetallesDePagos;
         break;
@@ -54,9 +52,9 @@ export function getItemById(id, itemType_itemsArray) {
       case 'pago':
         data = dataPagos;
         break;
-      case 'pedido':
+      /* case 'pedido':
         data = dataPedidos;
-        break;
+        break; */
       case 'precio':
         data = dataPrecios;
         break;
