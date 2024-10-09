@@ -13,3 +13,18 @@ export async function getPedidos() {
       throw err;
     });
 }
+
+export async function addPedido(data) {
+  const config = {
+    method: 'post',
+    url: `${import.meta.env.VITE_API_URL}/pedidos`,
+    data: data
+  };
+
+  return await axios(config)
+    .then((res) => res)
+    .catch((err) => {
+      console.error(err);
+      throw err;
+    });
+}
