@@ -1,7 +1,6 @@
 import { Descriptions, List, Tag, Tooltip } from 'antd';
 import { getItemById } from '../../../utils/getItemById';
 import { getFrecuenciaEntrega } from '../../../utils/getFrecuenciaEntrega';
-import { getDetalles } from '../../../utils/getDetalles';
 import { useContext } from 'react';
 import { DataContext } from '../../../contexts';
 
@@ -10,7 +9,11 @@ const { Item } = Descriptions;
 export const PedidosInfoDrawer = ({ pedido }) => {
   const { clientes } = useContext(DataContext);
 
-  const detallesDePedido = getDetalles(pedido.id, 'pedidos');
+  console.log('pedido:', pedido);
+
+  const { detallesPedido } = pedido;
+
+  console.log('detallesPedido:', detallesPedido);
 
   const colorTagTipoPedido = pedido.esRecurrente ? 'gold' : 'pink';
 
@@ -27,7 +30,7 @@ export const PedidosInfoDrawer = ({ pedido }) => {
     }
   }
 
-  const componentsDetallesDePedido = detallesDePedido.map((detalle) => (
+  const componentsDetallesDePedido = detallesPedido.map((detalle) => (
     <DetallesDePedido key={detalle.id} detalle={detalle} />
   ));
 
@@ -55,7 +58,7 @@ export const PedidosInfoDrawer = ({ pedido }) => {
         </Item>
       </Descriptions>
 
-      {detallesDePedido.length > 0 && (
+      {detallesPedido.length > 0 && (
         <List
           className='pedidos-info-detalles-list'
           header={
