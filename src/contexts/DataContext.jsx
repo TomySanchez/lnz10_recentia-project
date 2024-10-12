@@ -20,7 +20,9 @@ export const DataContext = createContext();
 
 export const DataProvider = ({ children }) => {
   const [barrios, setBarrios] = useState([]);
+  const [loadingBarrios, setLoadingBarrios] = useState(false);
   const [clientes, setClientes] = useState([]);
+  const [loadingClientes, setLoadingClientes] = useState(false);
   const [detallesDeEntregas, setDetallesDeEntregas] = useState([]);
   const [detallesDePagos, setDetallesDePagos] = useState([]);
   const [direcciones, setDirecciones] = useState([]);
@@ -29,37 +31,55 @@ export const DataProvider = ({ children }) => {
   const [metodosDePago, setMetodosDePago] = useState([]);
   const [pagos, setPagos] = useState([]);
   const [pedidos, setPedidos] = useState([]);
+  const [loadingPedidos, setLoadingPedidos] = useState(false);
   const [precios, setPrecios] = useState([]);
   const [productos, setProductos] = useState([]);
   const [recorridos, setRecorridos] = useState([]);
 
+  async function fetchBarrios() {
+    try {
+      setLoadingBarrios(true);
+      const res = await getBarrios();
+      setBarrios(res.data);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoadingBarrios(false);
+    }
+  }
+
+  async function fetchClientes() {
+    try {
+      setLoadingClientes(true);
+      const res = await getClientes();
+      setClientes(res.data);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoadingClientes(false);
+    }
+  }
+
+  async function fetchPedidos() {
+    try {
+      setLoadingPedidos(true);
+      const res = await getPedidos();
+      const newData = res.data?.map((pedido) => {
+        const formattedFecha = formatFecha(pedido.fechaRegistro);
+        return { ...pedido, fechaRegistro: formattedFecha };
+      });
+      setPedidos(newData);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoadingPedidos(false);
+    }
+  }
+
   useEffect(() => {
-    getBarrios()
-      .then((res) => {
-        setBarrios(res.data);
-      })
-      .catch((err) => console.error(err));
-
-    getClientes()
-      .then((res) => {
-        setClientes(res.data);
-      })
-      .catch((err) => console.error(err));
-
-    getPedidos()
-      .then((res) => {
-        const newData = res.data?.map((pedido) => {
-          const formattedFecha = formatFecha(pedido.fechaRegistro);
-
-          return {
-            ...pedido,
-            fechaRegistro: formattedFecha
-          };
-        });
-
-        setPedidos(newData);
-      })
-      .catch((err) => console.error(err));
+    fetchBarrios();
+    fetchClientes();
+    fetchPedidos();
 
     setDetallesDeEntregas(dataDetallesDeEntregas);
     setDetallesDePagos(dataDetallesDePagos);
@@ -78,8 +98,12 @@ export const DataProvider = ({ children }) => {
       value={{
         barrios,
         setBarrios,
+        loadingBarrios,
+        setLoadingBarrios,
         clientes,
         setClientes,
+        loadingClientes,
+        setLoadingClientes,
         detallesDeEntregas,
         setDetallesDeEntregas,
         detallesDePagos,
@@ -96,6 +120,8 @@ export const DataProvider = ({ children }) => {
         setPagos,
         pedidos,
         setPedidos,
+        loadingPedidos,
+        setLoadingPedidos,
         precios,
         setPrecios,
         productos,
