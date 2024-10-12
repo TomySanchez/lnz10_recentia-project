@@ -28,3 +28,18 @@ export async function addPedido(data) {
       throw err;
     });
 }
+
+export async function editPedido(data) {
+  const config = {
+    method: 'put',
+    url: `${import.meta.env.VITE_API_URL}/pedido/${data.pedido.id}`,
+    data: data
+  };
+
+  return await axios(config)
+    .then((res) => res)
+    .catch((err) => {
+      console.error(err);
+      throw err;
+    });
+}
