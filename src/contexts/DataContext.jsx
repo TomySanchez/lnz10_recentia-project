@@ -70,7 +70,8 @@ export const DataProvider = ({ children }) => {
     try {
       setLoadingPedidos(true);
       const res = await getPedidos();
-      const newData = res.data?.map((pedido) => {
+      const filteredPedidos = res.data?.filter((pedido) => pedido.activo == 1);
+      const newData = filteredPedidos?.map((pedido) => {
         const formattedFecha = formatFecha(pedido.fechaRegistro);
         return { ...pedido, fechaRegistro: formattedFecha };
       });
