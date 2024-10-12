@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { Drawer } from '../../../components/drawers/Drawer';
 import { ClientesAddOrEditDrawer } from './ClientesAddOrEditDrawer';
 import { ClientesInfoDrawer } from './ClientesInfoDrawer';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { ResponsiveContext } from '../../../contexts/ResponsiveContext';
 import { Form } from 'antd';
 import { addCliente, editCliente } from '../../../services/clientes';
@@ -18,6 +18,8 @@ export const ClientesDrawer = ({
 }) => {
   const { setClientes, setDirecciones } = useContext(DataContext);
   const windowWidth = useContext(ResponsiveContext);
+
+  const [loadingGuardarCambios, setLoadingGuardarCambios] = useState(false);
 
   const navigateTo = useNavigate();
 
@@ -46,6 +48,7 @@ export const ClientesDrawer = ({
       }
     };
 
+    setLoadingGuardarCambios(true);
     addCliente(formattedValues)
       .then((res) => {
         setDirecciones((prevDirecciones) => {
@@ -84,7 +87,8 @@ export const ClientesDrawer = ({
         });
         setOpen(false);
       })
-      .catch((err) => console.error(err));
+      .catch((err) => console.error(err))
+      .finally(() => setLoadingGuardarCambios(false));
   }
 
   function handleEditCliente() {
@@ -108,6 +112,7 @@ export const ClientesDrawer = ({
       }
     };
 
+    setLoadingGuardarCambios(true);
     editCliente(formattedValues)
       .then(() => {
         setDirecciones((prevDirecciones) => {
@@ -154,7 +159,8 @@ export const ClientesDrawer = ({
         });
         setOpen(false);
       })
-      .catch((err) => console.error(err));
+      .catch((err) => console.error(err))
+      .finally(() => setLoadingGuardarCambios(false));
   }
 
   function getOnExtraButtonClick() {
@@ -179,6 +185,7 @@ export const ClientesDrawer = ({
       setOpen={setOpen}
       onExtraButtonClick={getOnExtraButtonClick()}
       extraButtonText={mode === 'info' && device === 'computer' && 'Registros'}
+      loadingCambios={loadingGuardarCambios}
     >
       {mode === 'info' ? (
         <ClientesInfoDrawer cliente={cliente} />
