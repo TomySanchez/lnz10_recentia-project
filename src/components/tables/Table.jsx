@@ -1,3 +1,4 @@
+import { LoadingOutlined } from '@ant-design/icons';
 import { Table as TableAntd } from 'antd';
 
 export const Table = ({
@@ -7,7 +8,8 @@ export const Table = ({
   dataSource,
   expandable,
   rowSelection,
-  pagination
+  pagination,
+  loading
 }) => {
   return (
     <TableAntd
@@ -19,6 +21,13 @@ export const Table = ({
       expandable={expandable}
       rowSelection={rowSelection}
       pagination={pagination}
+      loading={
+        loading
+          ? {
+              indicator: <LoadingOutlined style={{ fontSize: 48 }} spin />
+            }
+          : false
+      }
     />
   );
 };
