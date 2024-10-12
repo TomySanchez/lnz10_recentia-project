@@ -56,7 +56,8 @@ export const DataProvider = ({ children }) => {
     try {
       setLoadingClientes(true);
       const res = await getClientes();
-      setClientes(res.data);
+      const newData = res.data?.filter((cliente) => cliente.activo == 1);
+      setClientes(newData);
     } catch (err) {
       console.error(err);
       messageApi.error('No se pudo cargar la lista de clientes');
