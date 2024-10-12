@@ -10,7 +10,7 @@ import { SelectFechaTabla } from '../../../components/tables/SelectFechaTabla';
 import { BuscadorTabla } from '../../../components/tables/BuscadorTabla';
 
 export const PedidosTable = ({ onInfo, onEdit }) => {
-  const { clientes, pedidos } = useContext(DataContext);
+  const { clientes, pedidos, loadingPedidos } = useContext(DataContext);
 
   const pedidosColumns = [
     {
@@ -96,5 +96,11 @@ export const PedidosTable = ({ onInfo, onEdit }) => {
     }
   ];
 
-  return <Table columns={pedidosColumns} dataSource={pedidos} />;
+  return (
+    <Table
+      columns={pedidosColumns}
+      dataSource={pedidos}
+      loading={loadingPedidos}
+    />
+  );
 };
