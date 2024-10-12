@@ -6,14 +6,12 @@ import { DataContext } from '../../../contexts';
 import { AiOutlineMinusCircle, AiOutlinePlus } from 'react-icons/ai';
 import { colorsPalette } from '../../../utils/colorsPalette';
 
-export const PedidosAddOrEditDrawer = ({ editMode, pedido, setOpen }) => {
+export const PedidosAddOrEditDrawer = ({ editMode, pedido, pedidoForm }) => {
   const { clientes, productos } = useContext(DataContext);
 
   const [esRecurrente, setEsRecurrente] = useState(
     pedido?.esRecurrente || false
   );
-
-  const [pedidoForm] = Form.useForm();
 
   const { detallesPedido } = pedido;
 
@@ -50,17 +48,11 @@ export const PedidosAddOrEditDrawer = ({ editMode, pedido, setOpen }) => {
     }
   }, [pedido, pedidoForm, editMode]);
 
-  function handleFinish(values) {
-    console.log('Formulario enviado', values);
-    setOpen(false);
-  }
-
   return (
     <Form
       form={pedidoForm}
       name='pedidosForm'
       layout='vertical'
-      onFinish={handleFinish}
       requiredMark='optional'
     >
       <Form.Item name='fechaRegistro' label='Fecha de registro' required>
