@@ -8,6 +8,7 @@ import { Form } from 'antd';
 import { addCliente, editCliente } from '../../../services/clientes';
 import { DataContext } from '../../../contexts';
 import { getItemById } from '../../../utils/getItemById';
+import { MessageContext } from '../../../contexts/MessageContext';
 
 export const ClientesDrawer = ({
   mode,
@@ -18,6 +19,7 @@ export const ClientesDrawer = ({
 }) => {
   const { setClientes, setDirecciones } = useContext(DataContext);
   const windowWidth = useContext(ResponsiveContext);
+  const { messageApi } = useContext(MessageContext);
 
   const [loadingGuardarCambios, setLoadingGuardarCambios] = useState(false);
 
@@ -85,9 +87,13 @@ export const ClientesDrawer = ({
 
           return newClientes;
         });
+        messageApi.success('Cliente añadido correctamente');
         setOpen(false);
       })
-      .catch((err) => console.error(err))
+      .catch((err) => {
+        console.error(err);
+        messageApi.error('No se pudo añadir el cliente');
+      })
       .finally(() => setLoadingGuardarCambios(false));
   }
 
@@ -157,9 +163,13 @@ export const ClientesDrawer = ({
 
           return newClientes;
         });
+        messageApi.success('Cliente editado correctamente');
         setOpen(false);
       })
-      .catch((err) => console.error(err))
+      .catch((err) => {
+        console.error(err);
+        messageApi.error('No se pudo editar el cliente');
+      })
       .finally(() => setLoadingGuardarCambios(false));
   }
 
