@@ -9,6 +9,7 @@ export const Drawer = ({
   setOpen,
   extraButtonText,
   onExtraButtonClick,
+  loadingCambios,
   children
 }) => {
   function handleClose() {
@@ -24,7 +25,13 @@ export const Drawer = ({
     case 'add':
       propsDrawer = {
         title: `Nuevo ${itemType}`,
-        extra: <DrawerButton text='Añadir' onClick={onExtraButtonClick} />
+        extra: (
+          <DrawerButton
+            text='Añadir'
+            onClick={onExtraButtonClick}
+            loading={loadingCambios}
+          />
+        )
       };
       break;
     case 'info':
@@ -38,7 +45,13 @@ export const Drawer = ({
     case 'edit':
       propsDrawer = {
         title: `Editar ${itemType}`,
-        extra: <DrawerButton text='Guardar' onClick={onExtraButtonClick} />
+        extra: (
+          <DrawerButton
+            text='Guardar'
+            onClick={onExtraButtonClick}
+            loading={loadingCambios}
+          />
+        )
       };
   }
 
