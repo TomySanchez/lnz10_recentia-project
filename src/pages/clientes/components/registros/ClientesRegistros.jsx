@@ -15,7 +15,7 @@ export const ClientesRegistros = () => {
   const [selectedRegistros, setSelectedRegistros] = useState('Pedidos');
 
   if (!cliente) {
-    return <div>No se encontraron datos del cliente</div>;
+    return null;
   }
 
   return (

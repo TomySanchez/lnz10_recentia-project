@@ -19,7 +19,7 @@ export const PedidosDrawer = ({ mode, pedido, open, setOpen }) => {
   const [pedidoForm] = Form.useForm();
 
   if (!pedido) {
-    return <div>No se encontraron datos del pedido</div>;
+    return null;
   }
 
   function goToListaEntregas() {

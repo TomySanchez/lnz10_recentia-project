@@ -15,7 +15,7 @@ export const PedidosListaEntregas = () => {
   const pedido = location.state?.pedido;
 
   if (!pedido) {
-    return <div>No se encontraron datos del pedido</div>;
+    return null;
   }
 
   return (
