@@ -2,13 +2,15 @@ import { useNavigate } from 'react-router-dom';
 import { Drawer } from '../../../components/drawers/Drawer';
 import { PedidosAddOrEditDrawer } from './PedidosAddOrEditDrawer';
 import { PedidosInfoDrawer } from './PedidosInfoDrawer';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { DataContext } from '../../../contexts';
 import { Form } from 'antd';
 import { addPedido, editPedido } from '../../../services/pedidos';
 
 export const PedidosDrawer = ({ mode, pedido, open, setOpen }) => {
   const { setPedidos } = useContext(DataContext);
+
+  const [loadingGuardarCambios, setLoadingGuardarCambios] = useState(false);
 
   const navigateTo = useNavigate();
 
@@ -42,6 +44,7 @@ export const PedidosDrawer = ({ mode, pedido, open, setOpen }) => {
       cantidad: detalle.cantidad
     }));
 
+    setLoadingGuardarCambios(true);
     addPedido(formattedValues)
       .then(() => {
         setPedidos((prevPedidos) => {
@@ -53,7 +56,8 @@ export const PedidosDrawer = ({ mode, pedido, open, setOpen }) => {
 
         setOpen(false);
       })
-      .catch((err) => console.error(err));
+      .catch((err) => console.error(err))
+      .finally(() => setLoadingGuardarCambios(false));
   }
 
   const { detallesPedido } = pedido;
@@ -91,6 +95,7 @@ export const PedidosDrawer = ({ mode, pedido, open, setOpen }) => {
       return newDetalle;
     });
 
+    setLoadingGuardarCambios(true);
     editPedido(formattedValues)
       .then(() => {
         setPedidos((prevPedidos) => {
@@ -110,7 +115,8 @@ export const PedidosDrawer = ({ mode, pedido, open, setOpen }) => {
         });
         setOpen(false);
       })
-      .catch((err) => console.error(err));
+      .catch((err) => console.error(err))
+      .finally(() => setLoadingGuardarCambios(false));
   }
 
   function getOnExtraButtonClick() {
@@ -134,6 +140,7 @@ export const PedidosDrawer = ({ mode, pedido, open, setOpen }) => {
       setOpen={setOpen}
       onExtraButtonClick={getOnExtraButtonClick()}
       extraButtonText={mode === 'info' && 'Entregas'}
+      loadingCambios={loadingGuardarCambios}
     >
       {mode === 'info' ? (
         <PedidosInfoDrawer pedido={pedido} />
