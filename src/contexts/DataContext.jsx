@@ -14,6 +14,7 @@ import {
 import { getClientes } from '../services/clientes';
 import { getBarrios } from '../services/barrios';
 import { getPedidos } from '../services/pedidos';
+import { formatFecha } from '../utils/formatFecha';
 
 export const DataContext = createContext();
 
@@ -47,7 +48,16 @@ export const DataProvider = ({ children }) => {
 
     getPedidos()
       .then((res) => {
-        setPedidos(res.data);
+        const newData = res.data?.map((pedido) => {
+          const formattedFecha = formatFecha(pedido.fechaRegistro);
+
+          return {
+            ...pedido,
+            fechaRegistro: formattedFecha
+          };
+        });
+
+        setPedidos(newData);
       })
       .catch((err) => console.error(err));
 

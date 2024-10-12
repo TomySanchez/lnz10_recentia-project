@@ -106,9 +106,6 @@ export const PedidosDrawer = ({ mode, pedido, open, setOpen }) => {
             };
           }
 
-          console.log('prevPedidos:', prevPedidos);
-          console.log('newPedidos:', newPedidos);
-
           return newPedidos;
         });
         setOpen(false);
