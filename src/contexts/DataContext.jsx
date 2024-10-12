@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import {
   dataDetallesDeEntregas,
   dataDetallesDePagos,
@@ -15,10 +15,13 @@ import { getClientes } from '../services/clientes';
 import { getBarrios } from '../services/barrios';
 import { getPedidos } from '../services/pedidos';
 import { formatFecha } from '../utils/formatFecha';
+import { MessageContext } from './MessageContext';
 
 export const DataContext = createContext();
 
 export const DataProvider = ({ children }) => {
+  const { messageApi } = useContext(MessageContext);
+
   const [barrios, setBarrios] = useState([]);
   const [loadingBarrios, setLoadingBarrios] = useState(false);
   const [clientes, setClientes] = useState([]);
@@ -43,6 +46,7 @@ export const DataProvider = ({ children }) => {
       setBarrios(res.data);
     } catch (err) {
       console.error(err);
+      messageApi.error('No se pudo cargar la lista de barrios');
     } finally {
       setLoadingBarrios(false);
     }
@@ -55,6 +59,7 @@ export const DataProvider = ({ children }) => {
       setClientes(res.data);
     } catch (err) {
       console.error(err);
+      messageApi.error('No se pudo cargar la lista de clientes');
     } finally {
       setLoadingClientes(false);
     }
@@ -71,6 +76,7 @@ export const DataProvider = ({ children }) => {
       setPedidos(newData);
     } catch (err) {
       console.error(err);
+      messageApi.error('No se pudo cargar la lista de pedidos');
     } finally {
       setLoadingPedidos(false);
     }
