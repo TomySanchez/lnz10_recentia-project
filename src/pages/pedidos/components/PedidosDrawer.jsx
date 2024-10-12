@@ -6,9 +6,11 @@ import { useContext, useState } from 'react';
 import { DataContext } from '../../../contexts';
 import { Form } from 'antd';
 import { addPedido, editPedido } from '../../../services/pedidos';
+import { MessageContext } from '../../../contexts/MessageContext';
 
 export const PedidosDrawer = ({ mode, pedido, open, setOpen }) => {
   const { setPedidos } = useContext(DataContext);
+  const { messageApi } = useContext(MessageContext);
 
   const [loadingGuardarCambios, setLoadingGuardarCambios] = useState(false);
 
@@ -53,10 +55,13 @@ export const PedidosDrawer = ({ mode, pedido, open, setOpen }) => {
 
           return newPedidos;
         });
-
+        messageApi.success('Pedido añadido correctamente');
         setOpen(false);
       })
-      .catch((err) => console.error(err))
+      .catch((err) => {
+        console.error(err);
+        messageApi.error('No se pudo añadir el pedido');
+      })
       .finally(() => setLoadingGuardarCambios(false));
   }
 
@@ -113,9 +118,13 @@ export const PedidosDrawer = ({ mode, pedido, open, setOpen }) => {
 
           return newPedidos;
         });
+        messageApi.success('Pedido editado correctamente');
         setOpen(false);
       })
-      .catch((err) => console.error(err))
+      .catch((err) => {
+        console.error(err);
+        messageApi.error('No se pudo editar el pedido');
+      })
       .finally(() => setLoadingGuardarCambios(false));
   }
 
