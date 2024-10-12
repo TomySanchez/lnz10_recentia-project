@@ -1,4 +1,3 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.jsx';
 import { BrowserRouter as Router } from 'react-router-dom';
@@ -11,13 +10,14 @@ import './pages/configuracion/configuracion.css';
 import './pages/entregas/entregas.css';
 import './pages/login/login.css';
 import './pages/pedidos/pedidos.css';
+import { MessageProvider } from './contexts/MessageContext.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <Router>
+  <Router>
+    <MessageProvider>
       <DataProvider>
         <App />
       </DataProvider>
-    </Router>
-  </React.StrictMode>
+    </MessageProvider>
+  </Router>
 );
