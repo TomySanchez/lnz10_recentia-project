@@ -37,7 +37,11 @@ export const PedidosTable = ({ onInfo, onEdit }) => {
           confirm={confirm}
           clearFilters={clearFilters}
         />
-      )
+      ),
+      onFilter: (value, record) => {
+        const fechaRegistro = dayjs(record.fechaRegistro, 'DD/MM/YY');
+        return fechaRegistro.isSame(dayjs(value, 'DD/MM/YY'));
+      }
     },
     {
       dataIndex: 'idCliente',

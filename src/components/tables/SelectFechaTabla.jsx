@@ -11,10 +11,10 @@ export const SelectFechaTabla = ({
     <div className='SelectFechaTabla'>
       <DatePicker
         size='small'
-        value={selectedKeys[0]}
-        onChange={(event) => {
-          setSelectedKeys(dayjs(event).format('DD/MM/YY').toString());
-          confirm(false);
+        value={selectedKeys[0] ? dayjs(selectedKeys[0], 'DD/MM/YY') : null}
+        onChange={(date) => {
+          setSelectedKeys(date ? [dayjs(date).format('DD/MM/YY')] : []);
+          confirm();
         }}
         format='DD/MM/YY'
       />
