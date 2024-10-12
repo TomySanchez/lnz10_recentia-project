@@ -7,7 +7,7 @@ import { AiOutlineSearch } from 'react-icons/ai';
 import { BuscadorTabla } from '../../../components/tables/BuscadorTabla';
 
 export const ClientesTable = ({ onInfo, onEdit }) => {
-  const { clientes, barrios } = useContext(DataContext);
+  const { clientes, loadingClientes, barrios } = useContext(DataContext);
 
   const clientesColumns = [
     {
@@ -87,5 +87,11 @@ export const ClientesTable = ({ onInfo, onEdit }) => {
     }
   ];
 
-  return <Table columns={clientesColumns} dataSource={clientes} />;
+  return (
+    <Table
+      columns={clientesColumns}
+      dataSource={clientes}
+      loading={loadingClientes}
+    />
+  );
 };
