@@ -5,7 +5,7 @@ import { PedidosInfoDrawer } from './PedidosInfoDrawer';
 import { useContext } from 'react';
 import { DataContext } from '../../../contexts';
 import { Form } from 'antd';
-import { addPedido } from '../../../services/pedidos';
+import { addPedido, editPedido } from '../../../services/pedidos';
 
 export const PedidosDrawer = ({ mode, pedido, open, setOpen }) => {
   const { setPedidos } = useContext(DataContext);
@@ -14,11 +14,15 @@ export const PedidosDrawer = ({ mode, pedido, open, setOpen }) => {
 
   const [pedidoForm] = Form.useForm();
 
+  if (!pedido) {
+    return <div>No se encontraron datos del pedido</div>;
+  }
+
   function goToListaEntregas() {
     navigateTo(`lista-de-entregas`, { state: { pedido } });
   }
 
-  function addItem() {
+  function handleAddPedido() {
     const values = pedidoForm.getFieldsValue();
 
     const { detallesPedido } = values;
@@ -52,6 +56,78 @@ export const PedidosDrawer = ({ mode, pedido, open, setOpen }) => {
       .catch((err) => console.error(err));
   }
 
+  const { detallesPedido } = pedido;
+
+  function handleEditPedido() {
+    const values = pedidoForm.getFieldsValue();
+
+    const { detallesPedido: newDetallesPedido } = values;
+
+    const formattedValues = {
+      pedido: {
+        id: pedido.id,
+        fechaRegistro: values.fechaRegistro,
+        esRecurrente: values.esRecurrente,
+        cantSemanas: values.cantSemanas || null,
+        estado: values.estado || 'Pendiente', // TODO 'Pendiente' es temporal
+        idCliente: values.cliente
+      }
+    };
+
+    formattedValues.detallesPedido = newDetallesPedido?.map((detalle) => {
+      const newDetalle = {
+        idProducto: detalle.producto,
+        cantidad: detalle.cantidad
+      };
+
+      const originalDetallePedido = detallesPedido.find(
+        (d) => d.idProducto == detalle.producto
+      );
+
+      if (originalDetallePedido) {
+        newDetalle.idDetallePedido = originalDetallePedido.idDetallePedido;
+      }
+
+      return newDetalle;
+    });
+
+    editPedido(formattedValues)
+      .then(() => {
+        setPedidos((prevPedidos) => {
+          const newPedidos = [...prevPedidos];
+
+          const index = newPedidos.findIndex(
+            (pedido) => pedido.id == formattedValues.pedido.id
+          );
+
+          if (index !== -1) {
+            newPedidos[index] = {
+              ...formattedValues
+            };
+          }
+
+          console.log('prevPedidos:', prevPedidos);
+          console.log('newPedidos:', newPedidos);
+
+          return newPedidos;
+        });
+        setOpen(false);
+      })
+      .catch((err) => console.error(err));
+  }
+
+  function getOnExtraButtonClick() {
+    if (mode === 'info') {
+      return goToListaEntregas;
+    } else if (mode === 'add') {
+      return handleAddPedido;
+    } else if (mode === 'edit') {
+      return handleEditPedido;
+    } else {
+      return null;
+    }
+  }
+
   return (
     <Drawer
       itemType='pedido'
@@ -59,13 +135,7 @@ export const PedidosDrawer = ({ mode, pedido, open, setOpen }) => {
       item={pedido}
       open={open}
       setOpen={setOpen}
-      onExtraButtonClick={
-        mode === 'info'
-          ? goToListaEntregas
-          : mode === 'add'
-          ? addItem
-          : () => console.error('Error')
-      }
+      onExtraButtonClick={getOnExtraButtonClick()}
       extraButtonText={mode === 'info' && 'Entregas'}
     >
       {mode === 'info' ? (

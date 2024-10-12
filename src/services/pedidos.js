@@ -32,7 +32,7 @@ export async function addPedido(data) {
 export async function editPedido(data) {
   const config = {
     method: 'put',
-    url: `${import.meta.env.VITE_API_URL}/pedido/${data.pedido.id}`,
+    url: `${import.meta.env.VITE_API_URL}/pedidos/${data.pedido.id}`,
     data: data
   };
 
