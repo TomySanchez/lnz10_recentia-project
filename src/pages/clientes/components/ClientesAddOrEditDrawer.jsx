@@ -22,7 +22,7 @@ export const ClientesAddOrEditDrawer = ({ editMode, cliente, clienteForm }) => {
         piso: cliente.direccion.piso,
         departamento: cliente.direccion.departamento,
         localidad: cliente.direccion.idLocalidad,
-        barrio: cliente.direccion.idbarrio,
+        barrio: cliente.direccion.idBarrio,
         telefono: cliente.telefono,
         cuit_cuil: cliente.cuit_cuil,
         observaciones: cliente.observaciones
