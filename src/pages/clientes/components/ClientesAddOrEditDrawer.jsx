@@ -91,11 +91,48 @@ export const ClientesAddOrEditDrawer = ({ editMode, cliente, clienteForm }) => {
         </div>
 
         <div className='clientes-drawer-address-row'>
-          <Form.Item name='piso' label='Piso'>
+          <Form.Item
+            name='piso'
+            label='Piso'
+            rules={[
+              {
+                validator: (_, value) => {
+                  const departamento =
+                    clienteForm.getFieldValue('departamento');
+                  if (value && !departamento) {
+                    return Promise.reject(
+                      'Si ingresas un Piso, Departamento es obligatorio'
+                    );
+                  }
+                  return Promise.resolve();
+                }
+              },
+              {
+                pattern: /^[0-9]+$/,
+                message: 'Solo se permiten números enteros'
+              }
+            ]}
+          >
             <Input />
           </Form.Item>
 
-          <Form.Item name='departamento' label='Departamento'>
+          <Form.Item
+            name='departamento'
+            label='Departamento'
+            rules={[
+              {
+                validator: (_, value) => {
+                  const piso = clienteForm.getFieldValue('piso');
+                  if (value && !piso) {
+                    return Promise.reject(
+                      'Si ingresas un Departamento, Piso es obligatorio'
+                    );
+                  }
+                  return Promise.resolve();
+                }
+              }
+            ]}
+          >
             <Input />
           </Form.Item>
         </div>
