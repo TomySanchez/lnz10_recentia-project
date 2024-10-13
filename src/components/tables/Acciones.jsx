@@ -4,9 +4,10 @@ import { Accion } from './Accion';
 import { Popconfirm } from 'antd';
 import { MessageContext } from '../../contexts/MessageContext';
 import { DataContext } from '../../contexts';
+import { disablePedido } from '../../services/pedidos';
 
 export const Acciones = ({ entityType, item, onInfo, onEdit }) => {
-  const { setClientes } = useContext(DataContext);
+  const { setClientes, setPedidos } = useContext(DataContext);
   const { messageApi } = useContext(MessageContext);
 
   const [loadingEliminar, setLoadingEliminar] = useState(false);
@@ -30,6 +31,25 @@ export const Acciones = ({ entityType, item, onInfo, onEdit }) => {
           .catch((err) => {
             console.error(err);
             messageApi.error('No se pudo eliminar el cliente');
+          })
+          .finally(() => setLoadingEliminar(false));
+        break;
+      case 'pedido':
+        disablePedido(item)
+          .then(() => {
+            setPedidos((prevPedidos) => {
+              const newPedidos = prevPedidos.filter(
+                (pedido) => pedido.id !== item.id
+              );
+
+              return newPedidos;
+            });
+
+            messageApi.success('Pedido eliminado correctamente');
+          })
+          .catch((err) => {
+            console.error(err);
+            messageApi.error('No se pudo eliminar el pedido');
           })
           .finally(() => setLoadingEliminar(false));
         break;
