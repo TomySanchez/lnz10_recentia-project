@@ -12,8 +12,9 @@ export const PedidosAddOrEditDrawer = ({ editMode, pedido, pedidoForm }) => {
   const [esRecurrente, setEsRecurrente] = useState(
     pedido?.esRecurrente || false
   );
+  const [selectedProductos, setSelectedProductos] = useState([]);
 
-  const { detallesPedido } = pedido;
+  const { detallesPedido } = pedido || {};
 
   const clientesOptions = clientes
     .map((cliente) => ({
@@ -31,22 +32,33 @@ export const PedidosAddOrEditDrawer = ({ editMode, pedido, pedidoForm }) => {
 
   useEffect(() => {
     if (open && pedido && editMode) {
+      const detalles = detallesPedido.map((detalle) => ({
+        producto: detalle.idProducto,
+        cantidad: detalle.cantidad
+      }));
+
+      setSelectedProductos(detalles.map((detalle) => detalle.producto));
+
       pedidoForm.setFieldsValue({
         fechaRegistro: dayjs(pedido.fechaRegistro),
         cliente: getItemById(pedido.idCliente, clientes).id,
         esRecurrente: pedido.esRecurrente,
         cantSemanas: pedido.cantSemanas,
-        detallesPedido: detallesPedido.map((detalle) => {
-          return {
-            producto: getItemById(detalle.idProducto, 'producto').id,
-            cantidad: detalle.cantidad
-          };
-        })
+        detallesPedido: detalles
       });
     } else {
       pedidoForm.resetFields();
+      pedidoForm.setFieldsValue({
+        fechaRegistro: dayjs()
+      });
     }
-  }, [pedido, pedidoForm, editMode]);
+  }, [pedido, pedidoForm, editMode, clientes, detallesPedido]);
+
+  const handleProductoChange = (value, name) => {
+    const newSelectedProducts = [...selectedProductos];
+    newSelectedProducts[name] = value; // Reemplaza el producto en la posición adecuada
+    setSelectedProductos(newSelectedProducts);
+  };
 
   return (
     <Form
@@ -66,7 +78,7 @@ export const PedidosAddOrEditDrawer = ({ editMode, pedido, pedidoForm }) => {
           }
         ]}
       >
-        <DatePicker format='DD/MM/YY' defaultValue={dayjs()} />
+        <DatePicker format='DD/MM/YY' />
       </Form.Item>
 
       <Form.Item
@@ -90,7 +102,7 @@ export const PedidosAddOrEditDrawer = ({ editMode, pedido, pedidoForm }) => {
         <Form.List name='detallesPedido'>
           {(fields, { add, remove }) => (
             <div style={{ margin: '12px 0' }}>
-              {fields.map(({ key, name, ...restField }) => (
+              {fields.map(({ key, name, ...restField }, index) => (
                 <div className='pedidos-drawer-detalle-container' key={key}>
                   <Form.Item
                     {...restField}
@@ -105,8 +117,13 @@ export const PedidosAddOrEditDrawer = ({ editMode, pedido, pedidoForm }) => {
                   >
                     <Select
                       style={{ width: 260 }}
-                      options={productosOptions}
                       placeholder='Producto'
+                      options={productosOptions.filter(
+                        (option) =>
+                          !selectedProductos.includes(option.value) ||
+                          selectedProductos[index] === option.value
+                      )} // Filtra los productos ya seleccionados
+                      onChange={(value) => handleProductoChange(value, index)}
                     />
                   </Form.Item>
                   <Form.Item
@@ -137,7 +154,12 @@ export const PedidosAddOrEditDrawer = ({ editMode, pedido, pedidoForm }) => {
                     color={colorsPalette.darkMediumColor}
                     className='pointer'
                     size={20}
-                    onClick={() => remove(name)}
+                    onClick={() => {
+                      const updatedSelectedProducts = [...selectedProductos];
+                      updatedSelectedProducts.splice(index, 1);
+                      setSelectedProductos(updatedSelectedProducts);
+                      remove(name);
+                    }}
                   />
                 </div>
               ))}
