@@ -148,7 +148,11 @@ export const ClientesAddOrEditDrawer = ({ editMode, cliente, clienteForm }) => {
             }
           ]}
         >
-          <Select options={barrioOptions} showSearch={true} />
+          <Select
+            options={barrioOptions}
+            showSearch={true}
+            optionFilterProp='label'
+          />
         </Form.Item>
       </div>
 
