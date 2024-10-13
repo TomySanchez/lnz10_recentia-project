@@ -92,14 +92,45 @@ export const PedidosAddOrEditDrawer = ({ editMode, pedido, pedidoForm }) => {
             <div style={{ margin: '12px 0' }}>
               {fields.map(({ key, name, ...restField }) => (
                 <div className='pedidos-drawer-detalle-container' key={key}>
-                  <Form.Item {...restField} name={[name, 'producto']} required>
+                  <Form.Item
+                    {...restField}
+                    name={[name, 'producto']}
+                    required
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Campo requerido'
+                      }
+                    ]}
+                  >
                     <Select
                       style={{ width: 260 }}
                       options={productosOptions}
                       placeholder='Producto'
                     />
                   </Form.Item>
-                  <Form.Item {...restField} name={[name, 'cantidad']} required>
+                  <Form.Item
+                    {...restField}
+                    name={[name, 'cantidad']}
+                    required
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Campo requerido'
+                      },
+                      {
+                        type: 'number',
+                        min: 1,
+                        message: ''
+                      },
+                      {
+                        validator: (_, value) =>
+                          Number.isInteger(value)
+                            ? Promise.resolve()
+                            : Promise.reject()
+                      }
+                    ]}
+                  >
                     <InputNumber placeholder='Cantidad' />
                   </Form.Item>
                   <AiOutlineMinusCircle
