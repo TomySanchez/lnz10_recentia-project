@@ -18,7 +18,7 @@ export const PedidosDrawer = ({ mode, pedido, open, setOpen }) => {
 
   const [pedidoForm] = Form.useForm();
 
-  if (!pedido) {
+  if (mode !== 'add' && !pedido) {
     return null;
   }
 
@@ -68,7 +68,7 @@ export const PedidosDrawer = ({ mode, pedido, open, setOpen }) => {
       .catch((err) => console.error(err));
   }
 
-  const { detallesPedido } = pedido;
+  const { detallesPedido } = pedido || { detallesPedido: [] };
 
   function handleEditPedido() {
     pedidoForm
