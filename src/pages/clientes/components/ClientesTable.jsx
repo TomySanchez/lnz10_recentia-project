@@ -58,20 +58,17 @@ export const ClientesTable = ({ onInfo, onEdit }) => {
       )
     },
     {
-      dataIndex: 'direccion',
+      dataIndex: '',
       title: 'Barrio',
-      render: (text) => `${text.barrio}, ${text.localidad}`,
+      render: (_, record) =>
+        `${record.direccion.barrio}, ${record.direccion.localidad}`,
       sorter: (rowA, rowB) =>
         rowA.direccion.barrio.localeCompare(rowB.direccion.barrio),
       filters: barrios.map((barrio) => ({
         text: barrio.nombre,
         value: barrio.nombre
       })),
-      onFilter: (value, record) => {
-        console.log('value:', value);
-        console.log('record:', record);
-        return record.direccion.barrio === value;
-      }
+      onFilter: (value, record) => record.direccion.barrio === value
     },
     {
       dataIndex: 'observaciones',
