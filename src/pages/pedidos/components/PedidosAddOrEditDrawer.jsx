@@ -131,7 +131,7 @@ export const PedidosAddOrEditDrawer = ({ editMode, pedido, pedidoForm }) => {
                       }
                     ]}
                   >
-                    <InputNumber placeholder='Cantidad' />
+                    <InputNumber placeholder='Cantidad' min={1} />
                   </Form.Item>
                   <AiOutlineMinusCircle
                     color={colorsPalette.darkMediumColor}
