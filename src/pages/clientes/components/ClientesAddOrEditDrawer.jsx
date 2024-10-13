@@ -39,7 +39,17 @@ export const ClientesAddOrEditDrawer = ({ editMode, cliente, clienteForm }) => {
       layout='vertical'
       requiredMark='optional'
     >
-      <Form.Item name='nombre' label='Nombre' required>
+      <Form.Item
+        name='nombre'
+        label='Nombre'
+        required
+        rules={[
+          {
+            required: true,
+            message: 'Campo requerido'
+          }
+        ]}
+      >
         <Input />
       </Form.Item>
 
@@ -47,7 +57,17 @@ export const ClientesAddOrEditDrawer = ({ editMode, cliente, clienteForm }) => {
         <p className='clientes-drawer-address-title'>Dirección</p>
 
         <div className='clientes-drawer-address-row'>
-          <Form.Item name='calle' label='Calle' required>
+          <Form.Item
+            name='calle'
+            label='Calle'
+            required
+            rules={[
+              {
+                required: true,
+                message: 'Campo requerido'
+              }
+            ]}
+          >
             <Input />
           </Form.Item>
 
@@ -80,7 +100,17 @@ export const ClientesAddOrEditDrawer = ({ editMode, cliente, clienteForm }) => {
           </Form.Item>
         </div>
 
-        <Form.Item name='barrio' label='Barrio' required>
+        <Form.Item
+          name='barrio'
+          label='Barrio'
+          required
+          rules={[
+            {
+              required: true,
+              message: 'Campo requerido'
+            }
+          ]}
+        >
           <Select options={barrioOptions} showSearch={true} />
         </Form.Item>
       </div>
