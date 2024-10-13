@@ -8,6 +8,7 @@ import dayjs from 'dayjs';
 import { AiOutlineCalendar, AiOutlineSearch } from 'react-icons/ai';
 import { SelectFechaTabla } from '../../../components/tables/SelectFechaTabla';
 import { BuscadorTabla } from '../../../components/tables/BuscadorTabla';
+import { Tag } from 'antd';
 
 export const PedidosTable = ({ onInfo, onEdit }) => {
   const { clientes, pedidos, loadingPedidos } = useContext(DataContext);
@@ -80,6 +81,29 @@ export const PedidosTable = ({ onInfo, onEdit }) => {
       title: 'Frecuencia de entrega',
       align: 'center',
       render: (text) => getFrecuenciaEntrega(text)
+    },
+    {
+      dataIndex: 'estado',
+      title: 'Estado',
+      align: 'center',
+      render: (text) => {
+        function getColorTag() {
+          switch (text) {
+            case 'Pendiente':
+              return 'gold';
+            case 'Realizado':
+              return 'green';
+            case 'Activo':
+              return 'blue';
+            case 'Cancelado':
+              return 'red';
+            default:
+              return 'black';
+          }
+        }
+
+        return <Tag color={getColorTag()}>{text}</Tag>;
+      }
     },
     {
       dataIndex: '',
