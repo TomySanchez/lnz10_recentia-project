@@ -43,3 +43,17 @@ export async function editPedido(data) {
       throw err;
     });
 }
+
+export async function disablePedido(data) {
+  const config = {
+    method: 'delete',
+    url: `${import.meta.env.VITE_API_URL}/pedidos/${data.id}`
+  };
+
+  return await axios(config)
+    .then((res) => res)
+    .catch((err) => {
+      console.error(err);
+      throw err;
+    });
+}
