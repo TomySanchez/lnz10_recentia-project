@@ -27,105 +27,111 @@ export const PedidosDrawer = ({ mode, pedido, open, setOpen }) => {
   }
 
   function handleAddPedido() {
-    const values = pedidoForm.getFieldsValue();
+    pedidoForm
+      .validateFields()
+      .then((values) => {
+        const { detallesPedido } = values;
 
-    const { detallesPedido } = values;
+        const formattedValues = {
+          pedido: {
+            fechaRegistro: values.fechaRegistro,
+            esRecurrente: values.esRecurrente,
+            cantSemanas: values.cantSemanas || null,
+            estado: 'Pendiente',
+            idCliente: values.cliente
+          }
+        };
 
-    const formattedValues = {
-      pedido: {
-        fechaRegistro: values.fechaRegistro,
-        esRecurrente: values.esRecurrente,
-        cantSemanas: values.cantSemanas || null,
-        estado: 'Pendiente',
-        idCliente: values.cliente
-      }
-    };
+        formattedValues.detallesPedido = detallesPedido?.map((detalle) => ({
+          idProducto: detalle.producto,
+          cantidad: detalle.cantidad
+        }));
 
-    formattedValues.detallesPedido = detallesPedido?.map((detalle) => ({
-      idProducto: detalle.producto,
-      cantidad: detalle.cantidad
-    }));
+        setLoadingGuardarCambios(true);
+        addPedido(formattedValues)
+          .then(() => {
+            setPedidos((prevPedidos) => {
+              const newPedidos = [...prevPedidos];
+              newPedidos.push(formattedValues);
 
-    setLoadingGuardarCambios(true);
-    addPedido(formattedValues)
-      .then(() => {
-        setPedidos((prevPedidos) => {
-          const newPedidos = [...prevPedidos];
-          newPedidos.push(formattedValues);
-
-          return newPedidos;
-        });
-        messageApi.success('Pedido añadido correctamente');
-        setOpen(false);
+              return newPedidos;
+            });
+            messageApi.success('Pedido añadido correctamente');
+            setOpen(false);
+          })
+          .catch((err) => {
+            console.error(err);
+            messageApi.error('No se pudo añadir el pedido');
+          })
+          .finally(() => setLoadingGuardarCambios(false));
       })
-      .catch((err) => {
-        console.error(err);
-        messageApi.error('No se pudo añadir el pedido');
-      })
-      .finally(() => setLoadingGuardarCambios(false));
+      .catch((err) => console.error(err));
   }
 
   const { detallesPedido } = pedido;
 
   function handleEditPedido() {
-    const values = pedidoForm.getFieldsValue();
+    pedidoForm
+      .validateFields()
+      .then((values) => {
+        const { detallesPedido: newDetallesPedido } = values;
 
-    const { detallesPedido: newDetallesPedido } = values;
+        const formattedValues = {
+          pedido: {
+            id: pedido.id,
+            fechaRegistro: values.fechaRegistro,
+            esRecurrente: values.esRecurrente,
+            cantSemanas: values.cantSemanas || null,
+            estado: values.estado || 'Pendiente', // TODO 'Pendiente' es temporal
+            idCliente: values.cliente
+          }
+        };
 
-    const formattedValues = {
-      pedido: {
-        id: pedido.id,
-        fechaRegistro: values.fechaRegistro,
-        esRecurrente: values.esRecurrente,
-        cantSemanas: values.cantSemanas || null,
-        estado: values.estado || 'Pendiente', // TODO 'Pendiente' es temporal
-        idCliente: values.cliente
-      }
-    };
+        formattedValues.detallesPedido = newDetallesPedido?.map((detalle) => {
+          const newDetalle = {
+            idProducto: detalle.producto,
+            cantidad: detalle.cantidad
+          };
 
-    formattedValues.detallesPedido = newDetallesPedido?.map((detalle) => {
-      const newDetalle = {
-        idProducto: detalle.producto,
-        cantidad: detalle.cantidad
-      };
-
-      const originalDetallePedido = detallesPedido.find(
-        (d) => d.idProducto == detalle.producto
-      );
-
-      if (originalDetallePedido) {
-        newDetalle.idDetallePedido = originalDetallePedido.idDetallePedido;
-      }
-
-      return newDetalle;
-    });
-
-    setLoadingGuardarCambios(true);
-    editPedido(formattedValues)
-      .then(() => {
-        setPedidos((prevPedidos) => {
-          const newPedidos = [...prevPedidos];
-
-          const index = newPedidos.findIndex(
-            (pedido) => pedido.id == formattedValues.pedido.id
+          const originalDetallePedido = detallesPedido.find(
+            (d) => d.idProducto == detalle.producto
           );
 
-          if (index !== -1) {
-            newPedidos[index] = {
-              ...formattedValues
-            };
+          if (originalDetallePedido) {
+            newDetalle.idDetallePedido = originalDetallePedido.idDetallePedido;
           }
 
-          return newPedidos;
+          return newDetalle;
         });
-        messageApi.success('Pedido editado correctamente');
-        setOpen(false);
+
+        setLoadingGuardarCambios(true);
+        editPedido(formattedValues)
+          .then(() => {
+            setPedidos((prevPedidos) => {
+              const newPedidos = [...prevPedidos];
+
+              const index = newPedidos.findIndex(
+                (pedido) => pedido.id == formattedValues.pedido.id
+              );
+
+              if (index !== -1) {
+                newPedidos[index] = {
+                  ...formattedValues
+                };
+              }
+
+              return newPedidos;
+            });
+            messageApi.success('Pedido editado correctamente');
+            setOpen(false);
+          })
+          .catch((err) => {
+            console.error(err);
+            messageApi.error('No se pudo editar el pedido');
+          })
+          .finally(() => setLoadingGuardarCambios(false));
       })
-      .catch((err) => {
-        console.error(err);
-        messageApi.error('No se pudo editar el pedido');
-      })
-      .finally(() => setLoadingGuardarCambios(false));
+      .catch((err) => console.error(err));
   }
 
   function getOnExtraButtonClick() {
