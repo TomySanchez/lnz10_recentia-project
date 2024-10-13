@@ -55,11 +55,31 @@ export const PedidosAddOrEditDrawer = ({ editMode, pedido, pedidoForm }) => {
       layout='vertical'
       requiredMark='optional'
     >
-      <Form.Item name='fechaRegistro' label='Fecha de registro' required>
+      <Form.Item
+        name='fechaRegistro'
+        label='Fecha de registro'
+        required
+        rules={[
+          {
+            required: true,
+            message: 'Campo requerido'
+          }
+        ]}
+      >
         <DatePicker format='DD/MM/YY' defaultValue={dayjs()} />
       </Form.Item>
 
-      <Form.Item name='cliente' label='Cliente' required>
+      <Form.Item
+        name='cliente'
+        label='Cliente'
+        required
+        rules={[
+          {
+            required: true,
+            message: 'Campo requerido'
+          }
+        ]}
+      >
         <Select options={clientesOptions} showSearch optionFilterProp='label' />
       </Form.Item>
 
