@@ -152,11 +152,29 @@ export const ClientesAddOrEditDrawer = ({ editMode, cliente, clienteForm }) => {
         </Form.Item>
       </div>
 
-      <Form.Item name='telefono' label='Teléfono'>
+      <Form.Item
+        name='telefono'
+        label='Teléfono'
+        rules={[
+          {
+            pattern: /^\d{9,13}$/,
+            message: 'Debe tener entre 9 y 13 números'
+          }
+        ]}
+      >
         <Input />
       </Form.Item>
 
-      <Form.Item name='cuit_cuil' label='CUIT/CUIL'>
+      <Form.Item
+        name='cuit_cuil'
+        label='CUIT/CUIL'
+        rules={[
+          {
+            pattern: /^\d{11}$/,
+            message: 'Debe tener 11 numéros'
+          }
+        ]}
+      >
         <Input />
       </Form.Item>
 
