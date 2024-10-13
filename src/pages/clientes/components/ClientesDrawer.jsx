@@ -45,7 +45,7 @@ export const ClientesDrawer = ({
           direccion: {
             calle: values.calle,
             numero: values.numero,
-            piso: values.piso,
+            piso: values.piso || null,
             departamento: values.departamento,
             idBarrio: values.barrio
           }
@@ -116,7 +116,7 @@ export const ClientesDrawer = ({
             idDireccion: cliente.direccion.idDireccion,
             calle: values.calle,
             numero: values.numero,
-            piso: values.piso,
+            piso: values.piso || null,
             departamento: values.departamento,
             idBarrio: values.barrio
           }
