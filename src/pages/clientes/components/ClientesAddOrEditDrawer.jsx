@@ -46,7 +46,7 @@ export const ClientesAddOrEditDrawer = ({ editMode, cliente, clienteForm }) => {
         rules={[
           {
             required: true,
-            message: 'Campo requerido'
+            message: 'Requerido'
           }
         ]}
       >
@@ -64,7 +64,7 @@ export const ClientesAddOrEditDrawer = ({ editMode, cliente, clienteForm }) => {
             rules={[
               {
                 required: true,
-                message: 'Campo requerido'
+                message: 'Requerido'
               }
             ]}
           >
@@ -78,7 +78,7 @@ export const ClientesAddOrEditDrawer = ({ editMode, cliente, clienteForm }) => {
             rules={[
               {
                 required: true,
-                message: 'Campo requerido'
+                message: 'Requerido'
               },
               {
                 pattern: /^[0-9]+$/,
@@ -144,7 +144,7 @@ export const ClientesAddOrEditDrawer = ({ editMode, cliente, clienteForm }) => {
           rules={[
             {
               required: true,
-              message: 'Campo requerido'
+              message: 'Requerido'
             }
           ]}
         >

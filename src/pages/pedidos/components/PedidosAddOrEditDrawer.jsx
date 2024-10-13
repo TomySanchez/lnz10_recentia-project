@@ -62,7 +62,7 @@ export const PedidosAddOrEditDrawer = ({ editMode, pedido, pedidoForm }) => {
         rules={[
           {
             required: true,
-            message: 'Campo requerido'
+            message: 'Requerido'
           }
         ]}
       >
@@ -76,7 +76,7 @@ export const PedidosAddOrEditDrawer = ({ editMode, pedido, pedidoForm }) => {
         rules={[
           {
             required: true,
-            message: 'Campo requerido'
+            message: 'Requerido'
           }
         ]}
       >
@@ -99,7 +99,7 @@ export const PedidosAddOrEditDrawer = ({ editMode, pedido, pedidoForm }) => {
                     rules={[
                       {
                         required: true,
-                        message: 'Campo requerido'
+                        message: 'Requerido'
                       }
                     ]}
                   >
@@ -116,7 +116,7 @@ export const PedidosAddOrEditDrawer = ({ editMode, pedido, pedidoForm }) => {
                     rules={[
                       {
                         required: true,
-                        message: 'Campo requerido'
+                        message: 'Requerido'
                       },
                       {
                         type: 'number',
