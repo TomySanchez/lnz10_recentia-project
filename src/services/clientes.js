@@ -47,7 +47,7 @@ export async function editCliente(data) {
 export async function disableCliente(data) {
   const config = {
     method: 'delete',
-    url: `${import.meta.env.VITE_API_URL}/clientes/${data.cliente.id}`
+    url: `${import.meta.env.VITE_API_URL}/clientes/${data.id}`
   };
 
   return await axios(config)

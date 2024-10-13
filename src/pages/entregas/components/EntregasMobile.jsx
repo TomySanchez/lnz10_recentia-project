@@ -32,7 +32,7 @@ export const EntregasMobile = () => {
     {
       dataIndex: '',
       title: '',
-      render: () => <Acciones entityType='entregas' />
+      render: () => <Acciones entityType='entrega' />
     }
   ];
 

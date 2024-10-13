@@ -32,7 +32,7 @@ export const ProductosTable = ({ onInfo, onEdit }) => {
       align: 'center',
       render: (record) => (
         <Acciones
-          entityType='productos'
+          entityType='producto'
           item={record}
           onInfo={onInfo}
           onEdit={onEdit}

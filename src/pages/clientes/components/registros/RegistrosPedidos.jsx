@@ -51,7 +51,7 @@ export const RegistrosPedidos = ({ cliente }) => {
       dataIndex: '',
       title: '',
       align: 'center',
-      render: (record) => <Acciones entityType='pedidos' item={record} />
+      render: (record) => <Acciones entityType='pedido' item={record} />
     }
   ];
 
