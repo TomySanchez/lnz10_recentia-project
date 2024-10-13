@@ -51,7 +51,21 @@ export const ClientesAddOrEditDrawer = ({ editMode, cliente, clienteForm }) => {
             <Input />
           </Form.Item>
 
-          <Form.Item name='numero' label='Número' required>
+          <Form.Item
+            name='numero'
+            label='Número'
+            required
+            rules={[
+              {
+                required: true,
+                message: 'Campo requerido'
+              },
+              {
+                pattern: /^[0-9]+$/,
+                message: 'Solo se permiten números enteros'
+              }
+            ]}
+          >
             <Input />
           </Form.Item>
         </div>
