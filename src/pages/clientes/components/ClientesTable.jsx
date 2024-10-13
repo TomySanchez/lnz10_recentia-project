@@ -61,12 +61,17 @@ export const ClientesTable = ({ onInfo, onEdit }) => {
       dataIndex: 'direccion',
       title: 'Barrio',
       render: (text) => `${text.barrio}, ${text.localidad}`,
-      sorter: (rowA, rowB) => rowA.barrio.localeCompare(rowB.barrio),
+      sorter: (rowA, rowB) =>
+        rowA.direccion.barrio.localeCompare(rowB.direccion.barrio),
       filters: barrios.map((barrio) => ({
         text: barrio.nombre,
         value: barrio.nombre
       })),
-      onFilter: (value, record) => record.direccion.barrio === value
+      onFilter: (value, record) => {
+        console.log('value:', value);
+        console.log('record:', record);
+        return record.direccion.barrio === value;
+      }
     },
     {
       dataIndex: 'observaciones',
