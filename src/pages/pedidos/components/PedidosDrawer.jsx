@@ -35,7 +35,7 @@ export const PedidosDrawer = ({ mode, pedido, open, setOpen }) => {
         const formattedValues = {
           pedido: {
             fechaRegistro: values.fechaRegistro,
-            esRecurrente: values.esRecurrente,
+            esRecurrente: values.esRecurrente || false,
             cantSemanas: values.cantSemanas || null,
             estado: 'Pendiente',
             idCliente: values.cliente
@@ -80,7 +80,7 @@ export const PedidosDrawer = ({ mode, pedido, open, setOpen }) => {
           pedido: {
             id: pedido.id,
             fechaRegistro: values.fechaRegistro,
-            esRecurrente: values.esRecurrente,
+            esRecurrente: values.esRecurrente || false,
             cantSemanas: values.cantSemanas || null,
             estado: values.estado || 'Pendiente', // TODO 'Pendiente' es temporal
             idCliente: values.cliente
