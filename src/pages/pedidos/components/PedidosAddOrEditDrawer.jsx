@@ -60,7 +60,7 @@ export const PedidosAddOrEditDrawer = ({ editMode, pedido, pedidoForm }) => {
       </Form.Item>
 
       <Form.Item name='cliente' label='Cliente' required>
-        <Select options={clientesOptions} showSearch />
+        <Select options={clientesOptions} showSearch optionFilterProp='label' />
       </Form.Item>
 
       <div className='pedidos-drawer-detalles-container'>
