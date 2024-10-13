@@ -40,7 +40,7 @@ export const PedidosAddOrEditDrawer = ({ editMode, pedido, pedidoForm }) => {
       setSelectedProductos(detalles.map((detalle) => detalle.producto));
 
       pedidoForm.setFieldsValue({
-        fechaRegistro: dayjs(pedido.fechaRegistro),
+        fechaRegistro: dayjs(pedido.fechaRegistro, 'DD/MM/YY'),
         cliente: getItemById(pedido.idCliente, clientes).id,
         esRecurrente: pedido.esRecurrente,
         cantSemanas: pedido.cantSemanas,
