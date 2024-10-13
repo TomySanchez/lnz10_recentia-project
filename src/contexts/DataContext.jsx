@@ -24,7 +24,8 @@ export const DataProvider = ({ children }) => {
 
   const [barrios, setBarrios] = useState([]);
   const [loadingBarrios, setLoadingBarrios] = useState(false);
-  const [clientes, setClientes] = useState([]);
+  const [clientes, setClientes] = useState([]); // Son todos los clientes, incluidos los desactivados
+  const [activeClientes, setActiveClientes] = useState([]); // Solo los clientes activos
   const [loadingClientes, setLoadingClientes] = useState(false);
   const [detallesDeEntregas, setDetallesDeEntregas] = useState([]);
   const [detallesDePagos, setDetallesDePagos] = useState([]);
@@ -56,8 +57,8 @@ export const DataProvider = ({ children }) => {
     try {
       setLoadingClientes(true);
       const res = await getClientes();
-      const newData = res.data?.filter((cliente) => cliente.activo == 1);
-      setClientes(newData);
+
+      setClientes(res.data);
     } catch (err) {
       console.error(err);
       messageApi.error('No se pudo cargar la lista de clientes');
@@ -101,6 +102,12 @@ export const DataProvider = ({ children }) => {
     setRecorridos(dataRecorridos);
   }, []);
 
+  useEffect(() => {
+    const newData = clientes.filter((cliente) => cliente.activo == 1);
+
+    setActiveClientes(newData);
+  }, [clientes]);
+
   return (
     <DataContext.Provider
       value={{
@@ -110,6 +117,8 @@ export const DataProvider = ({ children }) => {
         setLoadingBarrios,
         clientes,
         setClientes,
+        activeClientes,
+        setActiveClientes,
         loadingClientes,
         setLoadingClientes,
         detallesDeEntregas,
