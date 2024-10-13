@@ -39,7 +39,11 @@ export const RegistrosPedidos = ({ cliente }) => {
           confirm={confirm}
           clearFilters={clearFilters}
         />
-      )
+      ),
+      onFilter: (value, record) => {
+        const fechaRegistro = dayjs(record.fechaRegistro, 'DD/MM/YY');
+        return fechaRegistro.isSame(dayjs(value, 'DD/MM/YY'));
+      }
     },
     {
       dataIndex: 'cantSemanas',
