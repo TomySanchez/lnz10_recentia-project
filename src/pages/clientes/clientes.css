@@ -70,8 +70,3 @@
   gap: 16px;
   align-items: flex-end;
 }
-
-.clientes-disponibilidad-edit-container {
-  display: flex;
-  gap: 8px;
-}
