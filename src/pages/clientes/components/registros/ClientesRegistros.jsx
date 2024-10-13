@@ -6,6 +6,7 @@ import { ClientesChangeRegistro } from './ClientesChangeRegistro';
 import { RegistrosPedidos } from './RegistrosPedidos';
 import { RegistrosEntregas } from './RegistrosEntregas';
 import { Button } from 'antd';
+import { PedidosDrawer } from '../../../pedidos/components/PedidosDrawer';
 
 export const ClientesRegistros = () => {
   const navigateTo = useNavigate();
@@ -14,8 +15,24 @@ export const ClientesRegistros = () => {
 
   const [selectedRegistros, setSelectedRegistros] = useState('Pedidos');
 
+  const [openDrawer, setOpenDrawer] = useState(false);
+  const [selectedPedido, setSelectedPedido] = useState(null);
+  const [drawerMode, setDrawerMode] = useState('info');
+
   if (!cliente) {
     return null;
+  }
+
+  function handleInfo(pedido) {
+    setOpenDrawer(true);
+    setSelectedPedido(pedido);
+    setDrawerMode('info');
+  }
+
+  function handleEdit(pedido) {
+    setOpenDrawer(true);
+    setSelectedPedido(pedido);
+    setDrawerMode('edit');
   }
 
   return (
@@ -41,10 +58,21 @@ export const ClientesRegistros = () => {
       }
     >
       {selectedRegistros === 'Pedidos' ? (
-        <RegistrosPedidos cliente={cliente} />
+        <RegistrosPedidos
+          cliente={cliente}
+          onInfo={handleInfo}
+          onEdit={handleEdit}
+        />
       ) : (
         <RegistrosEntregas cliente={cliente} />
       )}
+
+      <PedidosDrawer
+        mode={drawerMode}
+        pedido={selectedPedido}
+        open={openDrawer}
+        setOpen={setOpenDrawer}
+      />
     </MainContent>
   );
 };

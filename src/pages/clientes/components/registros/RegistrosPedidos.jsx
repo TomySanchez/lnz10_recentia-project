@@ -8,7 +8,7 @@ import { AiOutlineCalendar } from 'react-icons/ai';
 import { SelectFechaTabla } from '../../../../components/tables/SelectFechaTabla';
 import { Tag } from 'antd';
 
-export const RegistrosPedidos = ({ cliente }) => {
+export const RegistrosPedidos = ({ cliente, onInfo, onEdit }) => {
   const { pedidos } = useContext(DataContext);
 
   const filteredPedidos = pedidos.filter(
@@ -79,7 +79,14 @@ export const RegistrosPedidos = ({ cliente }) => {
       dataIndex: '',
       title: '',
       align: 'center',
-      render: (record) => <Acciones entityType='pedido' item={record} />
+      render: (record) => (
+        <Acciones
+          entityType='pedido'
+          item={record}
+          onInfo={onInfo}
+          onEdit={onEdit}
+        />
+      )
     }
   ];
 
