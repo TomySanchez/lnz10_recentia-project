@@ -12,6 +12,7 @@ export const PedidosAddOrEditDrawer = ({ editMode, pedido, pedidoForm }) => {
   const [esRecurrente, setEsRecurrente] = useState(
     pedido?.esRecurrente || false
   );
+  const [estadoOptions, setEstadoOptions] = useState({});
   const [selectedProductos, setSelectedProductos] = useState([]);
 
   const { detallesPedido } = pedido || {};
@@ -22,6 +23,21 @@ export const PedidosAddOrEditDrawer = ({ editMode, pedido, pedidoForm }) => {
       value: cliente.id
     }))
     .sort((a, b) => a.label.localeCompare(b.label));
+
+  useEffect(() => {
+    const newOpcionesEstado = esRecurrente
+      ? [
+          { label: 'Pendiente', value: 'Pendiente' },
+          { label: 'Cancelado', value: 'Cancelado' },
+          { label: 'Activo', value: 'Activo' }
+        ]
+      : [
+          { label: 'Pendiente', value: 'Pendiente' },
+          { label: 'Cancelado', value: 'Cancelado' },
+          { label: 'Realizado', value: 'Realizado' }
+        ];
+    setEstadoOptions(newOpcionesEstado);
+  }, [esRecurrente]);
 
   const productosOptions = productos
     .map((producto) => ({
@@ -42,6 +58,7 @@ export const PedidosAddOrEditDrawer = ({ editMode, pedido, pedidoForm }) => {
       pedidoForm.setFieldsValue({
         fechaRegistro: dayjs(pedido.fechaRegistro, 'DD/MM/YY'),
         cliente: getItemById(pedido.idCliente, clientes).id,
+        estado: pedido.estado,
         esRecurrente: pedido.esRecurrente,
         cantSemanas: pedido.cantSemanas,
         detallesPedido: detalles
@@ -49,7 +66,8 @@ export const PedidosAddOrEditDrawer = ({ editMode, pedido, pedidoForm }) => {
     } else {
       pedidoForm.resetFields();
       pedidoForm.setFieldsValue({
-        fechaRegistro: dayjs()
+        fechaRegistro: dayjs(),
+        estado: 'Pendiente'
       });
     }
   }, [pedido, pedidoForm, editMode, clientes, detallesPedido]);
@@ -93,6 +111,20 @@ export const PedidosAddOrEditDrawer = ({ editMode, pedido, pedidoForm }) => {
         ]}
       >
         <Select options={clientesOptions} showSearch optionFilterProp='label' />
+      </Form.Item>
+
+      <Form.Item
+        name='estado'
+        label='Estado'
+        required
+        rules={[
+          {
+            required: true,
+            message: 'Requerido'
+          }
+        ]}
+      >
+        <Select options={estadoOptions} />
       </Form.Item>
 
       <div className='pedidos-drawer-detalles-container'>
