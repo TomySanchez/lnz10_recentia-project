@@ -16,6 +16,7 @@ import { getBarrios } from '../services/barrios';
 import { getPedidos } from '../services/pedidos';
 import { formatFecha } from '../utils/formatFecha';
 import { MessageContext } from './MessageContext';
+import { sortItemsArrayById } from '../utils/sortItemsArrayById';
 
 export const DataContext = createContext();
 
@@ -40,11 +41,17 @@ export const DataProvider = ({ children }) => {
   const [productos, setProductos] = useState([]);
   const [recorridos, setRecorridos] = useState([]);
 
+  console.log('clientes:', clientes);
+  console.log('pedidos:', pedidos);
+  console.log('barrios:', barrios);
+
   async function fetchBarrios() {
     try {
       setLoadingBarrios(true);
       const res = await getBarrios();
-      setBarrios(res.data);
+
+      const sortedBarrios = sortItemsArrayById(res.data, 'nombre', 'asc');
+      setBarrios(sortedBarrios);
     } catch (err) {
       console.error(err);
       messageApi.error('No se pudo cargar la lista de barrios');
@@ -58,7 +65,8 @@ export const DataProvider = ({ children }) => {
       setLoadingClientes(true);
       const res = await getClientes();
 
-      setClientes(res.data);
+      const sortedClientes = sortItemsArrayById(res.data, 'id', 'desc');
+      setClientes(sortedClientes);
     } catch (err) {
       console.error(err);
       messageApi.error('No se pudo cargar la lista de clientes');
@@ -76,7 +84,9 @@ export const DataProvider = ({ children }) => {
         const formattedFecha = formatFecha(pedido.fechaRegistro);
         return { ...pedido, fechaRegistro: formattedFecha };
       });
-      setPedidos(newData);
+
+      const sortedPedidos = sortItemsArrayById(newData, 'id', 'desc');
+      setPedidos(sortedPedidos);
     } catch (err) {
       console.error(err);
       messageApi.error('No se pudo cargar la lista de pedidos');
