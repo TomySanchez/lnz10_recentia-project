@@ -41,10 +41,6 @@ export const DataProvider = ({ children }) => {
   const [productos, setProductos] = useState([]);
   const [recorridos, setRecorridos] = useState([]);
 
-  console.log('clientes:', clientes);
-  console.log('pedidos:', pedidos);
-  console.log('barrios:', barrios);
-
   async function fetchBarrios() {
     try {
       setLoadingBarrios(true);

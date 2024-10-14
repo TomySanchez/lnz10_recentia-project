@@ -65,26 +65,30 @@ export const ClientesDrawer = ({
             const localidad = getItemById(barrio?.idLocalidad, 'localidad');
 
             setClientes((prevClientes) => {
-              const newClientes = [...prevClientes];
-              newClientes.push({
-                id: res.clienteId,
-                nombre: values.nombre,
-                telefono: values.telefono,
-                cuit_cuil: values.cuit_cuil,
-                observaciones: values.observaciones,
-                activo: 1,
-                direccion: {
-                  idDireccion: res.direccionId,
-                  calle: values.calle,
-                  numero: values.numero,
-                  piso: values.piso,
-                  departamento: values.departamento,
-                  idBarrio: values.barrio,
-                  barrio: barrio?.nombre,
-                  idLocalidad: barrio?.idLocalidad,
-                  localidad: localidad?.nombre
-                }
-              });
+              const newClientes = [
+                {
+                  id: res.data.clienteId,
+                  nombre: values.nombre,
+                  telefono: values.telefono,
+                  cuit_cuil: values.cuit_cuil,
+                  observaciones: values.observaciones,
+                  activo: 1,
+                  direccion: {
+                    idDireccion: res.data.direccionId,
+                    calle: values.calle,
+                    numero: values.numero,
+                    piso: values.piso,
+                    departamento: values.departamento,
+                    idBarrio: values.barrio,
+                    barrio: barrio?.nombre,
+                    idLocalidad: barrio?.idLocalidad,
+                    localidad: localidad?.nombre
+                  }
+                },
+                ...prevClientes
+              ];
+
+              console.log('newClientes:', newClientes);
 
               return newClientes;
             });
