@@ -9,11 +9,11 @@ import {
 } from 'react-icons/ai';
 
 export const ClientesMobile = ({ onInfo, onEdit, onAdd }) => {
-  const { clientes } = useContext(DataContext);
+  const { activeClientes } = useContext(DataContext);
 
   const [searchTerm, setSearchTerm] = useState('');
 
-  const filteredClientes = clientes.filter((cliente) => {
+  const filteredClientes = activeClientes.filter((cliente) => {
     const nombreMatch = cliente.nombre
       .toLowerCase()
       .includes(searchTerm.toLowerCase());
