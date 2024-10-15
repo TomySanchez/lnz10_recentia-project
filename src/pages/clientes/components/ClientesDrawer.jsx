@@ -17,7 +17,7 @@ export const ClientesDrawer = ({
   open,
   setOpen
 }) => {
-  const { setClientes, setDirecciones } = useContext(DataContext);
+  const { barrios, setClientes, setDirecciones } = useContext(DataContext);
   const windowWidth = useContext(ResponsiveContext);
   const { messageApi } = useContext(MessageContext);
 
@@ -61,7 +61,7 @@ export const ClientesDrawer = ({
               return newDirecciones;
             });
 
-            const barrio = getItemById(values.barrio, 'barrio');
+            const barrio = getItemById(values.barrio, barrios);
             const localidad = getItemById(barrio?.idLocalidad, 'localidad');
 
             setClientes((prevClientes) => {
@@ -145,7 +145,7 @@ export const ClientesDrawer = ({
               return newDirecciones;
             });
 
-            const barrio = getItemById(values.barrio, 'barrio');
+            const barrio = getItemById(values.barrio, barrios);
             const localidad = getItemById(barrio?.idLocalidad, 'localidad');
 
             setClientes((prevClientes) => {

@@ -1,5 +1,4 @@
 import {
-  dataBarrios,
   dataDetallesDeEntregas,
   dataDetallesDePagos,
   dataDirecciones,
@@ -22,9 +21,9 @@ export function getItemById(id, itemType_itemsArray) {
     return item;
   } else {
     switch (itemType_itemsArray) {
-      case 'barrio':
+      /*  case 'barrio':
         data = dataBarrios;
-        break;
+        break; */
       /* case 'cliente':
         data = dataClientes;
         break; */
