@@ -8,9 +8,17 @@ import { Form } from 'antd';
 import { addPedido, editPedido } from '../../../services/pedidos';
 import { MessageContext } from '../../../contexts/MessageContext';
 import dayjs from 'dayjs';
+import { ResponsiveContext } from '../../../contexts/ResponsiveContext';
 
-export const PedidosDrawer = ({ mode, pedido, open, setOpen }) => {
+export const PedidosDrawer = ({
+  mode,
+  pedido,
+  open,
+  setOpen,
+  device = 'computer'
+}) => {
   const { setPedidos } = useContext(DataContext);
+  const windowWidth = useContext(ResponsiveContext);
   const { messageApi } = useContext(MessageContext);
 
   const [loadingGuardarCambios, setLoadingGuardarCambios] = useState(false);
@@ -177,7 +185,7 @@ export const PedidosDrawer = ({ mode, pedido, open, setOpen }) => {
   }
 
   function getOnExtraButtonClick() {
-    if (mode === 'info') {
+    if (mode === 'info' && device === 'computer') {
       return goToListaEntregas;
     } else if (mode === 'add') {
       return handleAddPedido;
@@ -190,13 +198,14 @@ export const PedidosDrawer = ({ mode, pedido, open, setOpen }) => {
 
   return (
     <Drawer
+      width={device === 'mobile' && windowWidth}
       itemType='pedido'
       mode={mode}
       item={pedido}
       open={open}
       setOpen={setOpen}
       onExtraButtonClick={getOnExtraButtonClick()}
-      extraButtonText={mode === 'info' && 'Entregas'}
+      extraButtonText={mode === 'info' && device === 'computer' && 'Entregas'}
       loadingCambios={loadingGuardarCambios}
     >
       {mode === 'info' ? (

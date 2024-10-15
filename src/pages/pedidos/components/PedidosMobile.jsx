@@ -9,7 +9,7 @@ import {
 import { getItemById } from '../../../utils/getItemById';
 import dayjs from 'dayjs';
 
-export const PedidosMobile = () => {
+export const PedidosMobile = ({ onAdd, onInfo, onEdit }) => {
   const { clientes, pedidos } = useContext(DataContext);
 
   const [searchTerm, setSearchTerm] = useState('');
@@ -33,7 +33,7 @@ export const PedidosMobile = () => {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
-        <Button type='primary'>
+        <Button type='primary' onClick={() => onAdd('mobile')}>
           <AiOutlinePlus size={20} />
         </Button>
       </div>
@@ -55,13 +55,19 @@ export const PedidosMobile = () => {
             <div className='mobile-buttons-container'>
               <Tooltip title='Más información'>
                 <span className='pointer'>
-                  <AiOutlineFileSearch size={24} />
+                  <AiOutlineFileSearch
+                    size={24}
+                    onClick={() => onInfo(pedido, 'mobile')}
+                  />
                 </span>
               </Tooltip>
 
               <Tooltip title='Editar'>
                 <span className='pointer'>
-                  <AiOutlineEdit size={24} />
+                  <AiOutlineEdit
+                    size={24}
+                    onClick={() => onEdit(pedido, 'mobile')}
+                  />
                 </span>
               </Tooltip>
             </div>
