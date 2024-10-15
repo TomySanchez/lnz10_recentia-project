@@ -1,6 +1,5 @@
 import { Navigate, Route, Routes as RoutesRR } from 'react-router-dom';
 import { ProtectedRoute } from './ProtectedRoute';
-import { isAuthenticated } from './isAuthenticated';
 import { MainLayout } from '../layouts/MainLayout';
 import { Clientes } from '../pages/clientes/Clientes';
 import { Pedidos } from '../pages/pedidos/Pedidos';
@@ -14,16 +13,7 @@ export const Routes = () => {
   return (
     <RoutesRR>
       <Route path='/inicio' element={<Login />} />
-      <Route
-        path='/'
-        element={
-          isAuthenticated() ? (
-            <Navigate replace to='/clientes' />
-          ) : (
-            <Navigate replace to='/inicio' />
-          )
-        }
-      />
+      <Route path='/' element={<Navigate replace to='/clientes' />} />
       <Route
         path='/'
         element={
