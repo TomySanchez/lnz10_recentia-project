@@ -7,6 +7,7 @@ import { DataContext } from '../../../contexts';
 import { Form } from 'antd';
 import { addPedido, editPedido } from '../../../services/pedidos';
 import { MessageContext } from '../../../contexts/MessageContext';
+import dayjs from 'dayjs';
 
 export const PedidosDrawer = ({ mode, pedido, open, setOpen }) => {
   const { setPedidos } = useContext(DataContext);
@@ -37,7 +38,7 @@ export const PedidosDrawer = ({ mode, pedido, open, setOpen }) => {
             fechaRegistro: values.fechaRegistro,
             esRecurrente: values.esRecurrente || false,
             cantSemanas: values.cantSemanas || null,
-            estado: 'Pendiente',
+            estado: values.estado,
             idCliente: values.cliente
           }
         };
@@ -49,10 +50,29 @@ export const PedidosDrawer = ({ mode, pedido, open, setOpen }) => {
 
         setLoadingGuardarCambios(true);
         addPedido(formattedValues)
-          .then(() => {
+          .then((res) => {
             setPedidos((prevPedidos) => {
-              const newPedidos = [...prevPedidos];
-              newPedidos.push(formattedValues);
+              const newDetallesPedido = detallesPedido?.map(
+                (detalle, index) => ({
+                  idDetallePedido: res.data.detallesPedidoIds[index],
+                  idProducto: detalle.producto,
+                  cantidad: detalle.cantidad
+                })
+              );
+
+              const newPedidos = [
+                {
+                  id: res.data.pedidoId,
+                  fechaRegistro: dayjs(values.fechaRegistro).format('DD/MM/YY'),
+                  esRecurrente: values.esRecurrente || false,
+                  cantSemanas: values.cantSemanas || null,
+                  estado: values.estado,
+                  idCliente: values.cliente,
+                  activo: 1,
+                  detallesPedido: newDetallesPedido || []
+                },
+                ...prevPedidos
+              ];
 
               return newPedidos;
             });
@@ -82,7 +102,7 @@ export const PedidosDrawer = ({ mode, pedido, open, setOpen }) => {
             fechaRegistro: values.fechaRegistro,
             esRecurrente: values.esRecurrente || false,
             cantSemanas: values.cantSemanas || null,
-            estado: values.estado || 'Pendiente', // TODO 'Pendiente' es temporal
+            estado: values.estado || 'Pendiente',
             idCliente: values.cliente
           }
         };
@@ -110,15 +130,37 @@ export const PedidosDrawer = ({ mode, pedido, open, setOpen }) => {
             setPedidos((prevPedidos) => {
               const newPedidos = [...prevPedidos];
 
+              console.log('prevPedidos:', prevPedidos);
+
               const index = newPedidos.findIndex(
-                (pedido) => pedido.id == formattedValues.pedido.id
+                (p) => p.id == formattedValues.pedido.id
               );
 
               if (index !== -1) {
+                const updatedDetallesPedido = newDetallesPedido?.map(
+                  (detalle) => ({
+                    idDetallePedido: detallesPedido.find(
+                      (d) => d.idProducto == detalle.producto
+                    )?.idDetallePedido,
+                    idProducto: detalle.producto,
+                    cantidad: detalle.cantidad
+                  })
+                );
+
                 newPedidos[index] = {
-                  ...formattedValues
+                  ...newPedidos[index],
+                  id: pedido.id,
+                  fechaRegistro: dayjs(values.fechaRegistro).format('DD/MM/YY'),
+                  esRecurrente: values.esRecurrente || false,
+                  cantSemanas: values.cantSemanas || null,
+                  estado: values.estado,
+                  idCliente: values.cliente,
+                  activo: 1,
+                  detallesPedido: updatedDetallesPedido || []
                 };
               }
+
+              console.log('newPedidos:', newPedidos);
 
               return newPedidos;
             });

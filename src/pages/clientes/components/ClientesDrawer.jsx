@@ -88,8 +88,6 @@ export const ClientesDrawer = ({
                 ...prevClientes
               ];
 
-              console.log('newClientes:', newClientes);
-
               return newClientes;
             });
             messageApi.success('Cliente añadido correctamente');
