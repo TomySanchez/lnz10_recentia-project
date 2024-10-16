@@ -7,7 +7,7 @@ import { DataContext } from '../../contexts';
 import { disablePedido } from '../../services/pedidos';
 
 export const Acciones = ({ entityType, item, onInfo, onEdit }) => {
-  const { setClientes, setPedidos } = useContext(DataContext);
+  const { setActiveClientes, setPedidos } = useContext(DataContext);
   const { messageApi } = useContext(MessageContext);
 
   const [loadingEliminar, setLoadingEliminar] = useState(false);
@@ -18,7 +18,7 @@ export const Acciones = ({ entityType, item, onInfo, onEdit }) => {
       case 'cliente':
         disableCliente(item)
           .then(() => {
-            setClientes((prevClientes) => {
+            setActiveClientes((prevClientes) => {
               const newClientes = prevClientes.filter(
                 (cliente) => cliente.id !== item.id
               );
