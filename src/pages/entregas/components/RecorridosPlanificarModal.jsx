@@ -68,7 +68,6 @@ export const RecorridosPlanificarModal = ({
           dataIndex: 'id',
           title: 'Disponibilidad',
           render: (text) => {
-            // TODO Hardcodeado
             switch (text) {
               case '21':
                 return 'Lunes a la tarde';
