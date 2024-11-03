@@ -17,6 +17,7 @@ import { getPedidos } from '../services/pedidos';
 import { formatFecha } from '../utils/formatFecha';
 import { MessageContext } from './MessageContext';
 import { sortItemsArrayById } from '../utils/sortItemsArrayById';
+import { getDiasSemana } from '../services/diasSemana';
 
 export const DataContext = createContext();
 
@@ -30,6 +31,8 @@ export const DataProvider = ({ children }) => {
   const [loadingClientes, setLoadingClientes] = useState(false);
   const [detallesDeEntregas, setDetallesDeEntregas] = useState([]);
   const [detallesDePagos, setDetallesDePagos] = useState([]);
+  const [diasSemana, setDiasSemana] = useState([]);
+  const [loadingDiasSemana, setLoadingDiasSemana] = useState(false);
   const [direcciones, setDirecciones] = useState([]);
   const [entregas, setEntregas] = useState([]);
   const [localidades, setLocalidades] = useState([]);
@@ -71,6 +74,26 @@ export const DataProvider = ({ children }) => {
     }
   }
 
+  async function fetchDiasSemana() {
+    try {
+      setLoadingDiasSemana(true);
+      const res = await getDiasSemana();
+
+      const sortedDiasSemana = sortItemsArrayById(
+        res.data,
+        'nroOrdenSemana',
+        'asc'
+      );
+
+      setDiasSemana(sortedDiasSemana);
+    } catch (err) {
+      console.error(err);
+      // messageApi.error('No se pudo cargar la lista de días de la semana');
+    } finally {
+      setLoadingDiasSemana(false);
+    }
+  }
+
   async function fetchPedidos() {
     try {
       setLoadingPedidos(true);
@@ -94,6 +117,7 @@ export const DataProvider = ({ children }) => {
   useEffect(() => {
     fetchBarrios();
     fetchClientes();
+    fetchDiasSemana();
     fetchPedidos();
 
     setDetallesDeEntregas(dataDetallesDeEntregas);
@@ -131,6 +155,10 @@ export const DataProvider = ({ children }) => {
         setDetallesDeEntregas,
         detallesDePagos,
         setDetallesDePagos,
+        diasSemana,
+        setDiasSemana,
+        loadingDiasSemana,
+        setLoadingDiasSemana,
         direcciones,
         setDirecciones,
         entregas,

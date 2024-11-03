@@ -35,6 +35,8 @@ export const ClientesDrawer = ({
     clienteForm
       .validateFields()
       .then((values) => {
+        const { disponibilidades } = values;
+
         const formattedValues = {
           cliente: {
             nombre: values.nombre,
@@ -50,6 +52,14 @@ export const ClientesDrawer = ({
             idBarrio: values.barrio
           }
         };
+
+        formattedValues.disponibilidades = disponibilidades?.map(
+          (disponibilidad) => ({
+            idDiaSemana: disponibilidad.diaSemana,
+            horaInicio: disponibilidad.horas[0]?.format('HH:mm'),
+            horaFin: disponibilidad.horas[1]?.format('HH:mm')
+          })
+        );
 
         setLoadingGuardarCambios(true);
         addCliente(formattedValues)
@@ -99,7 +109,17 @@ export const ClientesDrawer = ({
           })
           .finally(() => setLoadingGuardarCambios(false));
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        const index = err.errorFields?.findIndex((e) =>
+          e.errors.some((er) => er === 'Debe haber al menos una disponibilidad')
+        );
+
+        if (index !== -1) {
+          messageApi.error('Debe haber al menos una disponibilidad');
+        }
+
+        console.error(err);
+      });
   }
 
   function handleEditCliente() {
