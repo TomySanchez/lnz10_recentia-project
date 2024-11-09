@@ -137,10 +137,14 @@ export const ClientesDrawer = ({
       });
   }
 
+  const { disponibilidades } = cliente || { disponibilidades: [] };
+
   function handleEditCliente() {
     clienteForm
       .validateFields()
       .then((values) => {
+        const { disponibilidades: newDisponibilidades } = values;
+
         const formattedValues = {
           cliente: {
             id: cliente.id,
@@ -191,6 +195,18 @@ export const ClientesDrawer = ({
               );
 
               if (index !== -1) {
+                const updatedDisponibilidades = newDisponibilidades?.map(
+                  (disp, idx) => ({
+                    idDisponibilidad: disponibilidades[idx]?.idDisponibilidad,
+                    idDiaSemana: disp.diaSemana,
+                    nroDiaSemana: disp.diaSemana,
+                    diaSemana: diasSemana.find((d) => d.id === disp.diaSemana)
+                      ?.nombre,
+                    horaInicio: dayjs(disp.horas[0]).format('HH:mm:ss'),
+                    horaFin: dayjs(disp.horas[1]).format('HH:mm:ss')
+                  })
+                );
+
                 newClientes[index] = {
                   ...newClientes[index],
                   ...formattedValues.cliente,
@@ -199,7 +215,8 @@ export const ClientesDrawer = ({
                     idLocalidad: barrio?.idLocalidad,
                     localidad: localidad?.nombre,
                     ...formattedValues.direccion
-                  }
+                  },
+                  disponibilidades: updatedDisponibilidades || []
                 };
               }
 
