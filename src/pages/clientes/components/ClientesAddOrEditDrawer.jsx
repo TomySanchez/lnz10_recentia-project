@@ -4,6 +4,7 @@ import { Button, Form, Input, Select, TimePicker } from 'antd';
 import { getItemById } from '../../../utils/getItemById';
 import { AiOutlineMinusCircle, AiOutlinePlus } from 'react-icons/ai';
 import { colorsPalette } from '../../../utils/colorsPalette';
+import dayjs from 'dayjs';
 
 const { RangePicker } = TimePicker;
 
@@ -26,6 +27,14 @@ export const ClientesAddOrEditDrawer = ({ editMode, cliente, clienteForm }) => {
 
   useEffect(() => {
     if (open && cliente && editMode) {
+      const disponibilidades = cliente?.disponibilidades.map((disp) => ({
+        diaSemana: disp.idDiaSemana,
+        horas: [
+          dayjs(disp.horaInicio, 'HH:mm:ss'),
+          dayjs(disp.horaFin, 'HH:mm:ss')
+        ]
+      }));
+
       clienteForm.setFieldsValue({
         nombre: cliente.nombre,
         calle: cliente.direccion.calle,
@@ -36,7 +45,8 @@ export const ClientesAddOrEditDrawer = ({ editMode, cliente, clienteForm }) => {
         barrio: cliente.direccion.idBarrio,
         telefono: cliente.telefono,
         cuit_cuil: cliente.cuit_cuil,
-        observaciones: cliente.observaciones
+        observaciones: cliente.observaciones,
+        disponibilidades: disponibilidades
       });
     } else {
       clienteForm.resetFields();
