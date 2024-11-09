@@ -9,6 +9,7 @@ import { addCliente, editCliente } from '../../../services/clientes';
 import { DataContext } from '../../../contexts';
 import { getItemById } from '../../../utils/getItemById';
 import { MessageContext } from '../../../contexts/MessageContext';
+import dayjs from 'dayjs';
 
 export const ClientesDrawer = ({
   mode,
@@ -17,7 +18,8 @@ export const ClientesDrawer = ({
   open,
   setOpen
 }) => {
-  const { barrios, setClientes, setDirecciones } = useContext(DataContext);
+  const { barrios, setClientes, diasSemana, setDirecciones } =
+    useContext(DataContext);
   const windowWidth = useContext(ResponsiveContext);
   const { messageApi } = useContext(MessageContext);
 
@@ -75,6 +77,18 @@ export const ClientesDrawer = ({
             const localidad = getItemById(barrio?.idLocalidad, 'localidad');
 
             setClientes((prevClientes) => {
+              const newDisponibilidades = disponibilidades?.map(
+                (disp, index) => ({
+                  idDisponibilidad: res.data.disponibilidadesIds[index],
+                  idDiaSemana: disp.diaSemana,
+                  nroDiaSemana: disp.diaSemana,
+                  diaSemana: diasSemana.find((d) => d.id === disp.diaSemana)
+                    ?.nombre,
+                  horaInicio: dayjs(disp.horas[0]).format('HH:mm:ss'),
+                  horaFin: dayjs(disp.horas[1]).format('HH:mm:ss')
+                })
+              );
+
               const newClientes = [
                 {
                   id: res.data.clienteId,
@@ -93,7 +107,8 @@ export const ClientesDrawer = ({
                     barrio: barrio?.nombre,
                     idLocalidad: barrio?.idLocalidad,
                     localidad: localidad?.nombre
-                  }
+                  },
+                  disponibilidades: newDisponibilidades || []
                 },
                 ...prevClientes
               ];
