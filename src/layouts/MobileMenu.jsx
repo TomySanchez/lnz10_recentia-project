@@ -6,7 +6,6 @@ export const MobileMenu = ({ open, setOpen }) => {
   const navigateTo = useNavigate();
 
   function handleNavigate(ruta) {
-    console.log('ruta:', ruta);
     navigateTo(ruta);
     setOpen(false);
   }

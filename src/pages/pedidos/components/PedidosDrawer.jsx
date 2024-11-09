@@ -138,8 +138,6 @@ export const PedidosDrawer = ({
             setPedidos((prevPedidos) => {
               const newPedidos = [...prevPedidos];
 
-              console.log('prevPedidos:', prevPedidos);
-
               const index = newPedidos.findIndex(
                 (p) => p.id == formattedValues.pedido.id
               );
@@ -167,8 +165,6 @@ export const PedidosDrawer = ({
                   detallesPedido: updatedDetallesPedido || []
                 };
               }
-
-              console.log('newPedidos:', newPedidos);
 
               return newPedidos;
             });

@@ -10,8 +10,6 @@ import { DataContext } from '../../../contexts';
 export const EntregasTable = ({ className, recorrido, onInfo, onEdit }) => {
   const { clientes, pagos, pedidos } = useContext(DataContext);
 
-  console.log('clientes:', clientes);
-
   const entregasColumns = [
     {
       dataIndex: 'idPedido',
