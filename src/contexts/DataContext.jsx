@@ -5,7 +5,6 @@ import {
   dataDirecciones,
   dataLocalidades,
   dataMetodosDePago,
-  dataPagos,
   dataPrecios,
   dataProductos
 } from '../data';
@@ -18,6 +17,7 @@ import { sortItemsArrayById } from '../utils/sortItemsArrayById';
 import { getDiasSemana } from '../services/diasSemana';
 import { getRecorridos } from '../services/recorridos';
 import { getEntregas } from '../services/entregas';
+import { getPagos } from '../services/pagos';
 
 export const DataContext = createContext();
 
@@ -40,6 +40,7 @@ export const DataProvider = ({ children }) => {
   const [localidades, setLocalidades] = useState([]);
   const [metodosDePago, setMetodosDePago] = useState([]);
   const [pagos, setPagos] = useState([]);
+  const [loadingPagos, setLoadingPagos] = useState(false);
   const [pedidos, setPedidos] = useState([]);
   const [loadingPedidos, setLoadingPedidos] = useState(false);
   const [precios, setPrecios] = useState([]);
@@ -118,6 +119,27 @@ export const DataProvider = ({ children }) => {
     }
   }
 
+  async function fetchPagos() {
+    try {
+      setLoadingPagos(true);
+
+      const res = await getPagos();
+
+      const newData = res?.data?.map((pago) => {
+        const formattedFecha = formatFecha(pago.fechaPago);
+        return { ...pago, fechaPago: formattedFecha };
+      });
+
+      const sortedPagos = sortItemsArrayById(newData, 'id', 'desc');
+      setEntregas(sortedPagos);
+    } catch (err) {
+      console.error(err);
+      messageApi.error('No se pudo cargar la lista de recorridos');
+    } finally {
+      setLoadingPagos(false);
+    }
+  }
+
   async function fetchPedidos() {
     try {
       setLoadingPedidos(true);
@@ -164,6 +186,7 @@ export const DataProvider = ({ children }) => {
     fetchClientes();
     fetchDiasSemana();
     fetchEntregas();
+    fetchPagos();
     fetchPedidos();
     fetchRecorridos();
 
@@ -172,7 +195,6 @@ export const DataProvider = ({ children }) => {
     setDirecciones(dataDirecciones);
     setLocalidades(dataLocalidades);
     setMetodosDePago(dataMetodosDePago);
-    setPagos(dataPagos);
     setPrecios(dataPrecios);
     setProductos(dataProductos);
   }, []);
@@ -224,6 +246,8 @@ export const DataProvider = ({ children }) => {
         setMetodosDePago,
         pagos,
         setPagos,
+        loadingPagos,
+        setLoadingPagos,
         pedidos,
         setPedidos,
         loadingPedidos,
