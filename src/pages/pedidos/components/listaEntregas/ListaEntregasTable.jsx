@@ -2,7 +2,6 @@ import { Tag } from 'antd';
 import { Table } from '../../../../components/tables/Table';
 import { Acciones } from '../../../../components/tables/Acciones';
 import { getItemById } from '../../../../utils/getItemById';
-import { getDetalles } from '../../../../utils/getDetalles';
 import { useContext } from 'react';
 import { DataContext } from '../../../../contexts';
 import dayjs from 'dayjs';

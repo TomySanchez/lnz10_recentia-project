@@ -53,11 +53,11 @@ export const RegistrosEntregas = ({ cliente }) => {
       )
     },
     {
-      dataIndex: 'id',
+      dataIndex: 'idPago',
       title: 'Monto total',
       align: 'center',
       render: (text) => {
-        const pagoDeEntrega = pagos.find((pago) => pago.idEntrega == text);
+        const pagoDeEntrega = pagos.find((pago) => pago.id == text);
         const detallesDePago = getDetalles(pagoDeEntrega.id, 'pagos');
         const importes = detallesDePago.map((detalle) => {
           const precio = getItemById(detalle.idPrecio, 'precio').valor;
@@ -114,11 +114,11 @@ export const RegistrosEntregas = ({ cliente }) => {
       onFilter: (value, record) => record.estado === value
     },
     {
-      dataIndex: 'id',
+      dataIndex: 'idPago',
       title: 'Estado de pago',
       align: 'center',
       render: (text) => {
-        const pagoDeEntrega = pagos.find((pago) => pago.idEntrega == text);
+        const pagoDeEntrega = pagos.find((pago) => pago.id == text);
 
         let colorTag;
         switch (pagoDeEntrega.estado) {
@@ -145,7 +145,7 @@ export const RegistrosEntregas = ({ cliente }) => {
         }
       ],
       onFilter: (value, record) => {
-        const pagoDeEntrega = pagos.find((pago) => pago.idEntrega == record.id);
+        const pagoDeEntrega = pagos.find((pago) => pago.id == record.idPago);
         return pagoDeEntrega.estado === value;
       }
     },
