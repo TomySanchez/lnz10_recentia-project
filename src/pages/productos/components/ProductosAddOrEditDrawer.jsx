@@ -1,21 +1,25 @@
 import { Button, Form, Input, InputNumber, Select } from 'antd';
 import { AiOutlineMinusCircle, AiOutlinePlus } from 'react-icons/ai';
 import { colorsPalette } from '../../../utils/colorsPalette';
-import { useEffect } from 'react';
-import { getMultipleItemsById } from '../../../utils/getMultipleItemsById';
+import { useContext, useEffect } from 'react';
+import { DataContext } from '../../../contexts';
 
 export const ProductosAddOrEditDrawer = ({ mode, producto, setOpen }) => {
+  const { precios } = useContext(DataContext);
+
   const [productoForm] = Form.useForm();
 
   useEffect(() => {
     if (mode === 'edit' && producto) {
-      const precios = getMultipleItemsById(producto.id, 'precios');
+      const preciosDelProducto = precios?.filter(
+        (precio) => producto.id == precio.idProducto
+      );
 
       productoForm.setFieldsValue({
         nombre: producto.nombre,
         descripcion: producto.descripcion,
         estado: producto.estado,
-        listaPrecios: precios.map((precio) => ({
+        listaPrecios: preciosDelProducto.map((precio) => ({
           descripcion: precio.descripcion,
           valor: precio.valor
         }))
@@ -23,7 +27,7 @@ export const ProductosAddOrEditDrawer = ({ mode, producto, setOpen }) => {
     } else {
       productoForm.resetFields();
     }
-  }, [mode, producto, productoForm]);
+  }, [mode, producto, productoForm, precios]);
 
   function handleFinish(values) {
     console.log('Formulario enviado', values);
