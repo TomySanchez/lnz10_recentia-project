@@ -8,8 +8,7 @@ import {
   dataMetodosDePago,
   dataPagos,
   dataPrecios,
-  dataProductos,
-  dataRecorridos
+  dataProductos
 } from '../data';
 import { getClientes } from '../services/clientes';
 import { getBarrios } from '../services/barrios';
@@ -18,6 +17,7 @@ import { formatFecha } from '../utils/formatFecha';
 import { MessageContext } from './MessageContext';
 import { sortItemsArrayById } from '../utils/sortItemsArrayById';
 import { getDiasSemana } from '../services/diasSemana';
+import { getRecorridos } from '../services/recorridos';
 
 export const DataContext = createContext();
 
@@ -44,6 +44,9 @@ export const DataProvider = ({ children }) => {
   const [precios, setPrecios] = useState([]);
   const [productos, setProductos] = useState([]);
   const [recorridos, setRecorridos] = useState([]);
+  const [loadingRecorridos, setLoadingRecorridos] = useState(false);
+
+  console.log('recorridos:', recorridos);
 
   async function fetchBarrios() {
     try {
@@ -115,11 +118,33 @@ export const DataProvider = ({ children }) => {
     }
   }
 
+  async function fetchRecorridos() {
+    try {
+      setLoadingRecorridos(true);
+
+      const res = await getRecorridos();
+
+      const newData = res?.data?.map((recorrido) => {
+        const formattedFecha = formatFecha(recorrido.fecha);
+        return { ...recorrido, fecha: formattedFecha };
+      });
+
+      const sortedRecorridos = sortItemsArrayById(newData, 'id', 'desc');
+      setRecorridos(sortedRecorridos);
+    } catch (err) {
+      console.error(err);
+      messageApi.error('No se pudo cargar la lista de recorridos');
+    } finally {
+      setLoadingRecorridos(false);
+    }
+  }
+
   useEffect(() => {
     fetchBarrios();
     fetchClientes();
     fetchDiasSemana();
     fetchPedidos();
+    fetchRecorridos();
 
     setDetallesDeEntregas(dataDetallesDeEntregas);
     setDetallesDePagos(dataDetallesDePagos);
@@ -130,7 +155,6 @@ export const DataProvider = ({ children }) => {
     setPagos(dataPagos);
     setPrecios(dataPrecios);
     setProductos(dataProductos);
-    setRecorridos(dataRecorridos);
   }, []);
 
   useEffect(() => {
@@ -187,7 +211,9 @@ export const DataProvider = ({ children }) => {
         productos,
         setProductos,
         recorridos,
-        setRecorridos
+        setRecorridos,
+        loadingRecorridos,
+        setLoadingRecorridos
       }}
     >
       {children}
