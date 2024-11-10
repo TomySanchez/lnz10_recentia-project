@@ -4,13 +4,13 @@ import { DataContext } from '../../../../contexts';
 import { getItemById } from '../../../../utils/getItemById';
 import { Tag } from 'antd';
 import { Acciones } from '../../../../components/tables/Acciones';
-import { getDetalles } from '../../../../utils/getDetalles';
 import dayjs from 'dayjs';
 import { AiOutlineCalendar } from 'react-icons/ai';
 import { SelectFechaTabla } from '../../../../components/tables/SelectFechaTabla';
 
 export const RegistrosEntregas = ({ cliente }) => {
-  const { entregas, pagos, pedidos, recorridos } = useContext(DataContext);
+  const { entregas, pagos, pedidos, precios, recorridos } =
+    useContext(DataContext);
 
   const filteredEntregas = entregas.filter((entrega) => {
     const pedido = getItemById(entrega.idPedido, pedidos);
@@ -56,15 +56,15 @@ export const RegistrosEntregas = ({ cliente }) => {
       dataIndex: 'idPago',
       title: 'Monto total',
       align: 'center',
-      render: (text) => {
+      render: (text, record) => {
         const pagoDeEntrega = pagos.find((pago) => pago.id == text);
-        const detallesDePago = getDetalles(pagoDeEntrega.id, 'pagos');
-        const importes = detallesDePago.map((detalle) => {
-          const precio = getItemById(detalle.idPrecio, 'precio').valor;
-          const cantidad = getItemById(
-            detalle.idDetalleDeEntrega,
-            'detalleDeEntrega'
-          ).cantidad;
+        const detallesDePago = pagoDeEntrega?.detallesPago;
+        const detallesDeEntrega = record.detallesEntrega;
+        const importes = detallesDePago?.map((detalle) => {
+          const precio = getItemById(detalle.idPrecio, precios)?.valor;
+          const cantidad = detallesDeEntrega?.find(
+            (de) => de.idDetalleEntrega == detalle.idDetalleDeEntrega
+          )?.cantidad;
 
           return precio * cantidad;
         });
@@ -72,6 +72,11 @@ export const RegistrosEntregas = ({ cliente }) => {
           (accumulator, currentValue) => accumulator + currentValue,
           0
         );
+
+        if (isNaN(importeTotal)) {
+          return '-';
+        }
+
         return `$ ${importeTotal}`;
       }
     },
