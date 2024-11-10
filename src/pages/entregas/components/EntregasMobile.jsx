@@ -7,13 +7,13 @@ import { Table } from '../../../components/tables/Table';
 import { Acciones } from '../../../components/tables/Acciones';
 
 export const EntregasMobile = () => {
-  const { clientes, pedidos, recorridos } = useContext(DataContext);
+  const { clientes, entregas, pedidos, recorridos } = useContext(DataContext);
 
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 
   const recorridoActual = recorridos[7];
 
-  const entregasActuales = getMultipleItemsById(recorridoActual.id, 'entregas');
+  const entregasActuales = getMultipleItemsById(recorridoActual.id, entregas);
 
   const datosEntrega = entregasActuales.map((entrega) => {
     const pedido = getItemById(entrega.idPedido, pedidos);

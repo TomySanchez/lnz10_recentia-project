@@ -1,6 +1,5 @@
 import { Descriptions, List, Tag, Tooltip } from 'antd';
 import { getItemById } from '../../../utils/getItemById';
-import { getDetalles } from '../../../utils/getDetalles';
 import { useContext } from 'react';
 import { DataContext } from '../../../contexts';
 import { getMontoTotal } from '../../../utils/getMontoTotal';
@@ -10,7 +9,7 @@ const { Item } = Descriptions;
 export const EntregasInfoDrawer = ({ entrega }) => {
   const { clientes, pagos, pedidos, recorridos } = useContext(DataContext);
 
-  const detallesDeEntrega = getDetalles(entrega.id, 'entregas');
+  const detallesDeEntrega = entrega.detallesEntrega;
 
   function getCliente() {
     const pedido = getItemById(entrega.idPedido, pedidos);
@@ -93,16 +92,24 @@ export const EntregasInfoDrawer = ({ entrega }) => {
 };
 
 const DetallesDeEntrega = ({ detalle }) => {
-  const { detallesDePagos } = useContext(DataContext);
+  const { pagos, productos, precios } = useContext(DataContext);
 
-  const detalleDePago = detallesDePagos.find(
-    (detallePago) => detallePago.idDetalleDeEntrega == detalle.id
-  );
+  let detalleDePago = {};
+
+  pagos?.forEach((pago) => {
+    const newDetalleDePago = pago.detallesPago?.find(
+      (dp) => dp.idDetalleDeEntrega == detalle.idDetalleEntrega
+    );
+
+    if (newDetalleDePago) {
+      detalleDePago = newDetalleDePago;
+    }
+  });
 
   return (
     <div className='DetallesDePedido'>
       <Tooltip title='Producto'>
-        <span>{getItemById(detalle.idProducto, 'producto').nombre}</span>
+        <span>{getItemById(detalle.idProducto, productos)?.nombre}</span>
       </Tooltip>
 
       <Tooltip title='Cantidad'>
@@ -110,7 +117,7 @@ const DetallesDeEntrega = ({ detalle }) => {
       </Tooltip>
 
       <Tooltip title='Precio por unidad'>
-        <span>$ {getItemById(detalleDePago.idPrecio, 'precio').valor}</span>
+        <span>$ {getItemById(detalleDePago?.idPrecio, precios)?.valor}</span>
       </Tooltip>
     </div>
   );
