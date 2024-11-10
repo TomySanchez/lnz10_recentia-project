@@ -8,7 +8,7 @@ import { getMontoTotal } from '../../../utils/getMontoTotal';
 const { Item } = Descriptions;
 
 export const EntregasInfoDrawer = ({ entrega }) => {
-  const { clientes, pagos, pedidos } = useContext(DataContext);
+  const { clientes, pagos, pedidos, recorridos } = useContext(DataContext);
 
   const detallesDeEntrega = getDetalles(entrega.id, 'entregas');
 
@@ -19,7 +19,9 @@ export const EntregasInfoDrawer = ({ entrega }) => {
     return cliente;
   }
 
-  const pago = pagos.find((pago) => pago.idEntrega == entrega.id);
+  const recorridoAsociado = recorridos.find((r) => r.id == entrega.idRecorrido);
+
+  const pagoAsociado = pagos.find((p) => p.id == entrega.idPago);
 
   function getColorTagEstado(estado) {
     switch (estado) {
@@ -47,9 +49,7 @@ export const EntregasInfoDrawer = ({ entrega }) => {
           <Tag color={getColorTagEstado(entrega.estado)}>{entrega.estado}</Tag>
         </Item>
 
-        <Item label='Recorrido'>
-          {getItemById(entrega.idRecorrido, 'recorrido').fecha || '-'}
-        </Item>
+        <Item label='Recorrido'>{recorridoAsociado?.fecha || '-'}</Item>
       </Descriptions>
 
       {detallesDeEntrega.length > 0 && (
@@ -69,19 +69,22 @@ export const EntregasInfoDrawer = ({ entrega }) => {
         <h3>Pago</h3>
         <Descriptions column={1} labelStyle={{ color: '#000000aa' }}>
           <Item label='Estado del pago'>
-            <Tag color={getColorTagEstado(pago.estado)}>{pago.estado}</Tag>
+            <Tag color={getColorTagEstado(pagoAsociado.estado)}>
+              {pagoAsociado.estado}
+            </Tag>
           </Item>
 
           {/* <Item label='CUIT/CUIL'>{getCliente().cuit_cuil || '-'}</Item> */}
 
-          <Item label='Fecha de pago'>{pago.fechaPago || '-'}</Item>
+          <Item label='Fecha de pago'>{pagoAsociado.fechaPago || '-'}</Item>
 
           <Item label='Método de pago'>
-            {getItemById(pago.idMetodoDePago, 'metodoDePago')?.nombre || '-'}
+            {getItemById(pagoAsociado.idMetodoDePago, 'metodoDePago')?.nombre ||
+              '-'}
           </Item>
 
           <Item label='Importe total'>
-            {`$ ${getMontoTotal(pago.id)}` || '-'}
+            {`$ ${getMontoTotal(pagoAsociado.id)}` || '-'}
           </Item>
         </Descriptions>
       </div>

@@ -7,8 +7,7 @@ import {
   dataMetodosDePago,
   dataPagos,
   dataPrecios,
-  dataProductos,
-  dataRecorridos
+  dataProductos
 } from '../data';
 
 export function getItemById(id, itemType_itemsArray) {
@@ -60,9 +59,9 @@ export function getItemById(id, itemType_itemsArray) {
       case 'producto':
         data = dataProductos;
         break;
-      case 'recorrido':
+      /* case 'recorrido':
         data = dataRecorridos;
-        break;
+        break; */
       default:
         data = null;
     }

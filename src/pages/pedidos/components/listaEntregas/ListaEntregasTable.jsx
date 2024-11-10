@@ -10,7 +10,7 @@ import { AiOutlineCalendar } from 'react-icons/ai';
 import { SelectFechaTabla } from '../../../../components/tables/SelectFechaTabla';
 
 export const ListaEntregasTable = ({ pedido }) => {
-  const { entregas, pagos } = useContext(DataContext);
+  const { entregas, pagos, recorridos } = useContext(DataContext);
 
   const filteredEntregas = entregas.filter(
     (entrega) => entrega.idPedido == pedido.id
@@ -21,14 +21,14 @@ export const ListaEntregasTable = ({ pedido }) => {
       dataIndex: 'idRecorrido',
       title: 'Fecha de entrega',
       align: 'center',
-      render: (text) => getItemById(text, 'recorrido')?.fecha || '-',
+      render: (text) => getItemById(text, recorridos)?.fecha || '-',
       sorter: (rowA, rowB) => {
         const fechaA = dayjs(
-          getItemById(rowA.idRecorrido, 'recorrido')?.fecha,
+          getItemById(rowA.idRecorrido, recorridos)?.fecha,
           'DD/MM/YY'
         );
         const fechaB = dayjs(
-          getItemById(rowB.idRecorrido, 'recorrido')?.fecha,
+          getItemById(rowB.idRecorrido, recorridos)?.fecha,
           'DD/MM/YY'
         );
 

@@ -8,7 +8,6 @@ import dataMetodosDePago from './metodosDePago.json';
 import dataPagos from './pagos.json';
 import dataPrecios from './precios.json';
 import dataProductos from './productos.json';
-import dataRecorridos from './recorridos.json';
 
 export {
   dataBarrios,
@@ -20,6 +19,5 @@ export {
   dataMetodosDePago,
   dataPagos,
   dataPrecios,
-  dataProductos,
-  dataRecorridos
+  dataProductos
 };
