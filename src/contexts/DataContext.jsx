@@ -131,7 +131,7 @@ export const DataProvider = ({ children }) => {
       });
 
       const sortedPagos = sortItemsArrayById(newData, 'id', 'desc');
-      setEntregas(sortedPagos);
+      setPagos(sortedPagos);
     } catch (err) {
       console.error(err);
       messageApi.error('No se pudo cargar la lista de recorridos');
