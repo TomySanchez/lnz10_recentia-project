@@ -2,13 +2,12 @@ import { useContext } from 'react';
 import { Table } from '../../../components/tables/Table';
 import { DataContext } from '../../../contexts';
 import { Tag } from 'antd';
-import { getMultipleItemsById } from '../../../utils/getMultipleItemsById';
 import { Acciones } from '../../../components/tables/Acciones';
 import { EntregasTable } from './EntregasTable';
-import { getMontoTotalRecorrido } from '../../../utils/getMontoTotalRecorrido';
 import dayjs from 'dayjs';
 import { AiOutlineCalendar } from 'react-icons/ai';
 import { SelectFechaTabla } from '../../../components/tables/SelectFechaTabla';
+import { calcularMontoTotalRecorrido } from '../../../utils/calcularMontoTotalRecorrido';
 
 export const RecorridosTable = ({
   onInfoRecorrido,
@@ -16,7 +15,7 @@ export const RecorridosTable = ({
   onInfoEntrega,
   onEditEntrega
 }) => {
-  const { recorridos } = useContext(DataContext);
+  const { entregas, pagos, precios, recorridos } = useContext(DataContext);
 
   const recorridosColumns = [
     {
@@ -49,13 +48,28 @@ export const RecorridosTable = ({
       dataIndex: 'id',
       title: 'Cantidad de entregas',
       align: 'center',
-      render: (text) => getMultipleItemsById(text, 'entregas').length
+      render: (text) => {
+        const entregasDelRecorrido = entregas?.filter(
+          (e) => e.idRecorrido == text
+        );
+
+        return entregasDelRecorrido.length;
+      }
     },
     {
       dataIndex: 'id',
       title: 'Monto total',
       align: 'center',
-      render: (text) => getMontoTotalRecorrido(text)
+      render: (text) => {
+        const total = calcularMontoTotalRecorrido(
+          text,
+          entregas,
+          pagos,
+          precios
+        );
+
+        return total;
+      }
     },
     {
       dataIndex: 'estado',
