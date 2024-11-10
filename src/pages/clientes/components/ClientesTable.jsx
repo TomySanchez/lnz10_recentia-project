@@ -85,6 +85,7 @@ export const ClientesTable = ({ onInfo, onEdit, selectedClientesType }) => {
           item={record}
           onInfo={onInfo}
           onEdit={onEdit}
+          isArchived={selectedClientesType === 'Archivados'}
         />
       )
     }
