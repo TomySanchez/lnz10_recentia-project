@@ -3,7 +3,6 @@ import {
   dataDetallesDeEntregas,
   dataDetallesDePagos,
   dataDirecciones,
-  dataEntregas,
   dataLocalidades,
   dataMetodosDePago,
   dataPagos,
@@ -18,6 +17,7 @@ import { MessageContext } from './MessageContext';
 import { sortItemsArrayById } from '../utils/sortItemsArrayById';
 import { getDiasSemana } from '../services/diasSemana';
 import { getRecorridos } from '../services/recorridos';
+import { getEntregas } from '../services/entregas';
 
 export const DataContext = createContext();
 
@@ -36,6 +36,7 @@ export const DataProvider = ({ children }) => {
   const [loadingDiasSemana, setLoadingDiasSemana] = useState(false);
   const [direcciones, setDirecciones] = useState([]);
   const [entregas, setEntregas] = useState([]);
+  const [loadingEntregas, setLoadingEntregas] = useState([]);
   const [localidades, setLocalidades] = useState([]);
   const [metodosDePago, setMetodosDePago] = useState([]);
   const [pagos, setPagos] = useState([]);
@@ -45,8 +46,6 @@ export const DataProvider = ({ children }) => {
   const [productos, setProductos] = useState([]);
   const [recorridos, setRecorridos] = useState([]);
   const [loadingRecorridos, setLoadingRecorridos] = useState(false);
-
-  console.log('recorridos:', recorridos);
 
   async function fetchBarrios() {
     try {
@@ -98,6 +97,27 @@ export const DataProvider = ({ children }) => {
     }
   }
 
+  async function fetchEntregas() {
+    try {
+      setLoadingEntregas(true);
+
+      const res = await getEntregas();
+
+      const newData = res?.data?.map((entrega) => {
+        const formattedFecha = formatFecha(entrega.fechaEntrega);
+        return { ...entrega, fechaEntrega: formattedFecha };
+      });
+
+      const sortedEntregas = sortItemsArrayById(newData, 'id', 'desc');
+      setEntregas(sortedEntregas);
+    } catch (err) {
+      console.error(err);
+      messageApi.error('No se pudo cargar la lista de recorridos');
+    } finally {
+      setLoadingEntregas(false);
+    }
+  }
+
   async function fetchPedidos() {
     try {
       setLoadingPedidos(true);
@@ -143,13 +163,13 @@ export const DataProvider = ({ children }) => {
     fetchBarrios();
     fetchClientes();
     fetchDiasSemana();
+    fetchEntregas();
     fetchPedidos();
     fetchRecorridos();
 
     setDetallesDeEntregas(dataDetallesDeEntregas);
     setDetallesDePagos(dataDetallesDePagos);
     setDirecciones(dataDirecciones);
-    setEntregas(dataEntregas);
     setLocalidades(dataLocalidades);
     setMetodosDePago(dataMetodosDePago);
     setPagos(dataPagos);
@@ -196,6 +216,8 @@ export const DataProvider = ({ children }) => {
         setDirecciones,
         entregas,
         setEntregas,
+        loadingEntregas,
+        setLoadingEntregas,
         localidades,
         setLocalidades,
         metodosDePago,
