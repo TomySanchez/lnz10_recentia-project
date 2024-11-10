@@ -7,7 +7,8 @@ import { DataContext } from '../../contexts';
 import { disablePedido } from '../../services/pedidos';
 
 export const Acciones = ({ entityType, item, onInfo, onEdit }) => {
-  const { setActiveClientes, setPedidos } = useContext(DataContext);
+  const { setActiveClientes, setInactiveClientes, setPedidos } =
+    useContext(DataContext);
   const { messageApi } = useContext(MessageContext);
 
   const [loadingEliminar, setLoadingEliminar] = useState(false);
@@ -24,6 +25,10 @@ export const Acciones = ({ entityType, item, onInfo, onEdit }) => {
               );
 
               return newClientes;
+            });
+
+            setInactiveClientes((prevClientes) => {
+              return [...prevClientes, item];
             });
 
             messageApi.success('Cliente eliminado correctamente');

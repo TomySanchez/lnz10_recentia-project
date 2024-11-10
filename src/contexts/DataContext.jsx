@@ -28,6 +28,7 @@ export const DataProvider = ({ children }) => {
   const [loadingBarrios, setLoadingBarrios] = useState(false);
   const [clientes, setClientes] = useState([]); // Son todos los clientes, incluidos los desactivados
   const [activeClientes, setActiveClientes] = useState([]); // Solo los clientes activos
+  const [inactiveClientes, setInactiveClientes] = useState([]); // Solo los clientes archivados
   const [loadingClientes, setLoadingClientes] = useState(false);
   const [detallesDeEntregas, setDetallesDeEntregas] = useState([]);
   const [detallesDePagos, setDetallesDePagos] = useState([]);
@@ -138,6 +139,12 @@ export const DataProvider = ({ children }) => {
     setActiveClientes(newData);
   }, [clientes]);
 
+  useEffect(() => {
+    const newData = clientes.filter((cliente) => cliente.activo == 0);
+
+    setInactiveClientes(newData);
+  }, [clientes]);
+
   return (
     <DataContext.Provider
       value={{
@@ -149,6 +156,8 @@ export const DataProvider = ({ children }) => {
         setClientes,
         activeClientes,
         setActiveClientes,
+        inactiveClientes,
+        setInactiveClientes,
         loadingClientes,
         setLoadingClientes,
         detallesDeEntregas,
