@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { DataContext } from '../../../contexts';
 import { Button, Form, Input, Select, TimePicker } from 'antd';
-import { getItemById } from '../../../utils/getItemById';
 import { AiOutlineMinusCircle, AiOutlinePlus } from 'react-icons/ai';
 import { colorsPalette } from '../../../utils/colorsPalette';
 import dayjs from 'dayjs';
@@ -9,13 +8,14 @@ import dayjs from 'dayjs';
 const { RangePicker } = TimePicker;
 
 export const ClientesAddOrEditDrawer = ({ editMode, cliente, clienteForm }) => {
-  const { barrios, diasSemana } = useContext(DataContext);
+  const { barrios, diasSemana, localidades } = useContext(DataContext);
 
   const [selectedDiasSemana, setSelectedDiasSemana] = useState([]);
 
   const barrioOptions = barrios.map((barrio) => ({
     label: `${barrio.nombre} (${
-      getItemById(barrio.idLocalidad, 'localidad')?.nombre
+      localidades?.find((localidad) => localidad.id == barrio.idLocalidad)
+        ?.nombre
     })`,
     value: barrio.id
   }));

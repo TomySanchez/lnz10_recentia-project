@@ -1,7 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import {
-  dataDetallesDeEntregas,
-  dataDetallesDePagos,
   dataDirecciones,
   dataLocalidades,
   dataMetodosDePago,
@@ -30,8 +28,6 @@ export const DataProvider = ({ children }) => {
   const [activeClientes, setActiveClientes] = useState([]); // Solo los clientes activos
   const [inactiveClientes, setInactiveClientes] = useState([]); // Solo los clientes archivados
   const [loadingClientes, setLoadingClientes] = useState(false);
-  const [detallesDeEntregas, setDetallesDeEntregas] = useState([]);
-  const [detallesDePagos, setDetallesDePagos] = useState([]);
   const [diasSemana, setDiasSemana] = useState([]);
   const [loadingDiasSemana, setLoadingDiasSemana] = useState(false);
   const [direcciones, setDirecciones] = useState([]);
@@ -190,8 +186,6 @@ export const DataProvider = ({ children }) => {
     fetchPedidos();
     fetchRecorridos();
 
-    setDetallesDeEntregas(dataDetallesDeEntregas);
-    setDetallesDePagos(dataDetallesDePagos);
     setDirecciones(dataDirecciones);
     setLocalidades(dataLocalidades);
     setMetodosDePago(dataMetodosDePago);
@@ -226,10 +220,6 @@ export const DataProvider = ({ children }) => {
         setInactiveClientes,
         loadingClientes,
         setLoadingClientes,
-        detallesDeEntregas,
-        setDetallesDeEntregas,
-        detallesDePagos,
-        setDetallesDePagos,
         diasSemana,
         setDiasSemana,
         loadingDiasSemana,

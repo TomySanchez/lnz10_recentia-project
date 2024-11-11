@@ -7,7 +7,8 @@ import { getMontoTotal } from '../../../utils/getMontoTotal';
 const { Item } = Descriptions;
 
 export const EntregasInfoDrawer = ({ entrega }) => {
-  const { clientes, pagos, pedidos, recorridos } = useContext(DataContext);
+  const { clientes, pagos, pedidos, recorridos, precios } =
+    useContext(DataContext);
 
   const detallesDeEntrega = entrega.detallesEntrega;
 
@@ -83,7 +84,8 @@ export const EntregasInfoDrawer = ({ entrega }) => {
           </Item>
 
           <Item label='Importe total'>
-            {`$ ${getMontoTotal(pagoAsociado.id)}` || '-'}
+            {`$ ${getMontoTotal(pagoAsociado, precios, detallesDeEntrega)}` ||
+              '-'}
           </Item>
         </Descriptions>
       </div>
