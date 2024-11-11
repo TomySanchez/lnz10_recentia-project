@@ -7,7 +7,7 @@ import { AiOutlineMinusCircle, AiOutlinePlus } from 'react-icons/ai';
 import { colorsPalette } from '../../../utils/colorsPalette';
 
 export const PedidosAddOrEditDrawer = ({ editMode, pedido, pedidoForm }) => {
-  const { clientes, productos } = useContext(DataContext);
+  const { activeClientes, productos } = useContext(DataContext);
 
   const [esRecurrente, setEsRecurrente] = useState(
     pedido?.esRecurrente || false
@@ -17,7 +17,7 @@ export const PedidosAddOrEditDrawer = ({ editMode, pedido, pedidoForm }) => {
 
   const { detallesPedido } = pedido || {};
 
-  const clientesOptions = clientes
+  const clientesOptions = activeClientes
     .map((cliente) => ({
       label: cliente.nombre,
       value: cliente.id
@@ -57,7 +57,7 @@ export const PedidosAddOrEditDrawer = ({ editMode, pedido, pedidoForm }) => {
 
       pedidoForm.setFieldsValue({
         fechaRegistro: dayjs(pedido.fechaRegistro, 'DD/MM/YY'),
-        cliente: getItemById(pedido.idCliente, clientes).id,
+        cliente: getItemById(pedido.idCliente, activeClientes).id,
         estado: pedido.estado,
         esRecurrente: pedido.esRecurrente,
         cantSemanas: pedido.cantSemanas,
@@ -70,7 +70,7 @@ export const PedidosAddOrEditDrawer = ({ editMode, pedido, pedidoForm }) => {
         estado: 'Pendiente'
       });
     }
-  }, [pedido, pedidoForm, editMode, clientes, detallesPedido]);
+  }, [pedido, pedidoForm, editMode, activeClientes, detallesPedido]);
 
   const handleProductoChange = (value, name) => {
     const newSelectedProducts = [...selectedProductos];
