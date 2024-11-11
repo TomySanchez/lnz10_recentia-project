@@ -6,7 +6,13 @@ export const MobileMenu = ({ open, setOpen }) => {
   const navigateTo = useNavigate();
 
   function handleNavigate(ruta) {
-    navigateTo(ruta);
+    if (ruta === '/inicio') {
+      localStorage.removeItem('username');
+      localStorage.removeItem('password');
+      navigateTo(ruta);
+    } else {
+      navigateTo(ruta);
+    }
     setOpen(false);
   }
 

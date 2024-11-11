@@ -1,19 +1,23 @@
 import { Button, Form, Input } from 'antd';
 import { AiOutlineLock, AiOutlineUser } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
+import { login } from '../../../routes/isAuthenticated';
 
 export const LoginForm = () => {
   const navigateTo = useNavigate();
-
   const [loginForm] = Form.useForm();
 
-  function handleFinish() {
-    console.log('Formulario enviado');
-    navigateTo('/');
-  }
+  async function handleFinish(values) {
+    const { user, password } = values;
 
-  function handleClick() {
-    loginForm.submit();
+    if (login(user, password)) {
+      navigateTo('/clientes');
+    } else {
+      loginForm.setFields([
+        { name: 'user', errors: [''] },
+        { name: 'password', errors: ['Credenciales incorrectas'] }
+      ]);
+    }
   }
 
   return (
@@ -26,7 +30,10 @@ export const LoginForm = () => {
       <span className='login-brand-name'>recentia</span>
 
       <div>
-        <Form.Item name='user' required>
+        <Form.Item
+          name='user'
+          rules={[{ required: true, message: 'Por favor ingresa el usuario' }]}
+        >
           <Input
             size='large'
             placeholder='Usuario'
@@ -34,7 +41,12 @@ export const LoginForm = () => {
           />
         </Form.Item>
 
-        <Form.Item name='password' required>
+        <Form.Item
+          name='password'
+          rules={[
+            { required: true, message: 'Por favor ingresa la contraseña' }
+          ]}
+        >
           <Input.Password
             size='large'
             placeholder='Contraseña'
@@ -48,7 +60,7 @@ export const LoginForm = () => {
           type='primary'
           className='login-form-submit'
           size='large'
-          onClick={handleClick}
+          onClick={() => loginForm.submit()}
         >
           Ingresar
         </Button>

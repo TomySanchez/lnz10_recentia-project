@@ -53,7 +53,13 @@ export const Sidebar = ({ isCollapsed }) => {
   };
 
   function handleMenuClick(e) {
-    navigateTo(e.key);
+    if (e.key === '/inicio') {
+      localStorage.removeItem('username');
+      localStorage.removeItem('password');
+      navigateTo('/inicio');
+    } else {
+      navigateTo(e.key);
+    }
   }
 
   /* function handleNewClick() {
