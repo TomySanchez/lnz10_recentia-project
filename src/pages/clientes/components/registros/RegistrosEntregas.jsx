@@ -7,6 +7,9 @@ import { Acciones } from '../../../../components/tables/Acciones';
 import dayjs from 'dayjs';
 import { AiOutlineCalendar } from 'react-icons/ai';
 import { SelectFechaTabla } from '../../../../components/tables/SelectFechaTabla';
+import { WipTable } from '../../../../components/tables/WipTable';
+
+const IS_WIP = true;
 
 export const RegistrosEntregas = ({ cliente }) => {
   const { entregas, pagos, pedidos, precios, recorridos } =
@@ -162,5 +165,9 @@ export const RegistrosEntregas = ({ cliente }) => {
     }
   ];
 
-  return <Table columns={entregasColumns} dataSource={filteredEntregas} />;
+  return IS_WIP ? (
+    <WipTable />
+  ) : (
+    <Table columns={entregasColumns} dataSource={filteredEntregas} />
+  );
 };

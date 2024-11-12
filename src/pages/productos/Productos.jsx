@@ -31,7 +31,8 @@ export const Productos = () => {
     <MainContent
       title='Productos'
       icon={<MdOutlineShoppingBag size={40} />}
-      extra={<AddButton element='producto' onAdd={handleAdd} />}
+      extra={<AddButton element='producto' onAdd={handleAdd} disabled />}
+      isWip
     >
       <ProductosTable onInfo={handleInfo} onEdit={handleEdit} />
       <ProductosDrawer

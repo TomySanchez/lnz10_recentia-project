@@ -1,4 +1,4 @@
-export const MainContent = ({ title, icon, extra, children }) => {
+export const MainContent = ({ title, icon, extra, children, isWip }) => {
   return (
     <div className='MainContent'>
       <div className='main-content-header'>
@@ -8,7 +8,13 @@ export const MainContent = ({ title, icon, extra, children }) => {
         </div>
         <div className='main-content-extra-container'>{extra}</div>
       </div>
-      {children}
+      {isWip ? (
+        <div className='work-in-progress'>
+          <p>Work in Progress</p>
+        </div>
+      ) : (
+        children
+      )}
     </div>
   );
 };

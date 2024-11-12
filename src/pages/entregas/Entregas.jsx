@@ -59,7 +59,10 @@ export const Entregas = () => {
         <MainContent
           title='Entregas'
           icon={<MdOutlineLocalShipping size={40} />}
-          extra={<RecorridosPlanificarButton onAdd={handleAddRecorrido} />}
+          extra={
+            <RecorridosPlanificarButton onAdd={handleAddRecorrido} disabled />
+          }
+          isWip
         >
           <h3 className='recorridos-title'>Tabla de recorridos</h3>
           <RecorridosTable
