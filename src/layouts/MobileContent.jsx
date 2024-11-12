@@ -1,4 +1,4 @@
-export const MobileContent = ({ title, icon, children }) => {
+export const MobileContent = ({ title, icon, children, isWip }) => {
   return (
     <div className='MobileContent'>
       <div className='mobile-content-header'>
@@ -7,7 +7,13 @@ export const MobileContent = ({ title, icon, children }) => {
           <h2>{title}</h2>
         </div>
       </div>
-      {children}
+      {isWip ? (
+        <div className='work-in-progress'>
+          <p>Work in Progress</p>
+        </div>
+      ) : (
+        children
+      )}
     </div>
   );
 };

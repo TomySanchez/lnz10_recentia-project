@@ -96,6 +96,7 @@ export const Entregas = () => {
         <MobileContent
           title='Entregas'
           icon={<MdOutlineLocalShipping size={50} />}
+          isWip
         >
           <EntregasMobile />
         </MobileContent>
