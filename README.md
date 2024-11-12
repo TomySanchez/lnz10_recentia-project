@@ -19,3 +19,8 @@ Se puede utilizar en múltiples dispositivos. En celulares, las acciones están 
    ```
 
 3. Usar el comando `npm run dev` para ejecutar el proyecto. La URL es http://localhost:5173
+
+# Login
+
+- **Usuario:** admin
+- **Contraseña:** 12345
