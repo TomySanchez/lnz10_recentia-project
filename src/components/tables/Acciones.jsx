@@ -1,16 +1,19 @@
 import { useContext, useState } from 'react';
-import { disableCliente } from '../../services/clientes';
+import { disableCliente, unarchiveCliente } from '../../services/clientes';
 import { Accion } from './Accion';
-import { Popconfirm } from 'antd';
+import { Popconfirm, Tooltip } from 'antd';
 import { MessageContext } from '../../contexts/MessageContext';
 import { DataContext } from '../../contexts';
 import { disablePedido } from '../../services/pedidos';
+import { MdOutlineUnarchive } from 'react-icons/md';
 
-export const Acciones = ({ entityType, item, onInfo, onEdit }) => {
-  const { setActiveClientes, setPedidos } = useContext(DataContext);
+export const Acciones = ({ entityType, item, onInfo, onEdit, isArchived }) => {
+  const { setActiveClientes, setInactiveClientes, setPedidos } =
+    useContext(DataContext);
   const { messageApi } = useContext(MessageContext);
 
   const [loadingEliminar, setLoadingEliminar] = useState(false);
+  const [loadingDesarchivar, setLoadingDesarchivar] = useState(false);
 
   function handleDelete() {
     setLoadingEliminar(true);
@@ -24,6 +27,10 @@ export const Acciones = ({ entityType, item, onInfo, onEdit }) => {
               );
 
               return newClientes;
+            });
+
+            setInactiveClientes((prevClientes) => {
+              return [...prevClientes, item];
             });
 
             messageApi.success('Cliente eliminado correctamente');
@@ -60,6 +67,31 @@ export const Acciones = ({ entityType, item, onInfo, onEdit }) => {
     }
   }
 
+  function handleUnarchive() {
+    setLoadingDesarchivar(true);
+    unarchiveCliente(item)
+      .then(() => {
+        setActiveClientes((prevClientes) => {
+          return [...prevClientes, item];
+        });
+
+        setInactiveClientes((prevClientes) => {
+          const newClientes = prevClientes.filter(
+            (cliente) => cliente.id !== item.id
+          );
+
+          return newClientes;
+        });
+
+        messageApi.success('Cliente desarchivado correctamente');
+      })
+      .catch((err) => {
+        console.error(err);
+        messageApi.error('No se pudo desarchivar el cliente');
+      })
+      .finally(() => setLoadingDesarchivar(false));
+  }
+
   return (
     <div className='Acciones'>
       <Accion type='info' onClick={() => onInfo(item)} />
@@ -68,7 +100,7 @@ export const Acciones = ({ entityType, item, onInfo, onEdit }) => {
       {(entityType === 'entrega' ||
         entityType === 'pedido' ||
         entityType === 'producto' ||
-        entityType === 'cliente') && (
+        (entityType === 'cliente' && !isArchived)) && (
         <Popconfirm
           title={`¿Eliminar ${entityType}?`}
           okText='Eliminar'
@@ -78,6 +110,22 @@ export const Acciones = ({ entityType, item, onInfo, onEdit }) => {
           }}
         >
           <Accion type='delete' />
+        </Popconfirm>
+      )}
+      {isArchived && (
+        <Popconfirm
+          title={`Desarchivar ${entityType}?`}
+          okText='Desarchivar'
+          onConfirm={handleUnarchive}
+          okButtonProps={{
+            loading: loadingDesarchivar
+          }}
+        >
+          <Tooltip title='Desarchivar'>
+            <span className='Accion'>
+              <MdOutlineUnarchive size={18} />
+            </span>
+          </Tooltip>
         </Popconfirm>
       )}
     </div>

@@ -103,7 +103,26 @@ export const PedidosTable = ({ onInfo, onEdit }) => {
         }
 
         return <Tag color={getColorTag()}>{text}</Tag>;
-      }
+      },
+      filters: [
+        {
+          text: 'Pendiente',
+          value: 'Pendiente'
+        },
+        {
+          text: 'Realizado',
+          value: 'Realizado'
+        },
+        {
+          text: 'Cancelado',
+          value: 'Cancelado'
+        },
+        {
+          text: 'Activo',
+          value: 'Activo'
+        }
+      ],
+      onFilter: (value, record) => record.estado === value
     },
     {
       dataIndex: '',

@@ -2,15 +2,17 @@ import { Tag } from 'antd';
 import { getItemById } from '../../../utils/getItemById';
 import { Acciones } from '../../../components/tables/Acciones';
 import { Table } from '../../../components/tables/Table';
-import { getMultipleItemsById } from '../../../utils/getMultipleItemsById';
-import { getDetalles } from '../../../utils/getDetalles';
 import { useContext } from 'react';
 import { DataContext } from '../../../contexts';
+import { calcularMontoTotalEntrega } from '../../../utils/calcularMontoTotalEntrega.js';
 
 export const EntregasTable = ({ className, recorrido, onInfo, onEdit }) => {
-  const { clientes, pagos, pedidos } = useContext(DataContext);
+  const { clientes, entregas, pagos, pedidos, precios } =
+    useContext(DataContext);
 
-  console.log('clientes:', clientes);
+  const entregasDelRecorrido = entregas?.filter(
+    (e) => e.idRecorrido == recorrido.id
+  );
 
   const entregasColumns = [
     {
@@ -27,22 +29,9 @@ export const EntregasTable = ({ className, recorrido, onInfo, onEdit }) => {
       dataIndex: 'id',
       title: 'Monto total',
       render: (text) => {
-        const pagoDeEntrega = pagos.find((pago) => pago.idEntrega == text);
-        const detallesDePago = getDetalles(pagoDeEntrega.id, 'pagos');
-        const importes = detallesDePago.map((detalle) => {
-          const precio = getItemById(detalle.idPrecio, 'precio').valor;
-          const cantidad = getItemById(
-            detalle.idDetalleDeEntrega,
-            'detalleDeEntrega'
-          ).cantidad;
+        const total = calcularMontoTotalEntrega(text, entregas, pagos, precios);
 
-          return precio * cantidad;
-        });
-        const importeTotal = importes.reduce(
-          (accumulator, currentValue) => accumulator + currentValue,
-          0
-        );
-        return `$ ${importeTotal}`;
+        return total;
       }
     },
     {
@@ -69,11 +58,11 @@ export const EntregasTable = ({ className, recorrido, onInfo, onEdit }) => {
       }
     },
     {
-      dataIndex: 'id',
+      dataIndex: 'idPago',
       title: 'Estado de pago',
       align: 'center',
       render: (text) => {
-        const pagoDeEntrega = pagos.find((pago) => pago.idEntrega == text);
+        const pagoDeEntrega = pagos.find((pago) => pago.id == text);
 
         let colorTag;
         switch (pagoDeEntrega.estado) {
@@ -110,7 +99,7 @@ export const EntregasTable = ({ className, recorrido, onInfo, onEdit }) => {
       className={className}
       size='small'
       columns={entregasColumns}
-      dataSource={getMultipleItemsById(recorrido.id, 'entregas')}
+      dataSource={entregasDelRecorrido}
       pagination={false}
     />
   );

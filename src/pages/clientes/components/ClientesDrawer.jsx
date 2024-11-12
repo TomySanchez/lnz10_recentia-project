@@ -9,6 +9,7 @@ import { addCliente, editCliente } from '../../../services/clientes';
 import { DataContext } from '../../../contexts';
 import { getItemById } from '../../../utils/getItemById';
 import { MessageContext } from '../../../contexts/MessageContext';
+import dayjs from 'dayjs';
 
 export const ClientesDrawer = ({
   mode,
@@ -17,7 +18,8 @@ export const ClientesDrawer = ({
   open,
   setOpen
 }) => {
-  const { barrios, setClientes, setDirecciones } = useContext(DataContext);
+  const { barrios, setClientes, diasSemana, setDirecciones } =
+    useContext(DataContext);
   const windowWidth = useContext(ResponsiveContext);
   const { messageApi } = useContext(MessageContext);
 
@@ -35,6 +37,8 @@ export const ClientesDrawer = ({
     clienteForm
       .validateFields()
       .then((values) => {
+        const { disponibilidades } = values;
+
         const formattedValues = {
           cliente: {
             nombre: values.nombre,
@@ -51,6 +55,14 @@ export const ClientesDrawer = ({
           }
         };
 
+        formattedValues.disponibilidades = disponibilidades?.map(
+          (disponibilidad) => ({
+            idDiaSemana: disponibilidad.diaSemana,
+            horaInicio: disponibilidad.horas[0]?.format('HH:mm'),
+            horaFin: disponibilidad.horas[1]?.format('HH:mm')
+          })
+        );
+
         setLoadingGuardarCambios(true);
         addCliente(formattedValues)
           .then((res) => {
@@ -65,6 +77,18 @@ export const ClientesDrawer = ({
             const localidad = getItemById(barrio?.idLocalidad, 'localidad');
 
             setClientes((prevClientes) => {
+              const newDisponibilidades = disponibilidades?.map(
+                (disp, index) => ({
+                  idDisponibilidad: res.data.disponibilidadesIds[index],
+                  idDiaSemana: disp.diaSemana,
+                  nroDiaSemana: disp.diaSemana,
+                  diaSemana: diasSemana.find((d) => d.id === disp.diaSemana)
+                    ?.nombre,
+                  horaInicio: dayjs(disp.horas[0]).format('HH:mm:ss'),
+                  horaFin: dayjs(disp.horas[1]).format('HH:mm:ss')
+                })
+              );
+
               const newClientes = [
                 {
                   id: res.data.clienteId,
@@ -83,7 +107,8 @@ export const ClientesDrawer = ({
                     barrio: barrio?.nombre,
                     idLocalidad: barrio?.idLocalidad,
                     localidad: localidad?.nombre
-                  }
+                  },
+                  disponibilidades: newDisponibilidades || []
                 },
                 ...prevClientes
               ];
@@ -99,13 +124,27 @@ export const ClientesDrawer = ({
           })
           .finally(() => setLoadingGuardarCambios(false));
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        const index = err.errorFields?.findIndex((e) =>
+          e.errors.some((er) => er === 'Debe haber al menos una disponibilidad')
+        );
+
+        if (index !== -1) {
+          messageApi.error('Debe haber al menos una disponibilidad');
+        }
+
+        console.error(err);
+      });
   }
+
+  const { disponibilidades } = cliente || { disponibilidades: [] };
 
   function handleEditCliente() {
     clienteForm
       .validateFields()
       .then((values) => {
+        const { disponibilidades: newDisponibilidades } = values;
+
         const formattedValues = {
           cliente: {
             id: cliente.id,
@@ -156,6 +195,18 @@ export const ClientesDrawer = ({
               );
 
               if (index !== -1) {
+                const updatedDisponibilidades = newDisponibilidades?.map(
+                  (disp, idx) => ({
+                    idDisponibilidad: disponibilidades[idx]?.idDisponibilidad,
+                    idDiaSemana: disp.diaSemana,
+                    nroDiaSemana: disp.diaSemana,
+                    diaSemana: diasSemana.find((d) => d.id === disp.diaSemana)
+                      ?.nombre,
+                    horaInicio: dayjs(disp.horas[0]).format('HH:mm:ss'),
+                    horaFin: dayjs(disp.horas[1]).format('HH:mm:ss')
+                  })
+                );
+
                 newClientes[index] = {
                   ...newClientes[index],
                   ...formattedValues.cliente,
@@ -164,7 +215,8 @@ export const ClientesDrawer = ({
                     idLocalidad: barrio?.idLocalidad,
                     localidad: localidad?.nombre,
                     ...formattedValues.direccion
-                  }
+                  },
+                  disponibilidades: updatedDisponibilidades || []
                 };
               }
 

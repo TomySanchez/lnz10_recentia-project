@@ -1,20 +1,40 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { DataContext } from '../../../contexts';
-import { Form, Input, Select } from 'antd';
-import { getItemById } from '../../../utils/getItemById';
+import { Button, Form, Input, Select, TimePicker } from 'antd';
+import { AiOutlineMinusCircle, AiOutlinePlus } from 'react-icons/ai';
+import { colorsPalette } from '../../../utils/colorsPalette';
+import dayjs from 'dayjs';
+
+const { RangePicker } = TimePicker;
 
 export const ClientesAddOrEditDrawer = ({ editMode, cliente, clienteForm }) => {
-  const { barrios } = useContext(DataContext);
+  const { barrios, diasSemana, localidades } = useContext(DataContext);
+
+  const [selectedDiasSemana, setSelectedDiasSemana] = useState([]);
 
   const barrioOptions = barrios.map((barrio) => ({
     label: `${barrio.nombre} (${
-      getItemById(barrio.idLocalidad, 'localidad')?.nombre
+      localidades?.find((localidad) => localidad.id == barrio.idLocalidad)
+        ?.nombre
     })`,
     value: barrio.id
   }));
 
+  const diasSemanaOptions = diasSemana.map((diaSemana) => ({
+    label: diaSemana.nombre,
+    value: diaSemana.id
+  }));
+
   useEffect(() => {
     if (open && cliente && editMode) {
+      const disponibilidades = cliente?.disponibilidades.map((disp) => ({
+        diaSemana: disp.idDiaSemana,
+        horas: [
+          dayjs(disp.horaInicio, 'HH:mm:ss'),
+          dayjs(disp.horaFin, 'HH:mm:ss')
+        ]
+      }));
+
       clienteForm.setFieldsValue({
         nombre: cliente.nombre,
         calle: cliente.direccion.calle,
@@ -25,12 +45,19 @@ export const ClientesAddOrEditDrawer = ({ editMode, cliente, clienteForm }) => {
         barrio: cliente.direccion.idBarrio,
         telefono: cliente.telefono,
         cuit_cuil: cliente.cuit_cuil,
-        observaciones: cliente.observaciones
+        observaciones: cliente.observaciones,
+        disponibilidades: disponibilidades
       });
     } else {
       clienteForm.resetFields();
     }
   }, [cliente, clienteForm, editMode]);
+
+  const handleDiaSemanaChange = (value, name) => {
+    const newSelectedDiasSemana = [...selectedDiasSemana];
+    newSelectedDiasSemana[name] = value; // Reemplaza el día en la posición adecuada
+    setSelectedDiasSemana(newSelectedDiasSemana);
+  };
 
   return (
     <Form
@@ -106,11 +133,11 @@ export const ClientesAddOrEditDrawer = ({ editMode, cliente, clienteForm }) => {
                   }
                   return Promise.resolve();
                 }
-              },
-              {
+              }
+              /* {
                 pattern: /^[0-9]+$/,
                 message: 'Solo se permiten números enteros'
-              }
+              } */
             ]}
           >
             <Input />
@@ -154,6 +181,94 @@ export const ClientesAddOrEditDrawer = ({ editMode, cliente, clienteForm }) => {
             optionFilterProp='label'
           />
         </Form.Item>
+      </div>
+
+      <div className='pedidos-drawer-detalles-container'>
+        <span className='pedidos-drawer-detalles-title'>Disponibilidad</span>
+
+        <Form.List
+          name='disponibilidades'
+          rules={[
+            {
+              validator: async (_, value) => {
+                if (!value || value.length === 0) {
+                  return Promise.reject(
+                    new Error('Debe haber al menos una disponibilidad')
+                  );
+                }
+              }
+            }
+          ]}
+        >
+          {(fields, { add, remove }) => (
+            <div style={{ margin: '12px 0' }}>
+              {fields.map(({ key, name, ...restField }, index) => (
+                <div className='pedidos-drawer-detalle-container' key={key}>
+                  <Form.Item
+                    {...restField}
+                    name={[name, 'diaSemana']}
+                    required
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Requerido'
+                      }
+                    ]}
+                  >
+                    <Select
+                      style={{ width: 100 }}
+                      placeholder='Día'
+                      options={diasSemanaOptions}
+                      onChange={(value) => handleDiaSemanaChange(value, index)}
+                    />
+                  </Form.Item>
+
+                  <Form.Item
+                    {...restField}
+                    name={[name, 'horas']}
+                    required
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Requerido'
+                      }
+                    ]}
+                  >
+                    <RangePicker
+                      style={{ width: 250 }}
+                      placeholder={['Hora de inicio', 'Hora de fin']}
+                      format='HH:mm'
+                      secondStep={30}
+                    />
+                  </Form.Item>
+
+                  <AiOutlineMinusCircle
+                    color={colorsPalette.darkMediumColor}
+                    className='pointer'
+                    size={20}
+                    onClick={() => {
+                      const updatedSelectedDiasSemana = [...selectedDiasSemana];
+                      updatedSelectedDiasSemana.splice(index, 1);
+                      setSelectedDiasSemana(updatedSelectedDiasSemana);
+                      remove(name);
+                    }}
+                  />
+                </div>
+              ))}
+
+              <Form.Item style={{ marginInline: '8px' }}>
+                <Button
+                  type='dashed'
+                  onClick={() => add()}
+                  block
+                  icon={<AiOutlinePlus />}
+                >
+                  Añadir disponibilidad
+                </Button>
+              </Form.Item>
+            </div>
+          )}
+        </Form.List>
       </div>
 
       <Form.Item

@@ -1,7 +1,8 @@
 import { Descriptions, Tag } from 'antd';
-import { getMultipleItemsById } from '../../../utils/getMultipleItemsById';
 import { EntregasTable } from './EntregasTable';
-import { getMontoTotalRecorrido } from '../../../utils/getMontoTotalRecorrido';
+import { useContext } from 'react';
+import { DataContext } from '../../../contexts';
+import { calcularMontoTotalRecorrido } from '../../../utils/calcularMontoTotalRecorrido';
 
 const { Item } = Descriptions;
 
@@ -10,6 +11,12 @@ export const RecorridosInfoDrawer = ({
   onInfoEntrega,
   onEditEntrega
 }) => {
+  const { entregas, pagos, precios } = useContext(DataContext);
+
+  const entregasDelRecorrido = entregas?.filter(
+    (e) => e.idRecorrido == recorrido?.id
+  );
+
   function getColorTagEstado() {
     switch (recorrido.estado) {
       case 'Realizado':
@@ -30,11 +37,11 @@ export const RecorridosInfoDrawer = ({
           <Tag color={getColorTagEstado()}>{recorrido.estado}</Tag>
         </Item>
 
-        <Item label='Cantidad de entregas'>
-          {getMultipleItemsById(recorrido.id, 'entregas').length}
-        </Item>
+        <Item label='Cantidad de entregas'>{entregasDelRecorrido.length}</Item>
 
-        <Item label='Monto total'>{getMontoTotalRecorrido(recorrido.id)}</Item>
+        <Item label='Monto total'>
+          {calcularMontoTotalRecorrido(recorrido?.id, entregas, pagos, precios)}
+        </Item>
       </Descriptions>
 
       <EntregasTable

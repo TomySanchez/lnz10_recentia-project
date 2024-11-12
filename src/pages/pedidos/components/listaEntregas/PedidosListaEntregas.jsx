@@ -32,6 +32,7 @@ export const PedidosListaEntregas = () => {
           Volver
         </Button>
       }
+      isWip
     >
       <h3 className='recorridos-title'>
         Pedido de {getItemById(pedido.idCliente, clientes).nombre} -{' '}

@@ -1,16 +1,13 @@
-import { dataDetallesDePagos } from '../data';
 import { getItemById } from './getItemById';
 
-export function getMontoTotal(idPago) {
-  const detallesDePago = dataDetallesDePagos.filter(
-    (detalle) => detalle.idPago == idPago
-  );
+export function getMontoTotal(pago, precios, detallesDeEntrega) {
+  const detallesDePago = pago?.detallesPago;
 
   const importesDetallesDePago = detallesDePago.map((detalle) => {
-    const precio = getItemById(detalle.idPrecio, 'precio').valor;
+    const precio = getItemById(detalle.idPrecio, precios)?.valor;
     const cantidad = getItemById(
       detalle.idDetalleDeEntrega,
-      'detalleDeEntrega'
+      detallesDeEntrega
     ).cantidad;
 
     return precio * cantidad;

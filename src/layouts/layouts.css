@@ -181,3 +181,16 @@
     height: 100vh;
   }
 }
+
+.work-in-progress {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  background-color: #f8d7da;
+  border: 2px dashed #f5c6cb;
+  border-radius: 8px;
+  color: #721c24;
+  font-size: 1.5rem;
+  font-weight: bold;
+}

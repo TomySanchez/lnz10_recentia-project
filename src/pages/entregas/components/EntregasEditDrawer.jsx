@@ -11,7 +11,6 @@ import { AiOutlineMinusCircle, AiOutlinePlus } from 'react-icons/ai';
 import { colorsPalette } from '../../../utils/colorsPalette';
 import { useContext, useEffect } from 'react';
 import { DataContext } from '../../../contexts';
-import { getDetalles } from '../../../utils/getDetalles';
 import dayjs from 'dayjs';
 
 const { Item } = Descriptions;
@@ -22,13 +21,14 @@ export const EntregasEditDrawer = ({ entrega, setOpen }) => {
     pedidos,
     productos,
     metodosDePago,
-    detallesDePagos,
-    pagos
+    pagos,
+    precios,
+    recorridos
   } = useContext(DataContext);
 
   const [entregaForm] = Form.useForm();
 
-  const detallesDeEntrega = getDetalles(entrega.id, 'entregas');
+  const detallesDeEntrega = entrega.detallesEntrega;
 
   const productosOptions = productos
     .map((producto) => ({
@@ -52,37 +52,42 @@ export const EntregasEditDrawer = ({ entrega, setOpen }) => {
   }
 
   function getPago() {
-    return pagos.find((pago) => pago.idEntrega == entrega.id);
+    return pagos.find((pago) => pago.id == entrega.idPago);
   }
 
   useEffect(() => {
     if (open && entrega) {
+      const pago = getPago();
+      const detallesDePagos = pago?.detallesPago || [];
+
+      const detallesDeEntregaValues = detallesDeEntrega?.map((detalle) => {
+        const detalleDePago = detallesDePagos?.find(
+          (detallePago) =>
+            detallePago.idDetalleDeEntrega == detalle.idDetalleEntrega
+        );
+
+        const precio = getItemById(detalleDePago?.idPrecio, precios);
+
+        return {
+          producto: getItemById(detalle.idProducto, productos)?.nombre,
+          cantidad: detalle.cantidad,
+          precio: precio?.descripcion || '-'
+        };
+      });
+
       entregaForm.setFieldsValue({
-        cliente: getCliente().nombre,
-        recorrido: getItemById(entrega.idRecorrido, 'recorrido').fecha,
+        cliente: getCliente()?.nombre,
+        recorrido: getItemById(entrega.idRecorrido, recorridos)?.fecha || '-',
         estadoDeEntrega: entrega.estado,
-        detallesDeEntrega: detallesDeEntrega.map((detalle) => {
-          const detalleDePago = detallesDePagos.find(
-            (detallePago) => detallePago.idDetalleDeEntrega == detalle.id
-          );
-
-          const precio = getItemById(detalleDePago.idPrecio, 'precio');
-
-          return {
-            producto: getItemById(detalle.idProducto, 'producto').nombre,
-            cantidad: detalle.cantidad,
-            precio: precio.descripcion
-          };
-        }),
-        estadoDePago: getPago()?.estado,
-        fechaPago: dayjs(getPago()?.fechaPago),
-        metodoDePago: getItemById(getPago()?.idMetodoDePago, 'metodoDePago')
-          ?.nombre
+        detallesDeEntrega: detallesDeEntregaValues,
+        estadoDePago: pago?.estado,
+        fechaPago: dayjs(pago?.fechaPago, 'DD/MM/YY'),
+        metodoDePago: getItemById(pago?.idMetodoDePago, 'metodoDePago')?.nombre
       });
     } else {
       entregaForm.resetFields();
     }
-  }, [entrega, entregaForm]);
+  }, [entrega, entregaForm, open, productos, pagos, recorridos]);
 
   function handleFinish(values) {
     console.log('Formulario enviado', values);
@@ -100,7 +105,7 @@ export const EntregasEditDrawer = ({ entrega, setOpen }) => {
       <Descriptions column={1} labelStyle={{ color: '#000000aa' }}>
         <Item label='Cliente'>{getCliente().nombre}</Item>
         <Item label='Recorrido'>
-          {getItemById(entrega.idRecorrido, 'recorrido').fecha || '-'}
+          {getItemById(entrega.idRecorrido, recorridos)?.fecha || '-'}
         </Item>
       </Descriptions>
 

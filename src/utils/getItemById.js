@@ -1,14 +1,9 @@
 import {
-  dataDetallesDeEntregas,
-  dataDetallesDePagos,
   dataDirecciones,
-  dataEntregas,
   dataLocalidades,
   dataMetodosDePago,
-  dataPagos,
   dataPrecios,
-  dataProductos,
-  dataRecorridos
+  dataProductos
 } from '../data';
 
 export function getItemById(id, itemType_itemsArray) {
@@ -27,30 +22,30 @@ export function getItemById(id, itemType_itemsArray) {
       /* case 'cliente':
         data = dataClientes;
         break; */
-      case 'detalleDeEntrega':
+      /* case 'detalleDeEntrega':
         data = dataDetallesDeEntregas;
-        break;
+        break; */
       /* case 'detalleDePedido':
         data = dataDetallesDePedidos;
         break; */
-      case 'detalleDePago':
+      /* case 'detalleDePago':
         data = dataDetallesDePagos;
-        break;
+        break; */
       case 'direccion':
         data = dataDirecciones;
         break;
-      case 'entrega':
+      /* case 'entrega':
         data = dataEntregas;
-        break;
+        break; */
       case 'localidad':
         data = dataLocalidades;
         break;
       case 'metodoDePago':
         data = dataMetodosDePago;
         break;
-      case 'pago':
+      /* case 'pago':
         data = dataPagos;
-        break;
+        break; */
       /* case 'pedido':
         data = dataPedidos;
         break; */
@@ -60,9 +55,9 @@ export function getItemById(id, itemType_itemsArray) {
       case 'producto':
         data = dataProductos;
         break;
-      case 'recorrido':
+      /* case 'recorrido':
         data = dataRecorridos;
-        break;
+        break; */
       default:
         data = null;
     }

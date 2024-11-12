@@ -3,16 +3,17 @@ import { MainContent } from '../../layouts/MainContent';
 import { MdOutlineGroups } from 'react-icons/md';
 import { ClientesTable } from './components/ClientesTable';
 import { ClientesDrawer } from './components/ClientesDrawer';
-import { AddButton } from '../../components/buttons/AddButton';
 import { ResponsiveContext } from '../../contexts/ResponsiveContext';
 import { ClientesMobile } from './components/ClientesMobile';
 import { MobileContent } from '../../layouts/MobileContent';
+import { ClientesExtra } from './components/ClientesExtra';
 
 export const Clientes = () => {
   const windowWidth = useContext(ResponsiveContext);
 
   const [openDrawer, setOpenDrawer] = useState(false);
   const [selectedCliente, setSelectedCliente] = useState(null);
+  const [selectedClientesType, setSelectedClientesType] = useState('Activos');
   const [drawerMode, setDrawerMode] = useState('add');
   const [device, setDevice] = useState('computer');
 
@@ -42,9 +43,19 @@ export const Clientes = () => {
         <MainContent
           title='Clientes'
           icon={<MdOutlineGroups size={40} />}
-          extra={<AddButton element='cliente' onAdd={handleAdd} />}
+          extra={
+            <ClientesExtra
+              handleAdd={handleAdd}
+              selectedClientesType={selectedClientesType}
+              setSelectedClientesType={setSelectedClientesType}
+            />
+          }
         >
-          <ClientesTable onInfo={handleInfo} onEdit={handleEdit} />
+          <ClientesTable
+            onInfo={handleInfo}
+            onEdit={handleEdit}
+            selectedClientesType={selectedClientesType}
+          />
         </MainContent>
       ) : (
         <MobileContent title='Clientes' icon={<MdOutlineGroups size={50} />}>

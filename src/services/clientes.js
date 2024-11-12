@@ -57,3 +57,17 @@ export async function disableCliente(data) {
       throw err;
     });
 }
+
+export async function unarchiveCliente(data) {
+  const config = {
+    method: 'patch',
+    url: `${import.meta.env.VITE_API_URL}/clientes/${data.id}`
+  };
+
+  return await axios(config)
+    .then((res) => res)
+    .catch((err) => {
+      console.error(err);
+      throw err;
+    });
+}

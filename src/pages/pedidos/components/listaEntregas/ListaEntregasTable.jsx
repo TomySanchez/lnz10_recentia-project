@@ -2,15 +2,15 @@ import { Tag } from 'antd';
 import { Table } from '../../../../components/tables/Table';
 import { Acciones } from '../../../../components/tables/Acciones';
 import { getItemById } from '../../../../utils/getItemById';
-import { getDetalles } from '../../../../utils/getDetalles';
 import { useContext } from 'react';
 import { DataContext } from '../../../../contexts';
 import dayjs from 'dayjs';
 import { AiOutlineCalendar } from 'react-icons/ai';
 import { SelectFechaTabla } from '../../../../components/tables/SelectFechaTabla';
+import { calcularMontoTotalEntrega } from '../../../../utils/calcularMontoTotalEntrega';
 
 export const ListaEntregasTable = ({ pedido }) => {
-  const { entregas, pagos } = useContext(DataContext);
+  const { entregas, pagos, precios, recorridos } = useContext(DataContext);
 
   const filteredEntregas = entregas.filter(
     (entrega) => entrega.idPedido == pedido.id
@@ -21,14 +21,14 @@ export const ListaEntregasTable = ({ pedido }) => {
       dataIndex: 'idRecorrido',
       title: 'Fecha de entrega',
       align: 'center',
-      render: (text) => getItemById(text, 'recorrido')?.fecha || '-',
+      render: (text) => getItemById(text, recorridos)?.fecha || '-',
       sorter: (rowA, rowB) => {
         const fechaA = dayjs(
-          getItemById(rowA.idRecorrido, 'recorrido')?.fecha,
+          getItemById(rowA.idRecorrido, recorridos)?.fecha,
           'DD/MM/YY'
         );
         const fechaB = dayjs(
-          getItemById(rowB.idRecorrido, 'recorrido')?.fecha,
+          getItemById(rowB.idRecorrido, recorridos)?.fecha,
           'DD/MM/YY'
         );
 
@@ -55,22 +55,9 @@ export const ListaEntregasTable = ({ pedido }) => {
       title: 'Monto total',
       align: 'center',
       render: (text) => {
-        const pagoDeEntrega = pagos.find((pago) => pago.idEntrega == text);
-        const detallesDePago = getDetalles(pagoDeEntrega.id, 'pagos');
-        const importes = detallesDePago.map((detalle) => {
-          const precio = getItemById(detalle.idPrecio, 'precio').valor;
-          const cantidad = getItemById(
-            detalle.idDetalleDeEntrega,
-            'detalleDeEntrega'
-          ).cantidad;
+        const total = calcularMontoTotalEntrega(text, entregas, pagos, precios);
 
-          return precio * cantidad;
-        });
-        const importeTotal = importes.reduce(
-          (accumulator, currentValue) => accumulator + currentValue,
-          0
-        );
-        return `$ ${importeTotal}`;
+        return total;
       }
     },
     {
@@ -116,11 +103,11 @@ export const ListaEntregasTable = ({ pedido }) => {
       onFilter: (value, record) => record.estado === value
     },
     {
-      dataIndex: 'id',
+      dataIndex: 'idPago',
       title: 'Estado de pago',
       align: 'center',
       render: (text) => {
-        const pagoDeEntrega = pagos.find((pago) => pago.idEntrega == text);
+        const pagoDeEntrega = pagos.find((pago) => pago.id == text);
 
         let colorTag;
         switch (pagoDeEntrega.estado) {

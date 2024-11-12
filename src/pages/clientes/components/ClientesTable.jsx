@@ -6,8 +6,9 @@ import { Acciones } from '../../../components/tables/Acciones';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { BuscadorTabla } from '../../../components/tables/BuscadorTabla';
 
-export const ClientesTable = ({ onInfo, onEdit }) => {
-  const { activeClientes, loadingClientes, barrios } = useContext(DataContext);
+export const ClientesTable = ({ onInfo, onEdit, selectedClientesType }) => {
+  const { activeClientes, inactiveClientes, loadingClientes, barrios } =
+    useContext(DataContext);
 
   const clientesColumns = [
     {
@@ -84,6 +85,7 @@ export const ClientesTable = ({ onInfo, onEdit }) => {
           item={record}
           onInfo={onInfo}
           onEdit={onEdit}
+          isArchived={selectedClientesType === 'Archivados'}
         />
       )
     }
@@ -92,7 +94,11 @@ export const ClientesTable = ({ onInfo, onEdit }) => {
   return (
     <Table
       columns={clientesColumns}
-      dataSource={activeClientes}
+      dataSource={
+        selectedClientesType === 'Archivados'
+          ? inactiveClientes
+          : activeClientes
+      }
       loading={loadingClientes}
     />
   );

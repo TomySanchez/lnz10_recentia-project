@@ -1,19 +1,20 @@
 import { Button } from 'antd';
 import { useContext, useState } from 'react';
 import { DataContext } from '../../../contexts';
-import { getMultipleItemsById } from '../../../utils/getMultipleItemsById';
 import { getItemById } from '../../../utils/getItemById';
 import { Table } from '../../../components/tables/Table';
 import { Acciones } from '../../../components/tables/Acciones';
 
 export const EntregasMobile = () => {
-  const { clientes, pedidos, recorridos } = useContext(DataContext);
+  const { clientes, entregas, pedidos, recorridos } = useContext(DataContext);
 
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 
   const recorridoActual = recorridos[7];
 
-  const entregasActuales = getMultipleItemsById(recorridoActual.id, 'entregas');
+  const entregasActuales = entregas?.filter(
+    (e) => e.idRecorrido == recorridoActual.id
+  );
 
   const datosEntrega = entregasActuales.map((entrega) => {
     const pedido = getItemById(entrega.idPedido, pedidos);

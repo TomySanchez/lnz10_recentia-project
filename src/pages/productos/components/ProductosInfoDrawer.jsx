@@ -1,14 +1,19 @@
 import { Descriptions, List, Tag, Tooltip } from 'antd';
-import { getDetalles } from '../../../utils/getDetalles';
+import { useContext } from 'react';
+import { DataContext } from '../../../contexts';
 
 const { Item } = Descriptions;
 
 export const ProductosInfoDrawer = ({ producto }) => {
-  const precios = getDetalles(producto.id, 'precios');
+  const { precios } = useContext(DataContext);
+
+  const preciosDelProducto = precios?.filter(
+    (precio) => precio.idProducto == producto.id
+  );
 
   const colorTag = producto.estado === 'Activo' ? 'blue' : 'orange';
 
-  const componentsPrecios = precios.map((precio) => (
+  const componentsPrecios = preciosDelProducto.map((precio) => (
     <Precio key={precio.id} precio={precio} />
   ));
 
@@ -21,7 +26,7 @@ export const ProductosInfoDrawer = ({ producto }) => {
           <Tag color={colorTag}>{producto.estado}</Tag>
         </Item>
       </Descriptions>
-      {precios.length > 0 && (
+      {preciosDelProducto.length > 0 && (
         <List
           className='pedidos-info-detalles-list'
           header={

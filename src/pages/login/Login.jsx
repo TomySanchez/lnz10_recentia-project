@@ -6,9 +6,7 @@ export const Login = () => {
     <div className='Login'>
       <div className='login-brand'>
         <img className='login-brand-logo' src={logo} alt='Logo de Recentia' />
-        {/* <span className='login-brand-name'>recentia</span> */}
       </div>
-
       <LoginForm />
     </div>
   );
