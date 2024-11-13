@@ -1,6 +1,6 @@
 import { Button } from 'antd';
 
-export const DrawerButton = ({ text, onClick, loading }) => {
+export const DrawerButton = ({ text, onClick, loading, disabled }) => {
   return (
     <Button
       className='DrawerButton'
@@ -8,6 +8,7 @@ export const DrawerButton = ({ text, onClick, loading }) => {
       size='small'
       onClick={onClick}
       loading={loading}
+      disabled={disabled}
     >
       {text}
     </Button>

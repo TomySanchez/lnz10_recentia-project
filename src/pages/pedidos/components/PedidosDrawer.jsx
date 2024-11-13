@@ -202,6 +202,7 @@ export const PedidosDrawer = ({
       setOpen={setOpen}
       onExtraButtonClick={getOnExtraButtonClick()}
       extraButtonText={mode === 'info' && device === 'computer' && 'Entregas'}
+      extraButtonDisabled={true}
       loadingCambios={loadingGuardarCambios}
     >
       {mode === 'info' ? (
